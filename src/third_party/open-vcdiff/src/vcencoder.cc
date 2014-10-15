@@ -35,7 +35,7 @@
 #include "logging.h"
 #include "unique_ptr.h" // auto_ptr, unique_ptr
 #include "vcdiffengine.h"
-
+#include "statistics_codetablewriter.h"
 namespace open_vcdiff {
 
 HashedDictionary::HashedDictionary(const char* dictionary_contents,
@@ -100,8 +100,10 @@ inline VCDiffStreamingEncoderImpl::VCDiffStreamingEncoderImpl(
     // This implementation of the encoder uses the default
     // code table.  A VCDiffCodeTableWriter could also be constructed
     // using a custom code table.
-    coder_.reset(new VCDiffCodeTableWriter(
-        (format_extensions & VCD_FORMAT_INTERLEAVED) != 0));
+//    coder_.reset(new VCDiffCodeTableWriter(
+//        (format_extensions & VCD_FORMAT_INTERLEAVED) != 0));
+      coder_.reset(new Statistics_CodeTableWriter(
+              (format_extensions & VCD_FORMAT_INTERLEAVED) != 0));
   }
 }
 
