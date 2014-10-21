@@ -7,15 +7,15 @@
 
 class Substring {
 public:
-	Substring(SuffixAutomaton& automaton, size_t id_node);
+  Substring(SuffixAutomaton& automaton, size_t id_node);
 
-	double score();
+  double score();
 
-	size_t id_node() const;
+  size_t id_node() const;
 
 private:
-	size_t id_node_;
-	double score_;	 
+  size_t id_node_;
+  double score_;	 
 };
 
 #endif // SUBSTRING_HPP_

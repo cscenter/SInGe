@@ -15,4 +15,4 @@ dictionary.o: dictionary.cpp dictionary.hpp
 
 substring.o: substring.cpp substring.hpp
 	g++ -c -O2 -Wall -std=c++11 substring.cpp
-	
+
