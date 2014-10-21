@@ -1,10 +1,3 @@
-/*!
-* simple-SDCH-gen
-*
-* Copyright 2014 Pavel Savchenkov <pavelsavchenkow@gmail.com>
-* Released under the MIT license
-*/
-
 #ifndef DICTIONARY_HPP_
 #define DICTIONARY_HPP_
 
@@ -29,7 +22,11 @@ public:
 
   void AddDocument(std::string& doc);
 
+  void AddDocument(const char* doc, size_t length);
+
   void AddDocumentViaStopSymbol(std::string& doc);
+
+  void AddDocumentViaStopSymbol(const char* doc, size_t length);
     
   void BuildDict();
 
