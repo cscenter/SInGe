@@ -33,10 +33,6 @@ public:
     
   void BuildDict();
 
-  void UpdateOccurences(SuffixAutomaton& automaton);
-
-  void CollectGoodSubstrings(std::vector<Substring>* substrings);
-
   std::vector<std::pair<std::string, size_t> > GetDictSubstringsList();
 
   std::string GetDict();
@@ -44,6 +40,10 @@ public:
   void OutputDictTo(std::string path);
 
 private:
+  void UpdateOccurences(SuffixAutomaton& automaton);
+
+  void CollectGoodSubstrings(std::vector<Substring>* substrings);
+
   bool CanAffordSubstringFrom(Node* node) const;
 
   inline const Node* GetNode(size_t id) const {

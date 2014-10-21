@@ -109,6 +109,35 @@ void Dictionary::BuildDict() {
   cout << "dict's length = " << length_dict << ", " << (100 * length_dict / all_docs_.size()) << "\% of all documents" << endl;
 }
 
+vector<pair<string, size_t> > Dictionary::GetDictSubstringsList() {
+  vector<pair<string, size_t> > substrings;
+  substrings.reserve(dict_.size());
+  for (Substring substring : dict_) {
+    Node* node = automaton_all_.GetNode(substring.id_node());
+    string cur_str(all_docs_.begin() + node->start_pos, all_docs_.begin() + node->start_pos + node->len_within_document);
+    substrings.push_back(make_pair(cur_str, node->docs_occurs_in));
+  }
+
+  return substrings;
+}
+
+string Dictionary::GetDict() {
+  string dict_str;
+  for (const Substring& substring : dict_) {
+    Node* node = automaton_all_.GetNode(substring.id_node());
+    string cur_str(all_docs_.begin() + node->start_pos, all_docs_.begin() + node->start_pos + node->len_within_document);
+    dict_str += cur_str;
+  }
+
+  return dict_str;
+}
+
+void Dictionary::OutputDictTo(string path) {
+  std::ofstream file(path);
+  file << GetDict();
+}
+
+
 void Dictionary::UpdateOccurences(SuffixAutomaton& automaton) {
   size_t n = automaton_all_.AmountNodes();
   vector<char> was(n, false);
@@ -247,34 +276,6 @@ void Dictionary::CollectGoodSubstrings(vector <Substring>* substrings) {
       substrings->push_back(Substring(automaton_all_, id));
     }
   }
-}
-
-vector<pair<string, size_t> > Dictionary::GetDictSubstringsList() {
-  vector<pair<string, size_t> > substrings;
-  substrings.reserve(dict_.size());
-  for (Substring substring : dict_) {
-    Node* node = automaton_all_.GetNode(substring.id_node());
-    string cur_str(all_docs_.begin() + node->start_pos, all_docs_.begin() + node->start_pos + node->len_within_document);
-    substrings.push_back(make_pair(cur_str, node->docs_occurs_in));
-  }
-
-  return substrings;
-}
-
-string Dictionary::GetDict() {
-  string dict_str;
-  for (const Substring& substring : dict_) {
-    Node* node = automaton_all_.GetNode(substring.id_node());
-    string cur_str(all_docs_.begin() + node->start_pos, all_docs_.begin() + node->start_pos + node->len_within_document);
-    dict_str += cur_str;
-  }
-
-  return dict_str;
-}
-
-void Dictionary::OutputDictTo(string path) {
-  std::ofstream file(path);
-  file << GetDict();
 }
 
 bool Dictionary::CanAffordSubstringFrom(Node* node) const {
