@@ -1,3 +1,10 @@
+/*!
+* simple-SDCH-gen
+*
+* Copyright 2014 Pavel Savchenkov <pavelsavchenkow@gmail.com>
+* Released under the MIT license
+*/
+
 #ifndef DICTIONARY_HPP_
 #define DICTIONARY_HPP_
 

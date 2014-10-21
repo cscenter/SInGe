@@ -1,3 +1,10 @@
+/*!
+* simple-SDCH-gen
+*
+* Copyright 2014 Pavel Savchenkov <pavelsavchenkow@gmail.com>
+* Released under the MIT license
+*/
+
 #include <map>
 #include <fstream>
 #include <cmath>

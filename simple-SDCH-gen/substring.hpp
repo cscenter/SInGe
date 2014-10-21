@@ -1,3 +1,10 @@
+/*!
+* simple-SDCH-gen
+*
+* Copyright 2014 Pavel Savchenkov <pavelsavchenkow@gmail.com>
+* Released under the MIT license
+*/
+
 #ifndef SUBSTRING_HPP_
 #define SUBSTRING_HPP_
 

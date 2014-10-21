@@ -1,4 +1,9 @@
-#include "dictionary.hpp"
+/*!
+* simple-SDCH-gen
+*
+* Copyright 2014 Pavel Savchenkov <pavelsavchenkow@gmail.com>
+* Released under the MIT license
+*/
 
 #include <fstream>
 #include <cstring>
@@ -8,6 +13,8 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <ctime>
+
+#include "dictionary.hpp"
 
 using std::vector;
 using std::string;

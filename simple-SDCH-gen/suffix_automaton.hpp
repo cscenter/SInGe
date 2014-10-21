@@ -1,3 +1,10 @@
+/*!
+* simple-SDCH-gen
+*
+* Copyright 2014 Pavel Savchenkov <pavelsavchenkow@gmail.com>
+* Released under the MIT license
+*/
+
 #ifndef SUFFIX_AUTOMATON_HPP_
 #define SUFFIX_AUTOMATON_HPP_
 
