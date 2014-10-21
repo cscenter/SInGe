@@ -1,50 +1,65 @@
-#ifndef DICTIONARY_HPP
-#define DICTIONARY_HPP
+#ifndef DICTIONARY_HPP_
+#define DICTIONARY_HPP_
 
-#include "node.hpp"
-#include "suffix_automata.hpp"
 #include <cstddef> // size_t
 #include <vector>
 #include <string>
 #include <cstdlib>
 
+#include "node.hpp"
+#include "suffix_automaton.hpp"
+#include "substring.hpp"
+
 class Dictionary {
-	static const char STOP_SYMBOL;	
-	static const int MAX_DICT;
-	static const double EPS;
-	static const int MIN_LEN;
-	static const int MIN_AMOUNT_UNIQUE_DOCS;
-
-	char* s;
-	int length_s;
-	std::vector <int> starts_docs;
-	std::vector <int> lengths_docs;
-
-	char* dict;
-	int length_dict;
-
-	static bool double_less(double a, double b);
-
-	static bool double_equals(double a, double b);
-
-	static double score_substring(int occurences, int length);
-
-	static bool compare_substrings(const std::pair <double, Node*>& substring1, const std::pair <double, Node*>& substring2);
-
 public:
+	static const size_t kMaxDict;
+	static const size_t kMinLen;
+	static const size_t kMinDocsOccursIn;
+
 	Dictionary();
 
-	void init(const std::vector <std::string>& paths);
-	
-	void build();
+	~Dictionary();
 
-	void bfs_automatons(SuffixAutomata* automata1, SuffixAutomata* automata2, int doc_id);
+	void AddDocument(std::string& doc);
 
-	void bfs_collect(SuffixAutomata* automata, int fake_doc_id, std::vector <std::pair<double, Node*> >* substrings);
+	void AddDocumentViaStopSymbol(std::string& doc);
+		
+	void BuildDict();
 
-	void output(std::string path);
+	void UpdateOccurences(SuffixAutomaton& automaton);
 
-	virtual ~Dictionary();
+	void CollectGoodSubstrings(std::vector<Substring>* substrings);
+
+	std::vector<std::pair<std::string, size_t> > GetDictSubstringsList();
+
+	std::string GetDict();
+
+	void OutputDictTo(std::string path);
+
+private:
+	bool CanAffordSubstringFrom(Node* node) const;
+
+	inline const Node* GetNode(size_t id) const {
+		return automaton_all_.GetNode(id);
+	}
+
+	inline Node* GetNode(size_t id) {
+		return automaton_all_.GetNode(id);
+	}
+
+	inline const size_t GetIdNode(Node* node) const {
+		return automaton_all_.GetIdNode(node);
+	}
+
+	inline size_t GetIdNode(Node* node) {
+		return automaton_all_.GetIdNode(node);
+	}
+
+	SuffixAutomaton automaton_all_;
+	std::string all_docs_;
+	std::vector<size_t> starts_docs_;
+	std::vector<size_t> lengths_docs_;
+	std::vector<Substring> dict_;
 };
 
-#endif // DICTIONARY_HPP
+#endif // DICTIONARY_HPP_

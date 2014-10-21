@@ -1,5 +1,3 @@
-#include "dictionary.hpp"
-#include "suffix_automata.hpp"
 #include <map>
 #include <fstream>
 #include <cmath>
@@ -7,7 +5,9 @@
 #include <algorithm>
 #include <iostream>
 #include <queue>
-#include <map>
+
+#include "dictionary.hpp"
+#include "suffix_automaton.hpp"
 
 using std::vector;
 using std::string;
@@ -15,235 +15,113 @@ using std::pair;
 using std::make_pair;
 using std::cerr;
 using std::endl;
+using std::cout;
+using std::queue;
 
-const double Dictionary::EPS = 1e-10;
-const int Dictionary::MAX_DICT = 1 << 16;
-const char Dictionary::STOP_SYMBOL = '#';
-const int Dictionary::MIN_LEN = 3;
-const int Dictionary::MIN_AMOUNT_UNIQUE_DOCS = 2;
+namespace {
+	const double kEps = 1e-10;
 
-bool Dictionary::double_equals(double a, double b) {
-	return fabs(a - b) < EPS;
-}
-
-bool Dictionary::double_less(double a, double b) {
-	return !double_equals(a, b) && a < b; 
-}
-
-double Dictionary::score_substring(int occurences, int length) {
-	return occurences * double(length - 3) / length; 
-}
-
-bool Dictionary::compare_substrings(const pair<double, Node*>& substring1, const pair<double, Node*>& substring2) {
-	return double_less(substring2.first, substring1.first);
-}
-
-Dictionary::Dictionary() {
-	s = nullptr;
-	length_s = 0;
-
-	dict = nullptr;
-	length_dict = 0;
-}
-
-void Dictionary::init(const vector <string>& paths) {
-	cerr << "initializing dictionary..." << endl;
-	
-	starts_docs = vector <int>(paths.size(), 0);
-	lengths_docs = vector <int>(paths.size(), 0);
-	string std_s;
-	for (int i = 0; i < (int) paths.size(); ++i) {
-		if  (!std_s.empty()) {
-			std_s += STOP_SYMBOL;
-		}
-		starts_docs[i] = std_s.size();
-
-		std::ifstream file(paths[i]);
-		string buf;
-		while (getline(file, buf)) {
-			std_s += buf;
-			lengths_docs[i] += buf.size();
-		}
+	inline bool DoubleEquals(double first, double second) {
+		return fabs(first - second) < kEps;	
 	}
 
-	length_s = std_s.size();
-	s = new char[length_s];
-	for (int i = 0; i < length_s; ++i) {
-		s[i] = std_s[i];
-	}
+	inline bool DoubleLess(double first, double second) {
+		return first < second && !DoubleEquals(first, second);
+	}	
+};
 
-	cerr << "dictionary has been initialized" << endl;
+bool operator <(Substring substring1, Substring substring2) {
+	return DoubleLess(substring2.score(), substring1.score());
 }
 
-void Dictionary::build() {
-	cerr << "building dictionary..." << endl;
-	cerr << "sum of the doc's length = " << length_s << endl;
 
-	SuffixAutomata automata_all;
-	automata_all.fit_string(s, length_s, STOP_SYMBOL);
+const size_t Dictionary::kMaxDict = 1 << 16;
+const size_t Dictionary::kMinLen = 3;
+const size_t Dictionary::kMinDocsOccursIn = 2;
 
-	for (int i = 0; i < (int) starts_docs.size(); ++i) {
-		SuffixAutomata automata_cur;
-		automata_cur.fit_string(s + starts_docs[i], lengths_docs[i]);
-		bfs_automatons(&automata_all, &automata_cur, i);
+Dictionary::Dictionary() {}
+
+Dictionary::~Dictionary() {}
+
+void Dictionary::AddDocument(string& doc) {
+	if  (lengths_docs_.empty()) {
+	    starts_docs_.push_back(0);
+		lengths_docs_.push_back(doc.size());
+	} else {
+		lengths_docs_.back() += doc.size();
 	}
-
-	cerr << "frequences have been calced" << endl;
-
-	vector <pair<double, Node*> > substrings; 
-	bfs_collect(&automata_all, starts_docs.size(), &substrings);
-
-	sort(substrings.begin(), substrings.end(), compare_substrings);
-
-	cerr << "good substrings has been collected and sorted" << endl;
-
-	vector <Node*> dict_nodes;
-	for (int i = 0; i < (int) substrings.size(); ++i) {
-		Node* node = substrings[i].second;
-		if  (length_dict + node->len > MAX_DICT) {
-			continue;
-		} 
-		length_dict += node->len;
-		dict_nodes.push_back(node);
-	}
-
-	cerr << "dict's length = " << length_dict << ", " << (100 * length_dict / length_s) << " persents of all documents" << endl;
-
-	dict = new char[length_dict];
-	int pos_dict = 0;
-	for (Node* node : dict_nodes) {
-		for (int j = node->l; j < node->r; ++j) {
-			dict[pos_dict++] = s[j];
-		}
-	}
-
-	cerr << "dictionary has been built" << endl;
+	automaton_all_.AddString(doc.data(), doc.size());
+	all_docs_ += doc;
 }
 
-void Dictionary::bfs_collect(SuffixAutomata* automata, int fake_doc_id, vector <pair<double, Node*> >* substrings) {
-	int n = automata->amount_nodes();
-	vector <vector<Node*> > prev(n);
-	vector <vector<Node*> > rev_links(n);
-	vector <double> max_score_substring(n, -1e20);
-	vector <double> max_score_upstring(n, -1e20);
-	vector <char> can_to_dict(n, true);
-
-	for (int i = 0; i < n; ++i) {
-		Node* node = automata->get_node(i);
-		for (auto it = node->next.begin(); it != node->next.end(); ++it) {
-			Node* to = it->second;
-			prev[automata->get_id(to)].push_back(node);
-		}
-		if  (node->link) {
-			rev_links[automata->get_id(node->link)].push_back(node);
-		}
+void Dictionary::AddDocumentViaStopSymbol(string& doc) {
+	if  (automaton_all_.Empty()) {
+		AddDocument(doc);
+		return;
 	}
 
-	vector <Node*> order(n);
-	for (int i = 0; i < n; ++i) {
-		order[i] = automata->get_node(i);
+	all_docs_ += SuffixAutomaton::kStopSymbol;
+	starts_docs_.push_back(all_docs_.size());
+	lengths_docs_.push_back(doc.size());
+	automaton_all_.AddStringViaStopSymbol(doc.data(), doc.size());
+	all_docs_ += doc;
+}
+
+void Dictionary::BuildDict() {
+	cout << "building dictionary..." << endl;
+	cout << "sum of the doc's length = " << all_docs_.size() << endl;
+//	cout << all_docs_ << endl;
+
+	for (size_t i = 0; i < starts_docs_.size(); ++i) {
+		SuffixAutomaton automaton_cur;
+		automaton_cur.AddString(all_docs_.data() + starts_docs_[i], lengths_docs_[i]);
+		UpdateOccurences(automaton_cur);
 	}
 
-	sort(order.begin(), order.end(), [] (Node* node1, Node* node2) { return node1->len < node2->len; });
-	
-	// calc max_score_substring
-	for (int i = 0; i < n; ++i) {
-		Node* node = order[i];
+	cout << "frequences have been calculated" << endl;
 
-		if  (node->len < MIN_LEN || node->amount_unique_docs < MIN_AMOUNT_UNIQUE_DOCS) {
+	vector<Substring> substrings; 
+	CollectGoodSubstrings(&substrings);
+
+	sort(substrings.begin(), substrings.end());
+
+	cout << "good substrings have been collected and sorted" << endl;
+
+	size_t length_dict = 0;
+	for (size_t i = 0; i < substrings.size() && length_dict + kMinLen <= kMaxDict; ++i) {
+		auto* node = GetNode(substrings[i].id_node());
+		if  (length_dict + node->len_within_document > kMaxDict) {
 			continue;
 		}
-
-		double max_score = -1e20;
-		if  (node->link) {
-			double score = max_score_substring[automata->get_id(node->link)];
-			if  (double_less(max_score, score)) {
-				max_score = score;
-			}
-		}
-
-		for (Node* from : prev[i]) {
-			double score = max_score_substring[automata->get_id(from)];
-			if  (double_less(max_score, score)) {
-				max_score = score;
-			}
-		}
-
-		double our_score = score_substring(node->amount_unique_docs, node->len);
-		if  (double_less(our_score, max_score)) {
-			can_to_dict[i] = false;
-		} else {
-			max_score = our_score;
-		}
-
-		max_score_substring[i] = max_score;
+//		printf("cnt = %d, len = %d\n", node->docs_occurs_in, node->len_within_document);
+		length_dict += node->len_within_document;
+		dict_.push_back(substrings[i]);
 	}
 
-	
-	// calc max_score_upstring
-	for (int i = n - 1; i >= 0; --i) {
-		Node* node = automata->get_node(i);
-
-		if  (node->len < MIN_LEN || node->amount_unique_docs < MIN_AMOUNT_UNIQUE_DOCS) {
-			continue;
-		}
-
-		double max_score = -1e20;
-		for (auto it = node->next.begin(); it != node->next.end(); ++it) {
-			Node* to = it->second;
-			double score = max_score_upstring[automata->get_id(to)];
-			if  (double_less(max_score, score)) {
-				max_score = score;
-			}
-		}
-
-		for (Node* to : rev_links[i]) {
-			double score = max_score_upstring[automata->get_id(to)];
-			if  (double_less(max_score, score)) {
-				max_score = score;
-			}			
-		}
-
-		double our_score = score_substring(node->amount_unique_docs, node->len);
-		if  (!double_less(max_score, our_score)) {
-			can_to_dict[i] = false;
-		} else {
-			max_score = our_score;
-		}
-
-		max_score_upstring[i] = max_score;
-	}
-
-	// result
-	for (int i = 0; i < n; ++i) {
-		if  (can_to_dict[i]) {
-			Node* node = automata->get_node(i);
-			substrings->push_back(make_pair(score_substring(node->amount_unique_docs, node->len), node));
-		}
-	} 
+	cout << "dict's length = " << length_dict << ", " << (100 * length_dict / all_docs_.size()) << "\% of all documents" << endl;
 }
 
-void Dictionary::bfs_automatons(SuffixAutomata* automata1, SuffixAutomata* automata2, int doc_id) {
-	int n = automata1->amount_nodes();
-	vector <char> was(n, false);
+void Dictionary::UpdateOccurences(SuffixAutomaton& automaton) {
+	size_t n = automaton_all_.AmountNodes();
+	vector<char> was(n, false);
 	
-	std::queue <pair<Node*, Node*> > q;
-	q.push(make_pair(automata1->root(), automata2->root()));
+	queue<pair<size_t, size_t> > q;
+	q.push(make_pair(automaton_all_.root(), automaton.root()));
 	
 	while (!q.empty()) {
-		Node* node1 = q.front().first;
-		Node* node2 = q.front().second;
+		size_t node1, node2;
+		std::tie(node1, node2) = q.front();
 		q.pop();
 
-		if  (was[automata1->get_id(node1)]) {
+		if  (was[node1]) {
 			continue;
 		}	
-		was[automata1->get_id(node1)] = true;
-		++node1->amount_unique_docs;
+		was[node1] = true;
+		++GetNode(node1)->docs_occurs_in;
 	
-		auto it1 = node1->next.begin();
-		auto it2 = node2->next.begin();
-		while (it1 != node1->next.end() && it2 != node2->next.end()) {
+		auto it1 = GetNode(node1)->begin();
+		auto it2 = automaton.GetNode(node2)->begin();
+		while (it1 != GetNode(node1)->end() && it2 != automaton.GetNode(node2)->end()) {
 			if  (it1->first < it2->first) {
 				++it1;
 			} else if  (it1->first > it2->first) {
@@ -257,18 +135,134 @@ void Dictionary::bfs_automatons(SuffixAutomata* automata1, SuffixAutomata* autom
 	}
 }
 
-void Dictionary::output(string path) {
-	std::ofstream file(path);
-	for (int i = 0; i < length_dict; ++i) {
-		file << dict[i];
+void Dictionary::CollectGoodSubstrings(vector <Substring>* substrings) {
+	size_t n = automaton_all_.AmountNodes();
+	vector<vector<size_t> > rev(n);
+	vector<vector<size_t> > rev_links(n);
+	vector<double> max_score_substring(n, -1e20);
+	vector<double> max_score_upstring(n, -1e20);
+	vector<char> can_to_dict(n, true);
+	vector<Node*> order;
+	order.reserve(n - 1);
+
+	for (size_t id = 1; id < n; ++id) {
+		for (const auto& it : *GetNode(id)) {
+			size_t to = it.second;
+			rev[to].push_back(id);
+		}
+		if  (GetNode(id)->link) {
+			rev_links[GetNode(id)->link].push_back(id);
+		}
+		order.push_back(GetNode(id));
 	}
+	
+	sort(order.begin(), order.end(), [] (Node* node1, Node* node2) { return node1->len_actual < node2->len_actual; } );
+		
+	// calc max_score_substring
+	for (Node* node : order) {
+		size_t id = GetIdNode(node);
+
+		double max_score = -1e20;
+		if  (node->link) {
+			double score = max_score_substring[node->link];
+			if  (DoubleLess(max_score, score)) {
+				max_score = score;
+			}
+		}
+
+		for (size_t from : rev[id]) {
+			double score = max_score_substring[from];
+			if  (DoubleLess(max_score, score)) {
+				max_score = score;
+			}
+		}
+
+		if  (CanAffordSubstringFrom(node)) {
+       		double our_score = Substring(automaton_all_, id).score();
+       		if  (DoubleLess(our_score, max_score)) {
+       			can_to_dict[id] = false;
+       		} else {
+       			max_score = our_score;
+       		}
+  		} else {
+  			can_to_dict[id] = false;
+  		}
+
+		max_score_substring[id] = max_score;
+	}
+
+	// calc max_score_upstring
+	reverse(order.begin(), order.end());
+	for (Node* node : order) {
+		size_t id = GetIdNode(node);
+
+		double max_score = -1e20;
+		for (const auto& it : *node) {
+			size_t to = it.second;
+			double score = max_score_upstring[to];
+			if  (DoubleLess(max_score, score)) {
+				max_score = score;
+			}
+		}
+
+		for (size_t to : rev_links[id]) {
+			double score = max_score_upstring[to];
+			if  (DoubleLess(max_score, score)) {
+				max_score = score;
+			}			
+		}
+
+		if  (CanAffordSubstringFrom(node)) {
+       		double our_score = Substring(automaton_all_, id).score();
+			if  (!DoubleLess(max_score, our_score)) {
+				can_to_dict[id] = false;
+			} else {
+				max_score = our_score;
+			}
+		} else {
+			can_to_dict[id] = false;
+		}
+
+		max_score_upstring[id] = max_score;
+	}
+
+	// result
+	for (Node* node : order) {
+		size_t id = GetIdNode(node);
+		if  (can_to_dict[id]) {
+			substrings->push_back(Substring(automaton_all_, id));
+		}
+	} 
 }
 
-Dictionary::~Dictionary() {
-	if  (s) {
-		delete[] s;
+vector<pair<string, size_t> > Dictionary::GetDictSubstringsList() {
+	vector<pair<string, size_t> > substrings;
+	substrings.reserve(dict_.size());
+	for (Substring substring : dict_) {
+		Node* node = automaton_all_.GetNode(substring.id_node());
+		string cur_str(all_docs_.begin() + node->start_pos, all_docs_.begin() + node->start_pos + node->len_within_document);
+		substrings.push_back(make_pair(cur_str, node->docs_occurs_in));	
 	}
-	if  (dict) {
-		delete[] dict;
+	
+	return substrings;
+}
+
+string Dictionary::GetDict() {
+	string dict_str;
+	for (const Substring& substring : dict_) {
+		Node* node = automaton_all_.GetNode(substring.id_node());
+		string cur_str(all_docs_.begin() + node->start_pos, all_docs_.begin() + node->start_pos + node->len_within_document);
+		dict_str += cur_str;
 	}
+
+	return dict_str;
+}
+
+void Dictionary::OutputDictTo(string path) {
+	std::ofstream file(path);
+	file << GetDict();
+}
+
+bool Dictionary::CanAffordSubstringFrom(Node* node) const {
+	return node->len_within_document >= kMinLen && node->docs_occurs_in >= kMinDocsOccursIn;
 }

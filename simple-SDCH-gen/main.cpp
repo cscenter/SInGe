@@ -1,11 +1,12 @@
 #include "dictionary.hpp"
+
+#include <fstream>
 #include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <dirent.h>
 #include <sys/stat.h>
-#include "dictionary.hpp"
 #include <ctime>
 
 using std::vector;
@@ -34,13 +35,42 @@ void parse_args(int argc, char ** argv) {
 			}
 		}
 	}
-
-	const char * dir_dict = argv[2];
+	
 	Dictionary dictionary;
-	dictionary.init(paths);
-	dictionary.build();
-	dictionary.output(string(dir_dict));
-	cerr << "ready in " << ((double) clock() / CLOCKS_PER_SEC) << '\n';
+	bool first_doc = true;
+	for (const auto& path : paths) {
+		std::ifstream file(path);
+		string buf;
+		bool first_line = true;
+		string str;
+		while (getline(file, buf)) {
+//			/*
+			if  (first_doc) {
+				dictionary.AddDocument(buf);
+				first_doc = false;
+			} else if  (first_line) {
+				dictionary.AddDocumentViaStopSymbol(buf);
+				first_line = false;
+			} else {
+				dictionary.AddDocument(buf);
+			}
+//			*/
+//			str += buf;
+		}	
+//		if  (first_doc) {
+//			dictionary.AddDocument(str);
+//			first_doc = false;
+//		} else {
+//			dictionary.AddDocumentViaStopSymbol(str);
+//		}
+	}
+
+	dictionary.BuildDict();
+	
+	const char * dir_dict = argv[2];
+	dictionary.OutputDictTo(string(dir_dict));
+
+	cout << "ready in " << ((double) clock() / CLOCKS_PER_SEC) << '\n';
 }
 
 int main(int argc, char ** argv) {
