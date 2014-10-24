@@ -148,6 +148,8 @@ libvcdenc_la_SOURCES = src/google/vcencoder.h \
 		       src/vcdiffengine.cc \
 			   src/statistics_codetablewriter.h \
 			   src/statistics_codetablewriter.cc \
+			   src/statistics.h \
+			   src/statistics.cc \
                        src/vcencoder.cc
 libvcdenc_la_LIBADD = libvcdcom.la
 

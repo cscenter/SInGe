@@ -15,9 +15,12 @@
 #ifndef OPEN_VCDIFF_VCENCODER_H_
 #define OPEN_VCDIFF_VCENCODER_H_
 
+#include <assert.h>
 #include <stddef.h>  // size_t
 #include "google/format_extension_flags.h"
 #include "google/output_string.h"
+#include "../statistics.h"
+#include "../logging.h"
 
 namespace open_vcdiff {
 
@@ -103,6 +106,12 @@ class VCDiffStreamingEncoder {
   VCDiffStreamingEncoder(const HashedDictionary* dictionary,
                          VCDiffFormatExtensionFlags format_extensions,
                          bool look_for_target_matches);
+
+  VCDiffStreamingEncoder(const HashedDictionary* dictionary,
+                         std::shared_ptr<Statistics> const &statistics,
+                         VCDiffFormatExtensionFlags format_extensions,
+                         bool look_for_target_matches);
+
   ~VCDiffStreamingEncoder();
 
   // The client should use these routines as follows:
@@ -207,11 +216,22 @@ class VCDiffStreamingEncoder {
 //
 class VCDiffEncoder {
  public:
+
   VCDiffEncoder(const char* dictionary_contents, size_t dictionary_size)
       : dictionary_(dictionary_contents, dictionary_size),
         encoder_(NULL),
         flags_(VCD_STANDARD_FORMAT),
-        look_for_target_matches_(true) { }
+        look_for_target_matches_(true), statistics_(nullptr) { }
+
+
+  VCDiffEncoder(const char* dictionary_contents, size_t dictionary_size, std::shared_ptr<Statistics> const &statistics)
+      : dictionary_(dictionary_contents, dictionary_size),
+        encoder_(NULL),
+        flags_(VCD_STANDARD_FORMAT),
+        look_for_target_matches_(true),
+        statistics_(statistics) {
+    assert(statistics); // statistics must be valid
+  }
 
   ~VCDiffEncoder() {
     delete encoder_;
@@ -249,6 +269,7 @@ class VCDiffEncoder {
   VCDiffStreamingEncoder* encoder_;
   VCDiffFormatExtensionFlags flags_;
   bool look_for_target_matches_;
+  std::shared_ptr<Statistics> statistics_;
 
   // Make the copy constructor and assignment operator private
   // so that they don't inadvertently get used.

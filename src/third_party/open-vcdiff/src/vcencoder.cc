@@ -36,6 +36,7 @@
 #include "unique_ptr.h" // auto_ptr, unique_ptr
 #include "vcdiffengine.h"
 #include "statistics_codetablewriter.h"
+#include "statistics.h"
 namespace open_vcdiff {
 
 HashedDictionary::HashedDictionary(const char* dictionary_contents,
@@ -53,6 +54,13 @@ class VCDiffStreamingEncoderImpl {
   VCDiffStreamingEncoderImpl(const HashedDictionary* dictionary,
                              VCDiffFormatExtensionFlags format_extensions,
                              bool look_for_target_matches);
+
+
+  //Encoder will use StatisticsCodetabelWriter to update statistics
+  VCDiffStreamingEncoderImpl(const HashedDictionary* dictionary,
+      std::shared_ptr<Statistics> const &statistics,
+      VCDiffFormatExtensionFlags format_extensions,
+      bool look_for_target_matches);
 
   // These functions are identical to their counterparts
   // in VCDiffStreamingEncoder.
@@ -100,10 +108,26 @@ inline VCDiffStreamingEncoderImpl::VCDiffStreamingEncoderImpl(
     // This implementation of the encoder uses the default
     // code table.  A VCDiffCodeTableWriter could also be constructed
     // using a custom code table.
-//    coder_.reset(new VCDiffCodeTableWriter(
-//        (format_extensions & VCD_FORMAT_INTERLEAVED) != 0));
-      coder_.reset(new Statistics_CodeTableWriter(
-              (format_extensions & VCD_FORMAT_INTERLEAVED) != 0));
+    coder_.reset(new VCDiffCodeTableWriter(
+        (format_extensions & VCD_FORMAT_INTERLEAVED) != 0));
+  }
+}
+inline VCDiffStreamingEncoderImpl::VCDiffStreamingEncoderImpl(
+    const HashedDictionary* dictionary,
+    std::shared_ptr<Statistics> const &statistics,
+    VCDiffFormatExtensionFlags format_extensions,
+    bool look_for_target_matches)
+    : engine_(dictionary->engine()),
+      format_extensions_(format_extensions),
+      look_for_target_matches_(look_for_target_matches),
+      encode_chunk_allowed_(false) {
+  if (format_extensions & VCD_FORMAT_JSON) {
+    coder_.reset(new StatisticsCodeTableWriter(new JSONCodeTableWriter(), statistics));
+  } else {
+    // This implementation of the encoder uses the default
+    // code table.  A VCDiffCodeTableWriter could also be constructed
+    // using a custom code table.
+    coder_.reset(new StatisticsCodeTableWriter( new VCDiffCodeTableWriter((format_extensions & VCD_FORMAT_INTERLEAVED) != 0), statistics));
   }
 }
 
@@ -162,6 +186,18 @@ VCDiffStreamingEncoder::VCDiffStreamingEncoder(
                                            format_extensions,
                                            look_for_target_matches)) { }
 
+VCDiffStreamingEncoder::VCDiffStreamingEncoder(
+    const HashedDictionary *dictionary,
+    std::shared_ptr<Statistics> const &statistics,
+    VCDiffFormatExtensionFlags format_extensions,
+    bool look_for_target_matches)
+    : impl_(new VCDiffStreamingEncoderImpl(
+        dictionary,
+        statistics,
+        format_extensions,
+        look_for_target_matches)) { }
+
+
 VCDiffStreamingEncoder::~VCDiffStreamingEncoder() { delete impl_; }
 
 bool VCDiffStreamingEncoder::StartEncodingToInterface(
@@ -181,18 +217,27 @@ bool VCDiffStreamingEncoder::FinishEncodingToInterface(
   return impl_->FinishEncoding(out);
 }
 
+
 bool VCDiffEncoder::EncodeToInterface(const char* target_data,
-                                      size_t target_len,
-                                      OutputStringInterface* out) {
+    size_t target_len,
+    OutputStringInterface* out) {
   out->clear();
   if (!encoder_) {
     if (!dictionary_.Init()) {
       VCD_ERROR << "Error initializing HashedDictionary" << VCD_ENDL;
       return false;
     }
-    encoder_ = new VCDiffStreamingEncoder(&dictionary_,
-                                          flags_,
-                                          look_for_target_matches_);
+    if (statistics_) {       //Encoder non valid shared_ptr<statistics> was passed to constructor
+      encoder_ = new VCDiffStreamingEncoder(&dictionary_,
+          statistics_,
+          flags_,
+          look_for_target_matches_);
+    } else {
+      encoder_ = new VCDiffStreamingEncoder(&dictionary_,
+          flags_,
+          look_for_target_matches_
+      );
+    }
   }
   if (!encoder_->StartEncodingToInterface(out)) {
     return false;

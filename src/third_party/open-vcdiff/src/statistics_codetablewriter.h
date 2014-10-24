@@ -26,12 +26,13 @@
 #include "google/format_extension_flags.h"  // VCDiffFormatExtensionFlags
 #include "encodetable.h"
 #include "unique_ptr.h"
+#include "statistics.h"
 
 namespace open_vcdiff {
 
 class OutputStringInterface;
 
-    //TODO: rewrite comments for class, when it will be done
+//TODO: rewrite comments for class, when it will be done
 // The method calls after construction should follow this pattern:
 //    {{Add|Copy|Run}* Output}*
 //
@@ -41,37 +42,12 @@ class OutputStringInterface;
 // implementations may be used to produce other output formats, or as test
 // mocks, or to gather encoding statistics.
 //
-class Statistics_CodeTableWriter : public CodeTableWriterInterface{
- public:
+class StatisticsCodeTableWriter : public CodeTableWriterInterface {
+public:
+  StatisticsCodeTableWriter(CodeTableWriterInterface * coder, std::shared_ptr<Statistics> const &statistics);
+//  StatisticsCodeTableWriter(CodeTableWriterInterface * coder, Statistics &statistics);
 
-    // This constructor uses the default code table.
-    // If interleaved is true, the encoder writes each delta file window
-    // by interleaving instructions and sizes with their corresponding
-    // addresses and data, rather than placing these elements into three
-    // separate sections.  This facilitates providing partially
-    // decoded results when only a portion of a delta file window
-    // is received (e.g. when HTTP over TCP is used as the
-    // transmission protocol.)  The interleaved format is
-    // not consistent with the VCDIFF draft standard.
-    //
-    explicit Statistics_CodeTableWriter(bool interleaved);
-
-    // Uses a non-standard code table and non-standard cache sizes.  The caller
-    // must guarantee that code_table_data remains allocated for the lifetime of
-    // the VCDiffCodeTableWriter object.  Note that this is different from how
-    // VCDiffCodeTableReader::UseCodeTable works.  It is assumed that a given
-    // encoder will use either the default code table or a statically-defined
-    // non-standard code table, whereas the decoder must have the ability to read
-    // an arbitrary non-standard code table from a delta file and discard it once
-    // the file has been decoded.
-    //
-    Statistics_CodeTableWriter(bool interleaved,
-            int near_cache_size,
-            int same_cache_size,
-            const VCDiffCodeTableData& code_table_data,
-            unsigned char max_mode);
-
-  virtual ~Statistics_CodeTableWriter();
+  virtual ~StatisticsCodeTableWriter();
 
   // Initializes the constructed object for use. It will return
   // false if there was an error initializing the object, or true if it
@@ -80,11 +56,11 @@ class Statistics_CodeTableWriter : public CodeTableWriterInterface{
   virtual bool Init(size_t dictionary_size);
 
   // Writes the header to the output string.
-  virtual void WriteHeader(OutputStringInterface* out,
-                           VCDiffFormatExtensionFlags format_extensions);
+  virtual void WriteHeader(OutputStringInterface *out,
+      VCDiffFormatExtensionFlags format_extensions);
 
   // Encode an ADD opcode with the "size" bytes starting at data
-  virtual void Add(const char* data, size_t size);
+  virtual void Add(const char *data, size_t size);
 
   // Encode a COPY opcode with args "offset" (into dictionary) and "size" bytes.
   virtual void Copy(int32_t offset, size_t size);
@@ -98,10 +74,10 @@ class Statistics_CodeTableWriter : public CodeTableWriterInterface{
   // Appends the encoded delta window to the output
   // string.  The output string is not null-terminated and may contain embedded
   // '\0' characters.
-  virtual void Output(OutputStringInterface* out);
+  virtual void Output(OutputStringInterface *out);
 
   // Finishes encoding.
-  virtual void FinishEncoding(OutputStringInterface* out);
+  virtual void FinishEncoding(OutputStringInterface *out);
 
   // Verifies dictionary is compatible with writer.
   virtual bool VerifyDictionary(const char *dictionary, size_t size) const;
@@ -110,8 +86,8 @@ class Statistics_CodeTableWriter : public CodeTableWriterInterface{
   virtual bool VerifyChunk(const char *chunk, size_t size) const;
 
 private:
-    typedef VCDiffCodeTableWriter InnerCoder;
-    UNIQUE_PTR<CodeTableWriterInterface> coder_;
+  UNIQUE_PTR<CodeTableWriterInterface> coder_;
+  std::shared_ptr<Statistics> statistics_;
 };
 
 
