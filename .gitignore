@@ -1,0 +1,7 @@
+.idea/
+.svn/
+CMakeLists.txt
+*~
+.DS_Store
+src/third_party/open-vcdiff/src/config.h
+src/third_party/open-vcdiff/src/stamp-h1
