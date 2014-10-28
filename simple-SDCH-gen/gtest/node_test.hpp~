@@ -1,0 +1,8 @@
+#ifndef NODE_TEST_CPP_
+#include "../node.hpp"
+#include <gtest/gtest.h>
+
+TEST(NodeTest, TheFirstTests) { 
+  ASSERT_EQ(1, 2);
+}
+

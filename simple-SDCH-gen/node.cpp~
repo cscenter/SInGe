@@ -46,6 +46,7 @@ vector<pair<char, size_t> >::iterator Node::begin() {
   return edges_.begin();
 }
 
+
 vector<pair<char, size_t> >::iterator Node::end() {
   if  (!sorted_) {
       sort(edges_.begin(), edges_.end());

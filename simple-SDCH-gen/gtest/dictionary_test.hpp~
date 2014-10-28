@@ -1,0 +1,7 @@
+#include "../substring.hpp"
+#include <gtest/gtest.h>
+ 
+TEST(DictionaryTest, TheFirstTests) { 
+  ASSERT_EQ(1, 2);
+}
+

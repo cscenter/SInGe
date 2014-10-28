@@ -26,6 +26,8 @@ public:
 
   std::vector<std::pair<char, size_t> >::iterator end();
 
+  std::vector<std::pair<char, size_t> >::const_iterator end();
+
   bool AddEdge(char ch, size_t to);
 
   size_t link;
