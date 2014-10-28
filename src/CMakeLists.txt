@@ -1,1 +1,12 @@
 add_subdirectory(third_party/open-vcdiff/)
+add_executable(incremental_generator
+  incremental_generator.cpp
+)
+target_link_libraries(incremental_generator LINK_PUBLIC
+  vcdenc
+  vcddec
+  vcdcom
+  dictgen
+  ${Boost_IOSTREAMS_LIBRARY}
+)
+

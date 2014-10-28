@@ -47,12 +47,13 @@ add_library(vcdenc
   src/statistics.cc
   src/vcencoder.cc
 )
-target_include_directories (vcdcom PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories (vcdenc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories (vcddec PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+set(VCDIFF_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+target_include_directories (vcdcom PUBLIC ${VCDIFF_INCLUDE_DIR})
+target_include_directories (vcddec PUBLIC ${VCDIFF_INCLUDE_DIR})
+target_include_directories (vcdenc PUBLIC ${VCDIFF_INCLUDE_DIR})
 
 add_executable(vcdiff
-  vcdiff_main.cc
+  src/vcdiff_main.cc
 )
 target_link_libraries(vcdiff
   vcdcom
