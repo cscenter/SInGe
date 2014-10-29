@@ -7,6 +7,5 @@ target_link_libraries(incremental_generator LINK_PUBLIC
   vcddec
   vcdcom
   dictgen
-  ${Boost_IOSTREAMS_LIBRARY}
 )
 
