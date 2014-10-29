@@ -31,7 +31,7 @@ class NodeTest : public testing::Test {
     bool first_c = true;
     for (const auto& edge : node) {
       char c = edge.first;
-      size_t to = edge.second;
+//      size_t to = edge.second;
 
       if  (first_c) {
         first_c = false;
