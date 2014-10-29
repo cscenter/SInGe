@@ -20,7 +20,7 @@ Node::Node() : link(0), len_actual(0), len_within_document(0), docs_occurs_in(0)
 
 Node::~Node() {}
 
-bool Node::HasEdgeThrough(char ch) {
+bool Node::HasEdgeThrough(char ch) const {
   for (const auto& edge : edges_) {
     if  (edge.first == ch) {
       return true;
@@ -29,7 +29,7 @@ bool Node::HasEdgeThrough(char ch) {
   return false;
 }
 
-size_t Node::NextNodeThrough(char ch) {
+size_t Node::NextNodeThrough(char ch) const {
   for (const auto& edge : edges_) {
     if  (edge.first == ch) {
       return edge.second;

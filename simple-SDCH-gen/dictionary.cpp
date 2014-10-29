@@ -45,7 +45,7 @@ Dictionary::~Dictionary() {}
 
 void Dictionary::AddDocument(string& doc) {
   if  (lengths_docs_.empty()) {
-      starts_docs_.push_back(0);
+    starts_docs_.push_back(0);
     lengths_docs_.push_back(doc.size());
   } else {
     lengths_docs_.back() += doc.size();
@@ -56,7 +56,7 @@ void Dictionary::AddDocument(string& doc) {
 
 void Dictionary::AddDocument(const char* doc, size_t length) {
   if  (lengths_docs_.empty()) {
-      starts_docs_.push_back(0);
+    starts_docs_.push_back(0);
     lengths_docs_.push_back(length);
   } else {
     lengths_docs_.back() += length;
@@ -92,6 +92,12 @@ void Dictionary::AddDocumentViaStopSymbol(const char* doc, size_t length) {
 }
 
 void Dictionary::BuildDict() {
+  if  (all_docs_.empty()) {
+    return;
+  }
+
+  dict_.clear();
+
   cout << "building dictionary..." << endl;
   cout << "sum of the doc's length = " << all_docs_.size() << endl;
 //	cout << all_docs_ << endl;

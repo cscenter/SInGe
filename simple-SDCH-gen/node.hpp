@@ -18,9 +18,9 @@ public:
 
   ~Node();
 
-  bool HasEdgeThrough(char ch);
+  bool HasEdgeThrough(char ch) const;
 
-  size_t NextNodeThrough(char ch);
+  size_t NextNodeThrough(char ch) const;
 
   std::vector<std::pair<char, size_t> >::iterator begin();
 
