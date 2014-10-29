@@ -1,11 +1,5 @@
-add_subdirectory(third_party/open-vcdiff/)
-add_executable(incremental_generator
-  incremental_generator.cpp
-)
-target_link_libraries(incremental_generator LINK_PUBLIC
-  vcdenc
-  vcddec
-  vcdcom
-  dictgen
-)
+add_subdirectory(third_party/)
+add_subdirectory(dict_builder/)
+add_subdirectory(incremental_updater/)
+
 

@@ -11,7 +11,7 @@ add_library( dictgen
 
 # Make sure the compiler can find include files for our dictgen library
 # when other libraries or executables link to dictgen
-target_include_directories (dictgen PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories (dictgen PUBLIC .)
 add_executable(pzip
   main.cpp
 )
