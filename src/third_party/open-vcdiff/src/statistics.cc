@@ -27,7 +27,7 @@ void Statistics::AddWeightToRange(int weight, int32_t offset, size_t size) {
   range_weights_[offset + size] -= weight;
 }
 
-std::vector<int> Statistics::GetByteWeights() {
+std::vector<int> Statistics::GetByteWeights() const {
   std::vector<int> byte_weights(dictionary_size_);
   int prefix_sum = 0;
   for (size_t byte_index = 0; byte_index < dictionary_size_; ++byte_index) {
