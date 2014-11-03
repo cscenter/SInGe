@@ -1,4 +1,5 @@
 language: cpp
 
 script:
-  - cmake --build .
+  - cmake .
+  - make -j4
