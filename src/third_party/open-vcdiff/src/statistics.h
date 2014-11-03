@@ -34,13 +34,13 @@ public:
   }
 
 
-  inline size_t dictionary_size() {
+  inline size_t dictionary_size() const {
     return dictionary_size_;
   }
 
   void AddWeightToRange(int weight, int32_t offset, size_t size);
 
-  std::vector<int> GetByteWeights();
+  std::vector<int> GetByteWeights() const;
 
 
 private:
