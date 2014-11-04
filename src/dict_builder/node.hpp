@@ -18,25 +18,51 @@ public:
 
   ~Node();
 
-  bool HasEdgeThrough(char ch);
+  bool HasEdgeThrough(char ch) const;
 
-  size_t NextNodeThrough(char ch);
+  size_t NextNodeThrough(char ch) const;
 
-  std::vector<std::pair<char, size_t> >::iterator begin();
+  std::vector<std::pair<char, size_t> >::iterator edges_begin();
 
-  std::vector<std::pair<char, size_t> >::iterator end();
+  std::vector<std::pair<char, size_t> >::iterator edges_end();
+
+  std::vector<std::pair<char, size_t> >::iterator rev_edges_begin();
+
+  std::vector<std::pair<char, size_t> >::iterator rev_edges_end();
+
+  std::vector<size_t>::iterator rev_links_begin();
+
+  std::vector<size_t>::iterator rev_links_end();
 
   bool AddEdge(char ch, size_t to);
+
+  bool AddRevEdge(char ch, size_t from);
+
+  bool AddRevLink(size_t from_link);
+
+  void SortEdges();
+
+  size_t InDegree();
+
+  size_t OutDegree();
+  
+  bool DeleteEdge(size_t to);
+
+  bool DeleteRevEdge(size_t from);
+
+  bool DeleteRevLink(size_t from);
 
   size_t link;
   size_t len_actual;
   size_t len_within_document;
-  size_t start_pos; 
   size_t docs_occurs_in;		
-  
+  double score_occurs_only;
+  size_t last_hash;
+    
 private:
   std::vector<std::pair<char, size_t> > edges_;
-  bool sorted_;
+  std::vector<std::pair<char, size_t> > rev_edges_;
+  std::vector<size_t> rev_links_;
 };
 
 #endif // NODE_HPP_
