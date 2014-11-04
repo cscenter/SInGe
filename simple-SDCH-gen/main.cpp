@@ -44,6 +44,7 @@ void parse_args(int argc, char ** argv) {
   }
   
   Dictionary dictionary;
+  
   bool first_doc = true;
   for (const auto& path : paths) {
     std::ifstream file(path);
@@ -51,7 +52,6 @@ void parse_args(int argc, char ** argv) {
     bool first_line = true;
     string str;
     while (getline(file, buf)) {
-//			/*
       if  (first_doc) {
         dictionary.AddDocument(buf);
         first_doc = false;
@@ -61,17 +61,9 @@ void parse_args(int argc, char ** argv) {
       } else {
         dictionary.AddDocument(buf);
       }
-//			*/
-//			str += buf;
     }	
-//		if  (first_doc) {
-//			dictionary.AddDocument(str);
-//			first_doc = false;
-//		} else {
-//			dictionary.AddDocumentViaStopSymbol(str);
-//		}
   }
-
+  
   dictionary.BuildDict();
   
   const char * dir_dict = argv[2];

@@ -8,7 +8,6 @@
 
 #include "node.hpp"
 #include "suffix_automaton.hpp"
-#include "substring.hpp"
 
 class Dictionary {
 public:
@@ -36,10 +35,10 @@ public:
 
   void OutputDictTo(std::string path);
 
-private:
-  void UpdateOccurences(SuffixAutomaton& automaton);
+  void ResetLastDocument();
 
-  void CollectGoodSubstrings(std::vector<Substring>* substrings);
+private:
+  void CollectGoodSubstrings(std::vector<size_t>* substrings);
 
   bool CanAffordSubstringFrom(Node* node) const;
 
@@ -51,7 +50,7 @@ private:
     return automaton_all_.GetNode(id);
   }
 
-  inline const size_t GetIdNode(Node* node) const {
+  inline size_t GetIdNode(Node* node) const {
     return automaton_all_.GetIdNode(node);
   }
 
@@ -59,11 +58,9 @@ private:
     return automaton_all_.GetIdNode(node);
   }
 
+  std::string last_document_;
   SuffixAutomaton automaton_all_;
-  std::string all_docs_;
-  std::vector<size_t> starts_docs_;
-  std::vector<size_t> lengths_docs_;
-  std::vector<Substring> dict_;
+  std::vector<int> dict_;
 };
 
 #endif // DICTIONARY_HPP_
