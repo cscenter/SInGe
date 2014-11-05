@@ -26,7 +26,7 @@ const double SuffixAutomaton::kCoef = 0.95;
 SuffixAutomaton::SuffixAutomaton() : len_up_to_stop_symbol_(1), amount_alive_nodes_(0), current_coef(1.0) {
   NewNode(); // ~ nullptr
   last_node_ = NewNode();
-	AddToNodesToDelete(last_node_);
+  AddToNodesToDelete(last_node_);
 }
 
 SuffixAutomaton::~SuffixAutomaton() {}
