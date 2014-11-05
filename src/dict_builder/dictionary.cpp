@@ -141,6 +141,7 @@ void Dictionary::ResetLastDocument() {
     return;
   }
 
+  cout << "calculate occurences for document with length " << last_document_.size() << endl;
 	size_t cur_hash = (rand() << 16) ^ rand();
   size_t id = automaton_all_.root();
 	size_t pos = 0;
@@ -161,68 +162,56 @@ void Dictionary::ResetLastDocument() {
 }
 
 void Dictionary::CollectGoodSubstrings(vector <size_t>* substrings) {
-  size_t n = automaton_all_.AmountNodes();
-  vector<vector<size_t> > rev(n);
-  vector<vector<size_t> > rev_links(n);
-  vector<double> max_score_substring(n, -1e20);
-  vector<double> max_score_upstring(n, -1e20);
-  vector<char> can_to_dict(n, true);
-  vector<Node*> order;
-  order.reserve(n - 1);
+  size_t nodes = automaton_all_.AmountNodes();
+  vector<double> max_score_substring(nodes, -1e20);
+  vector<double> max_score_upstring(nodes, -1e20);
+  vector<char> can_to_dict(nodes, true);
+  vector<size_t> order;
+  order.reserve(nodes - 1);
 
   for (size_t id : automaton_all_) {
-    for (auto it = GetNode(id)->edges_begin(); it != GetNode(id)->edges_end(); ++it) {
-      size_t to = it->second;
-      rev[to].push_back(id);
-    }
-    if  (GetNode(id)->link) {
-      rev_links[GetNode(id)->link].push_back(id);
-    }
-    order.push_back(GetNode(id));
+    order.push_back(id);
   }
   
-  sort(order.begin(), order.end(), [] (Node* node1, Node* node2) { return node1->len_actual < node2->len_actual; } );
+  sort(order.begin(), order.end(), [&] (size_t id1, size_t id2) { return GetNode(id1)->len_actual < GetNode(id2)->len_actual; } );
     
   // calc max_score_substring
-  for (Node* node : order) {
-    size_t id = GetIdNode(node);
-
+  for (size_t id : order) {
     double max_score = -1e20;
-    if  (node->link) {
-      double score = max_score_substring[node->link];
+    if  (GetNode(id)->link) {
+      double score = max_score_substring[GetNode(id)->link];
       if  (DoubleLess(max_score, score)) {
         max_score = score;
       }
     }
 
-    for (size_t from : rev[id]) {
+    for (auto it = GetNode(id)->rev_edges_begin(); it != GetNode(id)->rev_edges_end(); ++it) {
+      size_t from = it->second;
       double score = max_score_substring[from];
       if  (DoubleLess(max_score, score)) {
         max_score = score;
       }
     }
 
-    if  (CanAffordSubstringFrom(node)) {
-          double our_score = automaton_all_.GetScore(id);
-          if  (DoubleLess(our_score, max_score)) {
-            can_to_dict[id] = false;
-          } else {
-            max_score = our_score;
-          }
-      } else {
+    if  (CanAffordSubstringFrom(GetNode(id))) {
+      double our_score = automaton_all_.GetScore(id);
+      if  (DoubleLess(our_score, max_score)) {
         can_to_dict[id] = false;
+      } else {
+        max_score = our_score;
       }
+    } else {
+      can_to_dict[id] = false;
+    }
 
     max_score_substring[id] = max_score;
   }
   
   // calc max_score_upstring
   reverse(order.begin(), order.end());
-  for (Node* node : order) {
-    size_t id = GetIdNode(node);
-
+  for (size_t id : order) {
     double max_score = -1e20;
-    for (auto it = node->edges_begin(); it != node->edges_end(); ++it) {
+    for (auto it = GetNode(id)->edges_begin(); it != GetNode(id)->edges_end(); ++it) {
       size_t to = it->second;
       double score = max_score_upstring[to];
       if  (DoubleLess(max_score, score)) {
@@ -230,14 +219,15 @@ void Dictionary::CollectGoodSubstrings(vector <size_t>* substrings) {
       }
     }
 
-    for (size_t to : rev_links[id]) {
+    for (auto it = GetNode(id)->rev_links_begin(); it != GetNode(id)->rev_links_end(); ++it) {
+      size_t to = *it;
       double score = max_score_upstring[to];
       if  (DoubleLess(max_score, score)) {
         max_score = score;
       }			
     }
 
-    if  (CanAffordSubstringFrom(node)) {
+    if  (CanAffordSubstringFrom(GetNode(id))) {
       double our_score = automaton_all_.GetScore(id);
       if  (!DoubleLess(max_score, our_score)) {
         can_to_dict[id] = false;
@@ -252,8 +242,7 @@ void Dictionary::CollectGoodSubstrings(vector <size_t>* substrings) {
   }
 
   // result
-  for (Node* node : order) {
-    size_t id = GetIdNode(node);
+  for (size_t id : order) {
     if  (can_to_dict[id]) {
       substrings->push_back(id);
     }

@@ -53,9 +53,9 @@ double SuffixAutomaton::GetScore(size_t id) {
   }
   size_t len = GetNode(id)->len_within_document;
   if  (len <= 3) {
-  	return 0.0;
+    return 0.0;
   } else {
-  	return ((double) (len - 3) / len) * GetNode(id)->score_occurs_only * current_coef;
+    return ((double) (len - 3) / len) * GetNode(id)->score_occurs_only * current_coef;
   }
 }
 
@@ -63,11 +63,11 @@ bool SuffixAutomaton::AddOccurence(size_t id) {
   if  (!GetNode(id)) {
     return false;
   }
-	EraseFromNodesToDelete(id);
-	++GetNode(id)->docs_occurs_in;
+  EraseFromNodesToDelete(id);
+  ++GetNode(id)->docs_occurs_in;
   GetNode(id)->score_occurs_only += 1.0 / current_coef;
-	AddToNodesToDelete(id);
-	return true;
+  AddToNodesToDelete(id);
+  return true;
 }
 
 void SuffixAutomaton::AddString(const char* const str, size_t length) {
@@ -99,17 +99,17 @@ bool SuffixAutomaton::Empty() const {
 }
 
 void SuffixAutomaton::Output() {
-	for (size_t id : *this) {
-		std::cout << id << ": " << GetLongestString(id) << std::endl;
-	}
+  for (size_t id : *this) {
+    std::cout << id << ": " << GetLongestString(id) << std::endl;
+  }
 
   Output(root(), "");
 }
 
 void SuffixAutomaton::Output(size_t v, std::string s) {
-	printf("%s v = %d, occurs = %d, len = %d, score = %.5f\n", s.c_str(), v, GetNode(v)->docs_occurs_in, GetNode(v)->len_within_document, GetScore(v));
-	for (auto it = GetNode(v)->edges_begin(); it != GetNode(v)->edges_end(); ++it) {
-		Output(it->second, s + it->first);
+  printf("%s v = %d, occurs = %d, len = %d, score = %.5f\n", s.c_str(), v, GetNode(v)->docs_occurs_in, GetNode(v)->len_within_document, GetScore(v));
+  for (auto it = GetNode(v)->edges_begin(); it != GetNode(v)->edges_end(); ++it) {
+    Output(it->second, s + it->first);
   }	
 }
 
@@ -152,11 +152,11 @@ bool SuffixAutomaton::ReduceSize() {
 }
 
 size_t SuffixAutomaton::NewNode() {
-	if  (nodes_pool_.empty()) {
-		is_free_node_.push_back(false);
-		nodes_pool_.push_back(Node());
-		return 0;
-	}
+  if  (nodes_pool_.empty()) {
+    is_free_node_.push_back(false);
+    nodes_pool_.push_back(Node());
+    return 0;
+  }
 
   ++amount_alive_nodes_;
   size_t id = 0;
@@ -235,7 +235,7 @@ void SuffixAutomaton::AddCharacter(char ch) {
   size_t new_node = NewNode();
   GetNode(new_node)->len_actual = current_len;
   GetNode(new_node)->len_within_document = min(current_len, len_up_to_stop_symbol_);
-	AddToNodesToDelete(new_node);
+  AddToNodesToDelete(new_node);
 
   size_t prev = last_node_;
   last_node_ = new_node;
@@ -260,10 +260,10 @@ void SuffixAutomaton::AddCharacter(char ch) {
   GetNode(middle)->score_occurs_only = GetNode(next)->score_occurs_only;
   GetNode(middle)->docs_occurs_in = GetNode(next)->docs_occurs_in;
   AddLink(middle, GetNode(next)->link);
-	for (auto it = GetNode(next)->edges_begin(); it != GetNode(next)->edges_end(); ++it) {
-		AddEdge(middle, it->second, it->first);
-	}
-	AddToNodesToDelete(middle);
+  for (auto it = GetNode(next)->edges_begin(); it != GetNode(next)->edges_end(); ++it) {
+    AddEdge(middle, it->second, it->first);
+  }
+  AddToNodesToDelete(middle);
 
   for (; prev && GetNode(prev)->NextNodeThrough(ch) == next; prev = GetNode(prev)->link) {
     AddEdge(prev, middle, ch);
