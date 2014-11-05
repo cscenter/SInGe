@@ -3,8 +3,6 @@ add_library( dictgen
   dictionary.hpp
   node.cpp
   node.hpp
-  substring.cpp
-  substring.hpp
   suffix_automaton.cpp
   suffix_automaton.hpp
   )
