@@ -20,7 +20,7 @@ using std::string;
 using std::make_pair;
 
 const char SuffixAutomaton::kStopSymbol = '#';
-const size_t SuffixAutomaton::kMaxSize = 1 << 14;
+const size_t SuffixAutomaton::kMaxSize = 1 << 13;
 const double SuffixAutomaton::kCoef = 0.95;
 
 SuffixAutomaton::SuffixAutomaton() : len_up_to_stop_symbol_(1), amount_alive_nodes_(0), current_coef(1.0) {
@@ -273,11 +273,11 @@ void SuffixAutomaton::AddCharacter(char ch) {
 }
 
 void SuffixAutomaton::AddToNodesToDelete(size_t id) {
-	nodes_to_delete_.insert(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_actual), id));
+	nodes_to_delete_.insert(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
 }
 
 void SuffixAutomaton::EraseFromNodesToDelete(size_t id) {
-	nodes_to_delete_.erase(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_actual), id));
+	nodes_to_delete_.erase(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
 }
 
 SuffixAutomaton::iterator::iterator(size_t id, vector<bool>& is_free_node) : id_(id), is_free_node_(is_free_node) {}

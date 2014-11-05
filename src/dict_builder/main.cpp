@@ -53,8 +53,9 @@ void parse_args(int argc, char ** argv) {
     string str;
     while (getline(file, buf)) {
       if  (first_doc) {
-        dictionary.AddDocument(buf);
+        dictionary.AddDocumentViaStopSymbol(buf);
         first_doc = false;
+        first_line = false;
       } else if  (first_line) {
         dictionary.AddDocumentViaStopSymbol(buf);
         first_line = false;

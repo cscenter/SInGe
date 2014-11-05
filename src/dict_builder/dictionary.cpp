@@ -6,6 +6,7 @@
 #include <iostream>
 #include <queue>
 #include <cassert>
+#include <map>
 
 #include "dictionary.hpp"
 #include "suffix_automaton.hpp"
@@ -18,6 +19,7 @@ using std::cerr;
 using std::endl;
 using std::cout;
 using std::queue;
+using std::map;
 
 namespace {
   const double kEps = 1e-10;
@@ -82,15 +84,17 @@ void Dictionary::BuildDict() {
   dict_.clear();
 
   cout << "automaton size = " << automaton_all_.AmountAliveNodes() << endl;
-
+/*
+  for (size_t id : automaton_all_) {
+    cout << "occurs " << GetNode(id)->docs_occurs_in << " " << GetNode(id)->len_within_document << endl;
+  }
+*/
   cout << "building dictionary..." << endl;
 
   vector<size_t> substrings; 
   CollectGoodSubstrings(&substrings);
 
-//  cout << "substrings.size() = " << substrings.size() << endl;
-
-  sort(substrings.begin(), substrings.end(), [&] (int id1, int id2) { return DoubleLess(automaton_all_.GetScore(id1), automaton_all_.GetScore(id2)); });
+  sort(substrings.begin(), substrings.end(), [&] (int id1, int id2) { return DoubleLess(automaton_all_.GetScore(id2), automaton_all_.GetScore(id1)); });
 
   cout << "good substrings have been collected and sorted" << endl;
 
@@ -100,7 +104,7 @@ void Dictionary::BuildDict() {
     if  (length_dict + node->len_within_document > kMaxDict) {
       continue;
     }
-//		printf("cnt = %d, len = %d\n", node->docs_occurs_in, node->len_within_document);
+//    printf("occurs = %d, len = %d\n", node->docs_occurs_in, node->len_within_document);
     length_dict += node->len_within_document;
     dict_.push_back(substrings[i]);
   }
@@ -138,7 +142,7 @@ void Dictionary::ResetLastDocument() {
   }
 
 	size_t cur_hash = (rand() << 16) ^ rand();
-	size_t id = automaton_all_.root();
+  size_t id = automaton_all_.root();
 	size_t pos = 0;
 	while (pos < last_document_.size()) {
 		id = GetNode(id)->NextNodeThrough(last_document_[pos]);
@@ -147,7 +151,7 @@ void Dictionary::ResetLastDocument() {
 		size_t cur_id = id;
 		while (cur_id && GetNode(cur_id)->last_hash != cur_hash) {
 			GetNode(cur_id)->last_hash = cur_hash;
-			automaton_all_.AddOccurence(cur_id);
+      automaton_all_.AddOccurence(cur_id);
 			cur_id = GetNode(cur_id)->link;
 		}
  	}
