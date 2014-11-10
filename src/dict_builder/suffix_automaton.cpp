@@ -107,7 +107,7 @@ void SuffixAutomaton::Output() {
 }
 
 void SuffixAutomaton::Output(size_t v, std::string s) {
-  printf("%s v = %d, occurs = %d, len = %d, score = %.5f\n", s.c_str(), v, GetNode(v)->docs_occurs_in, GetNode(v)->len_within_document, GetScore(v));
+  printf("%s v = %zu, occurs = %zu, len = %zu, score = %.5f\n", s.c_str(), v, GetNode(v)->docs_occurs_in, GetNode(v)->len_within_document, GetScore(v));
   for (auto it = GetNode(v)->edges_begin(); it != GetNode(v)->edges_end(); ++it) {
     Output(it->second, s + it->first);
   }	
