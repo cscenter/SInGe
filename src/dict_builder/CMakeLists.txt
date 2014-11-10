@@ -12,15 +12,15 @@ add_executable(pzip
 )
 target_link_libraries(pzip dictgen)
 
-add_executable(run_tests
+add_executable(dict_builder_tests
 	node_test.cpp
 	dictionary_test.cpp
 	suffix_automaton_test.cpp
 )
 
-target_link_libraries(run_tests
+target_link_libraries(dict_builder_tests
   gtest_main
   dictgen
 )
 
-add_test(NAME dict_build_tests COMMAND run_tests)
+add_test(NAME dict_builder_tests COMMAND dict_builder_tests)
