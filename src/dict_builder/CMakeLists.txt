@@ -9,7 +9,7 @@ add_library( dictgen
 	node.hpp
 	suffix_automaton.cpp
 	suffix_automaton.hpp
-	)
+)
 
 add_executable(pzip
 	main.cpp
@@ -17,8 +17,10 @@ add_executable(pzip
 target_link_libraries(pzip dictgen)
 
 add_executable(run_tests
-	all_tests.cpp
 	node_test.cpp
 )
 
-target_link_libraries(run_tests dictgen gtest)
+target_link_libraries(run_tests
+  gtest_main
+  dictgen
+)

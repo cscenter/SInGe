@@ -78,7 +78,7 @@ target_link_libraries(gtest_main gtest)
 # sets same libraries varables
 # GTEST_INCLUDE_DIRS doesn't needed, because target_include_directories used
 set(GTEST_INCLUDE_DIRS ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-set(GTEST_LIBRARY gtest_main PARENT_SCOPE)
+set(GTEST_LIBRARY gtest PARENT_SCOPE)
 set(GTEST_MAIN_LIBRARY gtest_main PARENT_SCOPE)
 target_include_directories (gtest PUBLIC
   ${GTEST_INCLUDE_DIRS}
@@ -87,4 +87,4 @@ target_include_directories (gtest PUBLIC
 
 ########################################################################
 #
-# section with samples and itself GTest tests is deleted
+# section with samples and GTest tests is deleted
