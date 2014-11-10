@@ -22,3 +22,5 @@ target_link_libraries(run_tests
   gtest_main
   dictgen
 )
+
+add_test(NAME dict_build_tests COMMAND run_tests)
