@@ -7,6 +7,7 @@
 2) ./autogen.sh
 3) ./configure
 
+
 After that use Cmake as usual
 
 SDCH Dictionary Incremental Geenrator
