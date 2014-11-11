@@ -13,6 +13,8 @@
 #include <vector>
 #include <set>
 #include <cmath>
+#include <memory> //unique_ptr
+#include <automaton.pb.h>
 
 #include "node.hpp"
 
@@ -94,6 +96,10 @@ public:
   std::string GetLongestString(size_t id);
 
   bool ReduceSize();
+
+  std::unique_ptr<ProtoAutomaton> GetProtoAutomaton();
+
+  SuffixAutomaton(ProtoAutomaton const &proto_automaton);
 
 private:
   size_t NewNode();

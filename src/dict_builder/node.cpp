@@ -149,3 +149,67 @@ bool Node::DeleteRevLink(size_t from) {
   }
   return false;
 }
+
+std::unique_ptr<ProtoNode> Node::GetProtoNode() {
+  auto proto_node = std::unique_ptr<ProtoNode>(new ProtoNode);
+//
+  auto proto_repeated_ptrs_edges = proto_node->mutable_edges();
+  proto_repeated_ptrs_edges->Reserve(edges_.size());
+  for(auto const & edge : edges_) {
+    auto proto_edge = proto_repeated_ptrs_edges->Add();
+    proto_edge->set_edge_char(edge.first);
+    proto_edge->set_to_node_id(edge.second);
+    assert(proto_edge->IsInitialized());
+  }
+
+  auto* proto_repeated_ptrs_rev_edges = proto_node->mutable_rev_edges();
+  proto_repeated_ptrs_rev_edges->Reserve(rev_edges_.size());
+  for(auto const & edge : edges_) {
+    auto proto_edge = proto_repeated_ptrs_rev_edges->Add();
+    proto_edge->set_edge_char(edge.first);
+    proto_edge->set_to_node_id(edge.second);
+    assert(proto_edge->IsInitialized());
+  }
+
+  auto* proto_repeated_rev_links = proto_node->mutable_rev_links();
+  proto_repeated_rev_links->Reserve(rev_links_.size());
+  for (auto const &rev_link : rev_links_) {
+    proto_repeated_rev_links->AddAlreadyReserved(rev_link);
+  }
+
+  proto_node->set_link(link);
+  proto_node->set_len_actual(len_actual);
+  proto_node->set_len_within_document(len_within_document);
+  proto_node->set_docs_occurs_in(docs_occurs_in);
+  proto_node->set_score_occurs_only(score_occurs_only);
+  proto_node->set_last_hash(last_hash);
+
+  assert(proto_node->IsInitialized());
+  return proto_node;
+}
+
+Node::Node(ProtoNode const &proto_node) : Node() {
+  link = proto_node.link();
+  len_actual = proto_node.len_actual();
+  len_within_document = proto_node.len_within_document();
+  docs_occurs_in = proto_node.docs_occurs_in();
+  score_occurs_only = proto_node.score_occurs_only();
+  last_hash = proto_node.last_hash();
+
+  auto const &proto_repeated_ptrs_edges = proto_node.edges();
+  edges_.reserve(proto_repeated_ptrs_edges.size());
+  for (auto const &proto_edge : proto_repeated_ptrs_edges) {
+    edges_.emplace_back(proto_edge.edge_char(), proto_edge.to_node_id());
+  }
+  auto const &proto_repeated_ptrs_rev_edges = proto_node.rev_edges();
+  rev_edges_.reserve(proto_repeated_ptrs_rev_edges.size());
+  for (auto const &proto_edge : proto_repeated_ptrs_rev_edges) {
+    rev_edges_.emplace_back(proto_edge.edge_char(), proto_edge.to_node_id());
+  }
+
+  auto const & proto_repeated_rev_links = proto_node.rev_links();
+  rev_links_.reserve(proto_repeated_rev_links.size());
+  for (auto rev_link : proto_repeated_rev_links) {
+    rev_links_.emplace_back(rev_link);
+  }
+}

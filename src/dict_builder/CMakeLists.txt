@@ -1,10 +1,29 @@
-add_library( dictgen
+find_package(Protobuf REQUIRED)
+
+set (PROTO_SOURCES
+    proto/automaton.proto
+)
+
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${PROTO_SOURCES})
+
+add_library(dictgen
 	dictionary.cpp
 	dictionary.hpp
 	node.cpp
 	node.hpp
 	suffix_automaton.cpp
 	suffix_automaton.hpp
+	${PROTO_SRCS}
+	${PROTO_HDRS}
+)
+
+target_link_libraries(dictgen
+ ${PROTOBUF_LIBRARIES}
+)
+target_include_directories (dictgen PUBLIC
+ ${CMAKE_CURRENT_SOURCE_DIR}
+ ${PROTOBUF_INCLUDE_DIRS}
+ ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 add_executable(pzip

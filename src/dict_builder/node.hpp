@@ -11,6 +11,8 @@
 #include <vector>
 #include <cstdlib>
 #include <cstddef> // size_t
+#include <memory> //uinique_ptr
+#include <automaton.pb.h>
 
 class Node {
 public:
@@ -51,6 +53,10 @@ public:
   bool DeleteRevEdge(size_t from);
 
   bool DeleteRevLink(size_t from);
+
+  std::unique_ptr<ProtoNode> GetProtoNode();
+
+  Node(ProtoNode const & proto_node);
 
   size_t link;
   size_t len_actual;
