@@ -8,6 +8,7 @@ before_install:
     #libstdc++-4.8 is needed by Clang to build too
   - sudo apt-get -qq install g++-4.8 libstdc++-4.8-dev
   - sudo apt-get -qq install cmake
+  - sudo apt-get -qq install libprotobuf-dev protobuf-compiler
   - cmake --version
   - export CXX="g++-4.8"
 
