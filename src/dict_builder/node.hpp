@@ -54,7 +54,7 @@ public:
 
   bool DeleteRevLink(size_t from);
 
-  std::unique_ptr<ProtoNode> GetProtoNode();
+  std::unique_ptr<ProtoNode> GetProtoNode() const ;
 
   Node(ProtoNode const & proto_node);
 

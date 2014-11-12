@@ -150,28 +150,28 @@ bool Node::DeleteRevLink(size_t from) {
   return false;
 }
 
-std::unique_ptr<ProtoNode> Node::GetProtoNode() {
+std::unique_ptr<ProtoNode> Node::GetProtoNode() const {
   auto proto_node = std::unique_ptr<ProtoNode>(new ProtoNode);
 //
   auto proto_repeated_ptrs_edges = proto_node->mutable_edges();
   proto_repeated_ptrs_edges->Reserve(edges_.size());
-  for(auto const & edge : edges_) {
+  for (auto const &edge : edges_) {
     auto proto_edge = proto_repeated_ptrs_edges->Add();
     proto_edge->set_edge_char(edge.first);
     proto_edge->set_to_node_id(edge.second);
     assert(proto_edge->IsInitialized());
   }
 
-  auto* proto_repeated_ptrs_rev_edges = proto_node->mutable_rev_edges();
+  auto *proto_repeated_ptrs_rev_edges = proto_node->mutable_rev_edges();
   proto_repeated_ptrs_rev_edges->Reserve(rev_edges_.size());
-  for(auto const & edge : edges_) {
+  for (auto const &edge : rev_edges_) {
     auto proto_edge = proto_repeated_ptrs_rev_edges->Add();
     proto_edge->set_edge_char(edge.first);
     proto_edge->set_to_node_id(edge.second);
     assert(proto_edge->IsInitialized());
   }
 
-  auto* proto_repeated_rev_links = proto_node->mutable_rev_links();
+  auto *proto_repeated_rev_links = proto_node->mutable_rev_links();
   proto_repeated_rev_links->Reserve(rev_links_.size());
   for (auto const &rev_link : rev_links_) {
     proto_repeated_rev_links->AddAlreadyReserved(rev_link);
@@ -207,7 +207,7 @@ Node::Node(ProtoNode const &proto_node) : Node() {
     rev_edges_.emplace_back(proto_edge.edge_char(), proto_edge.to_node_id());
   }
 
-  auto const & proto_repeated_rev_links = proto_node.rev_links();
+  auto const &proto_repeated_rev_links = proto_node.rev_links();
   rev_links_.reserve(proto_repeated_rev_links.size());
   for (auto rev_link : proto_repeated_rev_links) {
     rev_links_.emplace_back(rev_link);

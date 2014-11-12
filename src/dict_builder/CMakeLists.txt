@@ -35,6 +35,7 @@ add_executable(dict_builder_tests
 	node_test.cpp
 	dictionary_test.cpp
 	suffix_automaton_test.cpp
+	serialization_tests.cpp
 )
 
 target_link_libraries(dict_builder_tests

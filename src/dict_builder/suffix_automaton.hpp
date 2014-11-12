@@ -97,7 +97,7 @@ public:
 
   bool ReduceSize();
 
-  std::unique_ptr<ProtoAutomaton> GetProtoAutomaton();
+  std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;
 
   SuffixAutomaton(ProtoAutomaton const &proto_automaton);
 
