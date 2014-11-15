@@ -56,7 +56,7 @@ public:
 
   std::unique_ptr<ProtoNode> GetProtoNode() const ;
 
-  Node(ProtoNode const & proto_node);
+  explicit Node(const ProtoNode & proto_node);
 
   size_t link;
   size_t len_actual;

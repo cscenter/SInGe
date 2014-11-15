@@ -99,7 +99,7 @@ public:
 
   std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;
 
-  SuffixAutomaton(ProtoAutomaton const &proto_automaton);
+  explicit SuffixAutomaton(const ProtoAutomaton& proto_automaton);
 
 private:
   size_t NewNode();
