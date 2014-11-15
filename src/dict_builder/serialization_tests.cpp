@@ -4,10 +4,7 @@
 #include <cstddef> // size_t
 #include <sstream>
 
-//for private field testing
-#define private public
 #include "suffix_automaton.hpp"
-#undef private
 
 class SerializationTest : public testing::Test {
 protected:

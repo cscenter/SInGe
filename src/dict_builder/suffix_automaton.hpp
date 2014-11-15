@@ -124,7 +124,11 @@ private:
   size_t amount_alive_nodes_;
   double current_coef;
   std::set<std::pair<std::pair<double, size_t>, size_t>, compare_nodes> nodes_to_delete_;
+
+  friend class SerializationTest;
 };
+
+
 
 class SuffixAutomaton::iterator {
 public:

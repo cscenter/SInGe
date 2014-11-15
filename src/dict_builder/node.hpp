@@ -69,6 +69,8 @@ private:
   std::vector<std::pair<char, size_t> > edges_;
   std::vector<std::pair<char, size_t> > rev_edges_;
   std::vector<size_t> rev_links_;
+
+  friend class SerializationTest;
 };
 
 #endif // NODE_HPP_
