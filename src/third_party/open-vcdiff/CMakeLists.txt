@@ -47,18 +47,33 @@ add_library(vcdenc
   src/statistics.cc
   src/vcencoder.cc
 )
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/zlib)
-set(VCDIFF_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/zlib
+  ${CMAKE_CURRENT_SOURCE_DIR}/gflags/src
+)
+set(VCDIFF_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_include_directories (vcdcom PUBLIC ${VCDIFF_INCLUDE_DIR})
 target_include_directories (vcddec PUBLIC ${VCDIFF_INCLUDE_DIR})
 target_include_directories (vcdenc PUBLIC ${VCDIFF_INCLUDE_DIR})
 
-#add_executable(vcdiff
-#  src/vcdiff_main.cc
-#)
-#target_link_libraries(vcdiff
-#  vcdcom
-#  vcdenc
-#  vcddec
-#)
+
+
+add_library(gflags
+  gflags/src/gflags/gflags.h
+  gflags/src/gflags/gflags_completions.h
+  gflags/src/mutex.h
+  gflags/src/gflags.cc
+  gflags/src/gflags_completions.cc
+  gflags/src/gflags_reporting.cc
+)
+add_executable(vcdiff
+  src/vcdiff_main.cc
+)
+target_link_libraries(vcdiff
+  vcdcom
+  vcdenc
+  vcddec
+  gflags
+)
 
