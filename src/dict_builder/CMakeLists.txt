@@ -42,5 +42,6 @@ target_link_libraries(dict_builder_tests
   gtest_main
   dictgen
 )
+target_include_directories (dictgen PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_test(NAME dict_builder_tests COMMAND dict_builder_tests)

@@ -19,6 +19,8 @@
 // desired format.
 
 #include <vector>
+#include <stddef.h>
+#include <stdint.h>
 
 #ifndef OPEN_VCDIFF_STATISTICS_H_
 #define OPEN_VCDIFF_STATISTICS_H_
