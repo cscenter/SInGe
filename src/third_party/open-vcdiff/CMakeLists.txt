@@ -67,13 +67,13 @@ add_library(gflags
   gflags/src/gflags_completions.cc
   gflags/src/gflags_reporting.cc
 )
-add_executable(vcdiff
-  src/vcdiff_main.cc
-)
-target_link_libraries(vcdiff
-  vcdcom
-  vcdenc
-  vcddec
-  gflags
-)
+#add_executable(vcdiff
+#  src/vcdiff_main.cc
+#)
+#target_link_libraries(vcdiff
+#  vcdcom
+#  vcdenc
+#  vcddec
+#  gflags
+#)
 
