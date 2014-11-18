@@ -21,6 +21,7 @@
 #include "google/output_string.h"
 #include "../statistics.h"
 #include "../logging.h"
+#include <memory> // shared_ptr
 
 namespace open_vcdiff {
 
