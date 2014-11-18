@@ -26,6 +26,10 @@ add_library(vcddec
   src/vcdecoder.cc
 )
 
+target_link_libraries(vcddec
+  vcdcom
+)
+
 add_library(vcdenc
   src/google/vcencoder.h
   src/blockhash.h
@@ -47,6 +51,11 @@ add_library(vcdenc
   src/statistics.cc
   src/vcencoder.cc
 )
+
+target_link_libraries(vcdenc
+  vcdcom
+)
+
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/
   ${CMAKE_CURRENT_SOURCE_DIR}/src/zlib
@@ -67,13 +76,12 @@ add_library(gflags
   gflags/src/gflags_completions.cc
   gflags/src/gflags_reporting.cc
 )
-#add_executable(vcdiff
-#  src/vcdiff_main.cc
-#)
-#target_link_libraries(vcdiff
-#  vcdcom
-#  vcdenc
-#  vcddec
-#  gflags
-#)
+add_executable(vcdiff
+  src/vcdiff_main.cc
+)
+target_link_libraries(vcdiff
+  vcdenc
+  vcddec
+  gflags
+)
 
