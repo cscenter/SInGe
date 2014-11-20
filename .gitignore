@@ -1,3 +1,4 @@
+*.html
 *~
 src/third_party/open-vcdiff/
 
