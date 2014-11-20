@@ -1,0 +1,4071 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-1.newrelic.com","errorBeacon":"bam.nr-data.net","licenseKey":"66a8d51230","applicationID":"1241738","transactionName":"J19cQUoOWA0ERBoWRAZCW1ZLTkcJDkE=","queueTime":0,"applicationTime":358,"ttGuid":"","agentToken":null,"agent":"js-agent.newrelic.com/nr-476.min.js"}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"VQUGU1VRGwICUFBVBAk="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),u=c.length,f=i(a,o,r),d=0;u>d;d++)c[d].apply(f,n);return f}function a(t,e){u[t]=s(t).concat(e)}function s(t){return u[t]||[]}function c(){return n(e)}var u={};return{on:a,emit:e,create:c,listeners:s,_events:u}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(u){try{r("ierr",[u,(new Date).getTime(),!0])}catch(f){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(4),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,window.onerror=e,NREUM.noticeError=n;try{throw new Error}catch(u){"stack"in u&&(t(5),t(3),"addEventListener"in window&&t(1),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(2),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:4,2:7,3:5,4:18,5:6,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],4:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:18,2:19,ee:"QJf3ax",gos:"7eSDFh"}],5:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:19,2:18,ee:"QJf3ax"}],6:[function(t,e){function n(t,e,n){var r=t[0];"string"==typeof r&&(r=new Function(r)),t[0]=o(r,"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:19,2:18,ee:"QJf3ax"}],7:[function(t,e){function n(){c.inPlace(this,d,"fn-")}function r(t,e){c.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}var i=t("ee").create(),a=t(1),s=t(2),c=s(i),u=s(a),f=window.XMLHttpRequest,d=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=i,window.XMLHttpRequest=function(t){var e=new f(t);try{i.emit("new-xhr",[],e),u.inPlace(e,["addEventListener","removeEventListener"],"-",function(t,e){return e}),e.addEventListener("readystatechange",n,!1)}catch(r){try{i.emit("internal-error",[r])}catch(o){}}return e},window.XMLHttpRequest.prototype=f.prototype,c.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),i.on("send-xhr-start",r),i.on("open-xhr-start",r)},{1:4,2:19,ee:"QJf3ax"}],8:[function(t){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,u="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,f=e(u);if(f&&(r.rxSize=f),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(n.cat=d.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r,this.startTime])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,u=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var u=e(o);u&&(r.txSize=u)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",[e])}catch(r){}}};for(var f=0;c>f;f++)n.addEventListener(s[f],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+u(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+u(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:9,3:7,4:4,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],9:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info;if(t&&t.agent&&t.licenseKey&&t.applicationID&&c&&c.body){p.proto="https"===d.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=c.createElement("script");e.src=p.proto+t.agent,c.body.appendChild(e)}}function r(){"complete"===c.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=window,c=s.document,u="addEventListener",f="attachEvent",d=(""+location).split("?")[0],p=e.exports={offset:i(),origin:d,features:{}};c[u]?(c[u]("DOMContentLoaded",o,!1),s[u]("load",n,!1)):(c[f]("onreadystatechange",r),s[f]("onload",n)),a("mark",["firstbyte",i()])},{handle:"D5DuLP"}],18:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],19:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,u;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){f([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return u=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,u],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,u(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,u="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,u?s+o:o,i,s,t))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){f([o,e,n,r])}}function u(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){f([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function f(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:18,ee:"QJf3ax"}]},{},["G9z0Bl",3,8]);</script>
+
+<title>Lenta.ru: Культура</title>
+<link href="http://icdn.lenta.ru/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link href="http://icdn.lenta.ru/lenta_touch.png" rel="apple-touch-icon" type="image/png" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+
+<link href="/rss/news/culture" rel="alternate" type="application/rss+xml">
+<link href="/rss/articles/culture" rel="alternate" type="application/rss+xml">
+<link href="/rss/columns/culture" rel="alternate" type="application/rss+xml">
+<link href="/rss/photo/culture" rel="alternate" type="application/rss+xml">
+<link href="/rss/video/culture" rel="alternate" type="application/rss+xml">
+
+<link href="http://icdn.lenta.ru/assets/lenta-a4f966c0a5b681fd3dac276edaab8de5.css" media="all" rel="stylesheet" type="text/css" />
+<link href="http://icdn.lenta.ru/assets/rubric-3b05914f357ba6393bd06b92dbb0f259.css" media="all" rel="stylesheet" type="text/css" />
+
+<script>
+  var crtg_nid = '3158';
+  var crtg_cookiename = 'crtg_rta';
+  var crtg_varname = 'crtg_content';
+  function crtg_getCookie(c_name){ var i,x,y,ARRCookies=document.cookie.split(";");for(i=0;i<ARRCookies.length;i++){x=ARRCookies[i].substr(0,ARRCookies[i].indexOf("="));y=ARRCookies[i].substr(ARRCookies[i].indexOf("=")+1);x=x.replace(/^\s+|\s+$/g,"");if(x==c_name){return unescape(y);} }return'';}
+  var crtg_content = crtg_getCookie(crtg_cookiename);
+  var crtg_rnd=Math.floor(Math.random()*99999999999);
+  (function(){
+    var crtg_url=location.protocol+'//rtax.criteo.com/delivery/rta/rta.js?netId='+escape(crtg_nid);
+    crtg_url +='&cookieName='+escape(crtg_cookiename);
+    crtg_url +='&rnd='+crtg_rnd;
+    crtg_url +='&varName=' + escape(crtg_varname);
+    var crtg_script=document.createElement('script');crtg_script.type='text/javascript';crtg_script.src=crtg_url;crtg_script.async=true;
+    if(document.getElementsByTagName("head").length>0)document.getElementsByTagName("head")[0].appendChild(crtg_script);
+    else if(document.getElementsByTagName("body").length>0)document.getElementsByTagName("body")[0].appendChild(crtg_script);
+  })();
+</script>
+<script>
+  var _sf_startpt=(new Date()).getTime()
+</script>
+<script src="http://icdn.lenta.ru/assets/core-cef00274e976ddaba5582927be2138b3.js" type="text/javascript"></script>
+<script src="//ad.rambler.ru/static/green2.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="g-application" id="root">
+<section class="b-banner-top-decorator js-advert"><script type="text/javascript">
+  <!--
+  if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+  if (typeof(document.referrer) != 'undefined') {
+    if (typeof(afReferrer) == 'undefined') {
+      afReferrer = escape(document.referrer);
+    }
+  } else {
+    afReferrer = '';
+  }
+  var addate = new Date();
+  
+  var scrheight = '', scrwidth = '';
+  if (self.screen) {
+  scrwidth = screen.width;
+  scrheight = screen.height;
+  } else if (self.java) {
+  var jkit = java.awt.Toolkit.getDefaultToolkit();
+  var scrsize = jkit.getScreenSize();
+  scrwidth = scrsize.width;
+  scrheight = scrsize.height;
+  }
+  
+  var dl = escape(document.location);
+  var pr1 = Math.floor(Math.random() * 1000000);
+  
+  var criteo=0;
+  if (crtg_content){criteo = ((crtg_content.indexOf("crlen240=1") !=-1))?("crlen240=1"):("0");}
+  
+  document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+  document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+  
+  AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/171817/prepareCode?p1=bmdxv&amp;p2=ewtn&amp;pct=c&amp;pfc=a&amp;pfb=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;puid1=&amp;puid2=&amp;puid3='+_montblanc.get('4i', '')+'&amp;puid4='+_montblanc.get('c6', '')+'&amp;puid5=&amp;puid6=CULTURE&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=' + _montblanc.get('dd', '') + '&amp;puid12=&amp;puid13=&amp;puid14=&amp;puid15=0&amp;puid16=&amp;puid17=&amp;puid18=main&amp;puid19=&amp;puid20=&amp;puid21=&amp;puid22='+_montblanc.get('y1', '')+'&amp;puid23='+criteo+'&amp;puid24=&amp;puid25=&amp;puid26=&amp;puid27=&amp;puid28=&amp;puid29=&amp;puid30=&amp;puid31=&amp;puid32=&amp;puid33='+_montblanc.get('bj', '')+'&amp;puid34=&amp;puid35=&amp;puid37='+ _montblanc.get('k4', '') + '&puid38=' + _montblanc.get('x3', '')+ '&pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+  // -->
+</script></section>
+
+<nav class="b-sidebar-menu">
+<div class="mini" id="menu-toggler">
+<div class="toggler icons-sprite icons-menu_toggler"></div>
+</div>
+<div class="origin b-menu-decorator" id="sidebar-menu">
+<div class="b-sidebar-menu__wrap">
+<ul>
+<li class="special"><a href="/" style="color: #ffffff">Главное</a></li>
+<li class="special"><a href="/rubrics/russia/" style="color: #ffffff">Россия</a></li>
+<li class="special"><a href="/rubrics/world/" style="color: #ffffff">Мир</a></li>
+<li class="special"><a href="/rubrics/ussr/" style="color: #ffffff">Бывший СССР</a></li>
+<li class="special"><a href="/rubrics/economics/" style="color: #ffffff">Экономика</a></li>
+<li class="special"><a href="/rubrics/forces/" style="color: #ffffff">Силовые структуры</a></li>
+<li class="special"><a href="/rubrics/science/" style="color: #ffffff">Наука и техника</a></li>
+<li class="special"><a href="/rubrics/weapons/" style="color: #ffffff">Оружие</a></li>
+<li class="special"><a href="/rubrics/sport/" style="color: #ffffff">Спорт</a></li>
+<li class="special"><a href="/rubrics/culture/" style="color: #ffffff">Культура</a></li>
+<li class="special"><a href="/rubrics/media/" style="color: #ffffff">Интернет и СМИ</a></li>
+<li class="special"><a href="/rubrics/life/" style="color: #ffffff">Из жизни</a></li>
+<li class="delimiter">
+<div></div>
+</li>
+<li class="special"><a href="http://lenta.ru/rubrics/ww1/" style="color: #ffffff">Первая мировая</a></li>
+<li class="special"><a href="http://age.lenta.ru/generation" style="color: #FFFFFF">Поколение</a></li>
+<li class="delimiter">
+<div></div>
+</li>
+<li><a href="http://motor.ru/" style="color: #959595">Мотор</a></li>
+<li><a href="http://dom.lenta.ru/" style="color: #959595">Дом</a></li>
+<li class="delimiter">
+<div></div>
+</li>
+<li><a href="/parts/text/" style="color: #959595">Статьи</a></li>
+<li><a href="/parts/photo/" style="color: #959595">Галереи</a></li>
+<li><a href="/parts/infographics/" style="color: #959595">Инфографика</a></li>
+<li><a href="/parts/video/" style="color: #959595">Видео</a></li>
+<li><a href="/rubrics/library/" style="color: #959595">Библиотека</a></li>
+<li><a href="/specprojects/" style="color: #959595">Спецпроекты</a></li>
+<li class="delimiter">
+<div></div>
+</li>
+</ul>
+<div class="b-sidebar-menu__fuck icons-sprite icons-fuck"></div>
+<div class="b-sidebar-menu__under-fuck icons-sprite icons-under_fuck"></div>
+<form action="/search" class="search" method="GET">
+<input name="query" placeholder="Поиск" type="text">
+<i class="icons-sprite icons-search" onclick="$(this).closest('form').submit()"></i>
+</form>
+</div>
+</div>
+</nav>
+
+<div class="b-up icons-sprite icons-up" id="up" title="наверх"></div>
+<section class="b-header-inner">
+<div class="g-layout">
+<div class="b-header-inner__wrap">
+<a class="b-header-inner__logo icons-sprite icons-lenta_small" href="/"></a>
+<div class="b-header-inner__info">
+<a href="/rubrics/culture/" class="b-header-inner__block">Культура</a>
+<div class="date" id="date-time">&nbsp;</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+<nav class="b-tags-list js-tags">
+<div class="g-layout">
+<div class="row">
+<div class="span11">
+<div class="items">
+<a href="/rubrics/culture/" class="item dark active">Все
+<div class="decorator icons-sprite icons-active"></div>
+</a><a href="/rubrics/culture/kino/" class="item dark ">Кино
+<div class="decorator icons-sprite icons-active"></div>
+</a><a href="/rubrics/culture/music/" class="item dark ">Музыка
+<div class="decorator icons-sprite icons-active"></div>
+</a><a href="/rubrics/culture/theatre/" class="item dark ">Театр
+<div class="decorator icons-sprite icons-active"></div>
+</a><a href="/rubrics/culture/books/" class="item dark ">Книги
+<div class="decorator icons-sprite icons-active"></div>
+</a><a href="/rubrics/culture/art/" class="item dark ">Искусство
+<div class="decorator icons-sprite icons-active"></div>
+</a><a href="/rubrics/culture/games/" class="item dark ">Игры
+<div class="decorator icons-sprite icons-active"></div>
+</a>&nbsp;
+</div>
+</div>
+<div class="span1 archive">
+<a href="/2014/11/19/">Архив</a>
+</div>
+</div>
+</div>
+</nav>
+
+
+<section class="b-layout b-layout_rubric">
+<div class="g-layout">
+<div class="row">
+<div class="span8">
+<section class="b-feature b-feature_article">
+<a href="/articles/2014/11/19/albertina/" class="js-dh picture"><img alt="Никола Пуссен. «Нимфа, седлающая козла, с сатиром и спящим амуром», около1626-27 г." class="g-picture" height="310" src="http://icdn.lenta.ru/images/2014/11/18/16/20141118164602708/feature_b31cb2ab07627b04b537502522c26a78.jpg" style="max-width: 620px; width: 620px; height: 310px;" width="620" />
+</a>
+<div class="b-feature__wrap">
+<div class="g-date">
+<time>19 ноября 2014</time>
+</div>
+<h1><a href="/articles/2014/11/19/albertina/">«Современное искусство — мера нашего времени»</a></h1>
+<div class="rightcol">
+<a href="/articles/2014/11/19/albertina/">Рисунки французских мастеров из&nbsp;музея Альбертина в&nbsp;ГМИИ
+<span class="icons-sprite icons-arrow"></span>
+</a></div>
+</div>
+</section>
+
+<div class="row">
+<div class="span4"><section class="b-longgrid-column">
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:44</span> Сегодня</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/19/monet/">В Петербурге покажут «ожившие» полотна Моне и&nbsp;Ренуара</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:39</span> Сегодня</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/19/groot/">Грут из «Стражей галактики» заговорил на&nbsp;15&nbsp;языках</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:15</span> Сегодня</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/19/lydon/">Вокалист Sex Pistols потратил 10&nbsp;тысяч фунтов на&nbsp;приложения для iPad</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:34</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/putinserials/">Путин раскритиковал российские сериалы </a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:50</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/marley/">Боб Марли станет лицом первого официального бренда марихуаны</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:05</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/schwarz/">Шварценеггеру предложили сыграть в&nbsp;сиквеле «Бегущего человека»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:56</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/jolie/">Анджелина Джоли представила фильм «Несломленный»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:11</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/lorapalmer/">Композитор рассказал о&nbsp;попытках Горбачева найти убийцу Лоры Палмер</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:59</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/tomorrow/">Организаторы «2morrow/Завтра» собрали средства на&nbsp;проведение фестиваля</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:06</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/sons/">Сексуальные сцены в «Сынах анархии» возмутили зрителей</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">03:16</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/star/">Актер Мэтью Макконахи получил звезду на&nbsp;Аллее славы Голливуда</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:18</span> 17 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/17/devito/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/16/23/20141116235556742/top7_656e937e8c5d61db50bb01b919195551.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/17/devito/"><span>Метр с&nbsp;кепкой на&nbsp;экране</span>
+</a></h3>
+<div class="rightcol">Знаменитый комик Денни Де&nbsp;Вито отмечает 70-летний юбилей</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:23</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/porn/">Обнаженные порнозвезды выступили за&nbsp;доступность фильмов для взрослых</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:48</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/holocaust/">Объявлен конкурс на&nbsp;лучший сценарий фильма о&nbsp;холокосте</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:05</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/interstellar/">Кристофер Нолан объяснил неразборчивые диалоги в «Интерстелларе»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:51</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/goatsimulator/">Cимулятор козла превратят в&nbsp;многопользовательскую фэнтези-игру</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:48</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/swedengames/">В Швеции поощрят гендерное равноправие в&nbsp;играх</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:23</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/young/">Нил Янг призвал бойкотировать «Старбакс»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:56</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/downtonabbey/">Создатели «Аббатства Даунтон» объяснили отказ от&nbsp;мужских чулок</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:08</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/otello/">Майк Тайсон заявил о&nbsp;намерении сыграть Отелло</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:42</span> 16 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/16/glmlastevent/">Нецензурная выставка в&nbsp;галерее Гельмана подверглась вандализму</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">04:33</span> 16 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/16/needle/">Перформансист двое суток искал иголку в&nbsp;стоге сена</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">03:32</span> 16 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/16/siruza/">Антифашисты сорвали проукраинскую выставку в&nbsp;Греции</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">09:17</span> 15 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/15/krrtn2/" class="js-dh picture"><img alt="Пол Камминс, Том Пайпер, Tower Poppies" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/14/19/20141114193516207/top7_bc810629e78bbcfe3ecc9b0a8a6eb437.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/15/krrtn2/"><span>Картинки недели: горящие булки и&nbsp;кровавые маки</span>
+</a></h3>
+<div class="rightcol">Самые яркие новости мира в&nbsp;картинках</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">21:31</span> 15 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/15/arthur/">Злодея в&nbsp;фильме Гая Ричи о&nbsp;короле Артуре сыграет Джуд Лоу</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:09</span> 15 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/15/leagueoflegendspolite/">В League of&nbsp;Legends подсчитали вежливых людей</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:06</span> 14 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/14/kino14nov/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/13/17/20141113171721855/top7_16f87723dd631a020e5f8adc9410e24e.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/14/kino14nov/"><span>Кино недели:  много слез и&nbsp;один призрак</span>
+</a></h3>
+<div class="rightcol">Пятничный спойлер от&nbsp;Геннадия Устияна</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:16</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/kinoafgan/">Племянник Олега Янковского снимет фильм о&nbsp;выводе советских войск из&nbsp;Афганистана</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:05</span> 13 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/13/interscience/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/13/13/20141113133844783/top7_9579f2dd638f5a3381bb5fef64fe6c7f.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/13/interscience/"><span>Вселенная «Интерстеллара»</span>
+</a></h3>
+<div class="rightcol">Как устроен голливудский космос — научные мифы и&nbsp;инфографика  </div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:59</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/unitydisaster/">Ubisoft ответила на&nbsp;критику в&nbsp;адрес Assassin's Creed: Unity</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:52</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/starwars/">Чикагские активисты оспорят в&nbsp;суде строительство музея «Звездных войн»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:16</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/middleton/">В Лондоне появилось граффити голой беременной Кейт Миддлтон</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:26</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/antipirat/">Запрет на&nbsp;пиратские книги и&nbsp;музыку вступит в&nbsp;силу в&nbsp;мае 2015&nbsp;года</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:53</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/fiftyshadesofgrey/">В новом трейлере «50&nbsp;оттенков серого» показали больше эротики</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:54</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/circus1/">Российский и&nbsp;китайский цирк обменяются опытом</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:28</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/film/">Киевский клипмейкер собрал все упоминания об&nbsp;Украине в&nbsp;американском кино</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:44</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/levy/">Шон Леви снимет «Али-Бабу» в&nbsp;стиле «Стражей Галактики»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:55</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/german/">Герман-младший прекратил работу над российско-украинским фильмом</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:49</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/dreamworks/">СМИ узнали о&nbsp;возможном слиянии DreamWorks с&nbsp;производителем игрушек</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:47</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/bigbook/">Победителей премии «Большая книга» объявят 25&nbsp;ноября</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:19</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/gravity/">Фильм «Гравитация» переиздадут без звука</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:09</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/festivals/">В России покажут американские документальные фильмы</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:19</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/strangemagic/">Disney выпустит мультфильм по&nbsp;сюжету Джорджа Лукаса</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:48</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/repetokal/">Полиция задержала пьяного Паука</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:02</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/carolannsusi/">Умерла актриса из «Теории Большого взрыва»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">00:25</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/nigrinazi/">Певица Ники Минаж извинилась за «нацистский клип»</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:13</span> 11 ноября 2014</span>
+</div>
+<a href="/photo/2014/11/11/dicaprio/" class="js-dh b-badge picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/10/12/20141110125652506/top7_2950fbee982cd8419da81f55e185529e.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+<i class="icon-sprite icons-badge_photo"></i>
+</a>
+<div class="titles">
+<h3>
+<a href="/photo/2014/11/11/dicaprio/"><span>Единственная звезда «Санта-Барбары»</span>
+</a></h3>
+<div class="rightcol">Самые малоизвестные и&nbsp;незапомнившиеся роли Леонардо Ди&nbsp;Каприо</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:03</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/batori/">Вышел тизер хоррора «Кровавая леди Батори» со&nbsp;Светланой Ходченковой</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:35</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/harrypotter/">Фанаты Гарри Поттера снимут фильм за&nbsp;40&nbsp;тысяч фунтов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:17</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/otchenash/">Альбом «Отче наш» попал в&nbsp;чарты российского iTunes</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:05</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/thegameawards/">Продюсер The Video Game Awards придумал новую игровую премию</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:54</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/pinkfloyd/">Pink Floyd сняли новый клип в&nbsp;Казахстане</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:50</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/timati/">Тимати стал заслуженным артистом Чечни</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:24</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/zad/">Михаил Задорнов увидел в&nbsp;русской литературе бесовщину</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:03</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/eltonjohn/">Элтон Джон осудил снос памятника Стиву Джобсу в&nbsp;Санкт-Петербурге</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:25</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/mikhalkov/">Власти Латвии затруднились с&nbsp;определением статуса Михалкова</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:07</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/tarantino/">Тарантино решил уйти из&nbsp;кино после десятого фильма</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:11</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/medalka/">Обама вручит Стиви Уандеру и&nbsp;Мерил Стрип медаль свободы</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">05:19</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/rivers/">Вину за&nbsp;смерть актрисы Джоан Риверз возложили на&nbsp;врачей</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:56</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/ebola/">Дэвид Боуи запишет сингл ради борьбы с&nbsp;вирусом Эбола</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:57</span> 10 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/10/theglobe/" class="js-dh picture"><img alt="Доминик Дромгул" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/07/14/20141107143532940/top7_dbb06a6a19c001f2d55939136ece326d.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/10/theglobe/"><span>«Шекспир был ужасный человек»</span>
+</a></h3>
+<div class="rightcol">Худрук лондонского театра «Глобус» Доминик Дромгул cчитает великого драматурга гениальным жадиной</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:46</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/filmsruss/">В интернете опубликованы российские фильмы первой половины XX&nbsp;века</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:58</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/afrikagonit/">Сергей Бугаев-Африка констатировал гибель музейного дела в&nbsp;России</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:16</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/minaj/">Ники Минаж обвинили в&nbsp;прославлении нацизма</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:13</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/tabakov/">«Табакерка» получит новое здание в&nbsp;2015&nbsp;году</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:31</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/pakhmutova/">Патриарх Кирилл наградил Пахмутову орденом святой Ольги</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:41</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/ledzeppelin/">Роберт Плант отказался возродить Led Zeppelin за&nbsp;800&nbsp;миллионов долларов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:31</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/bieber/">Джастин Бибер назван лучшим певцом по&nbsp;версии MTV</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:12</span>  9 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/09/pooh/">Иллюстрацию к «Винни-Пуху» оценили в&nbsp;150&nbsp;тысяч долларов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:45</span>  9 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/09/globe/">«Снежная королева 2» поборется за «Золотой глобус»</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:36</span>  8 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/07/krrtn1/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/07/17/20141107172230147/top7_dd3f543b4f2c6ab8d1ddb02fd7e5f3e9.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/07/krrtn1/"><span>Картинки недели: люди на&nbsp;сковородке и&nbsp;маски ужаса</span>
+</a></h3>
+<div class="rightcol">Самые яркие новости мира искусства в&nbsp;картинках</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">02:13</span>  8 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/08/williams/">Подтверждена версия о&nbsp;самоубийстве актера Робина Уильямса</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:27</span>  8 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/08/potapov/">Умер актер Александр Потапов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">23:57</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/rotaru/">Директор Софии Ротару рассказал об&nbsp;отсутствии заказов на&nbsp;новогодние корпоративы</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:08</span>  7 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/07/kino7nov/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/06/18/20141106181827248/top7_9e3bbb68f87cd2bd4aeb461bbacb28e7.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/07/kino7nov/"><span>Кино недели: Мэттью Макконахи летит в&nbsp;космос, Кира Найтли протестует</span>
+</a></h3>
+<div class="rightcol">Пятничный спойлер от&nbsp;Геннадия Устияна</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:18</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/muzkino/">Сотрудники Музея кино отозвали заявления об&nbsp;уходе</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:32</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/hungergames/">«Голодные игры» превратят в&nbsp;театральное шоу</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:19</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/astrobowie/">Записанный в&nbsp;космосе кавер на&nbsp;песню Дэвида Боуи вернули на&nbsp;YouTube</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:24</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/wonder/">Стиви Уандер перезапишет свои хиты с&nbsp;Андреа Бочелли</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:58</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/editpiaf/">Жиль Эгро в&nbsp;Москве исполнит неизвестные песни Эдит Пиаф</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:42</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/kostecki/">Умер актер Виктор Костецкий</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:08</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/doctorwho/">Зрители пожаловались на&nbsp;загробную тематику в «Докторе Кто»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">06:07</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/rudd/">С барабанщика AC/DC сняли обвинение в&nbsp;попытке организовать убийство</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">02:43</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/hobobobo/">Подросток убил брата кирпичом из-за галлюцинаций по&nbsp;мотивам видеоигры  </a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:05</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/hitler/">Картину Гитлера продадут на&nbsp;аукционе в&nbsp;Германии</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:49</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/skr/">Союз кинематографистов поддержал руководство Музея кино</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:18</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/devotchenko1/">Названа дата прощания с&nbsp;Алексеем Девотченко</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:41</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/mane/">«Весну» Эдуарда Мане продали за&nbsp;65&nbsp;миллионов долларов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">06:29</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/acdc/">Барабанщика AC/DC обвинили в&nbsp;попытке организовать убийство</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">22:38</span>  2 ноября 2014</span>
+</div>
+<a href="http://age.lenta.ru/generation/articles/2014/10/31/makcimova/" class="js-dh picture"><img alt="Евгения Максимова" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/31/21/20141031215950570/top7_810395ead117ac18c075848556e56016.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="http://age.lenta.ru/generation/articles/2014/10/31/makcimova/"><span>«А что ты&nbsp;сделал для хип-хопа?»</span>
+</a></h3>
+<div class="rightcol">Евгения Максимова о&nbsp;том, что танцевать надо с&nbsp;душой</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:50</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/cancorpse/">Прокуратура Башкирии потребовала запретить тексты Cannibal Corpse в&nbsp;России</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:29</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/lidie/">Лауреатом Гонкуровской премии стала Лиди Сальвер</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:41</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/droneporn/">В США сняли порно с&nbsp;беспилотника</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:09</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/lugandon/">Пореченкову бросили на&nbsp;сцену игрушечный пистолет</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:35</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/phantom/">Сериал «Призрак Оперы» снимет режиссер «Амели»</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:52</span>  4 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/04/zorin/" class="js-dh picture"><img alt="Леонид Зорин" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/04/12/20141104123246066/top7_30ad7650213265317f1384350ed10aba.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/04/zorin/"><span>Высокие отношения Леонида Зорина</span>
+</a></h3>
+<div class="rightcol">Автору «Покровских ворот», «Варшавской мелодии» и&nbsp;многих других популярных пьес исполнилось 90&nbsp;лет</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:20</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/watchdogsrecord/">Экшн о&nbsp;хакерах Watch Dogs улучшил финансовые показатели Ubisoft</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:48</span>  4 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/04/jobs/">Памятник Стиву Джобсу решили уничтожить публично</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:06</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/matilda/">Суд взыскал с&nbsp;фонда Винокура миллион рублей за&nbsp;киносценарий</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:53</span>  4 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/04/xzelen/">Российский Минкульт отказался отменять прокат фильмов с&nbsp;Владимиром Зеленским</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">04:04</span>  4 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/04/bale/">Кристиан Бейл отказался от&nbsp;роли Стива Джобса</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">09:36</span>  3 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/02/nightart/" class="js-dh picture"><img alt="«Ночь искусств» 2013 года" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/03/02/20141103021530653/top7_f2afe7e8ff0ebfa178e656d4fcf13ff0.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/02/nightart/"><span>Марш на «Ночь искусств»</span>
+</a></h3>
+<div class="rightcol">Духоподъемный квест по&nbsp;ночной Москве</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:37</span>  3 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/03/zelensky/">Фильм с&nbsp;Владимиром Зеленским предлагают запретить в&nbsp;России</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:32</span>  3 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/03/klrnt/">Скончался джазовый кларнетист Акер Билк</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:59</span>  1 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/01/seoullol/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/01/13/20141101133717945/top7_449c91a0e1691d9a9a539d5e82325582.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/01/seoullol/"><span>Национальный киберспорт</span>
+</a></h3>
+<div class="rightcol"> Корреспондент «Ленты.ру» побывал на&nbsp;финале чемпионата мира по&nbsp;League of&nbsp;Legends</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">23:58</span>  2 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/03/poretch/">Минкульт Украины запретил «омраченные участием Пореченкова» фильмы </a>
+</h3>
+</div>
+</div>
+</section>
+</div>
+<div class="span4"><section class="b-longgrid-column">
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:21</span> Сегодня</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/19/fx/">В США снимут сериал о&nbsp;Джеке Потрошителе</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">02:13</span> Сегодня</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/19/kanobucard/">В России появилась кредитная карта для геймеров</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">09:12</span> 18 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/18/raphop/" class="js-dh picture"><img alt="The Fat Boys" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/13/14/20141113145124063/top7_95ac1d797702dec4549e95bd10fe22f0.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/18/raphop/"><span>Весь черный и&nbsp;в золоте</span>
+</a></h3>
+<div class="rightcol">Золотая эра хип-хопа на «Ленте.ру»</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:30</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/queen/">Новый сборник Queen попал в&nbsp;чарты российского iTunes</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:13</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/nolan/">Кристофер Нолан выпустит комикс о&nbsp;докторе Манне из «Интерстеллара»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:38</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/c4etpalata/">Счетная палата уличила Минкульт в&nbsp;нарушении финансовой дисциплины</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:14</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/vangogh/">Криминалист опроверг версию самоубийства Ван Гога</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:23</span> 18 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/18/frozen/">Хайзенберг спел песню из «Холодного сердца» в&nbsp;пародийном ролике</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:27</span> 18 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/17/martin/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/17/19/20141117195327537/top7_bc7ae05ca14de693fbd23bbadf3d5769.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/17/martin/"><span>«Дикие карты»: отрывок из&nbsp;новой книги Джорджа Мартина</span>
+</a></h3>
+<div class="rightcol">Выходит «Рука мертвеца», седьмая книга сериала о&nbsp;битве тузов и&nbsp;джокеров на&nbsp;опустевшей Земле </div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">21:58</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/soad/">System Of&nbsp;A Down в&nbsp;апреле выступит в&nbsp;Москве</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:05</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/konchalovsky/">Кончаловский расскажет о&nbsp;современной культуре</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:19</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/debut/">Объявлен шорт-лист литературной премии «Дебют»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:03</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/dreanworks/">Производитель детских игрушек отказался покупать DreamWorks</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:06</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/farrell/">Колин Фаррелл поддержал однополые браки между ирландцами</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:04</span> 17 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/17/bono/">Боно потребовалась помощь хирурга</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:36</span> 16 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/16/glbrt/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/16/16/20141116161234559/top7_0b88400543379067c48e329849b58c05.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/16/glbrt/"><span>«Шелкопряд»: глава из&nbsp;новой книги Джоан Роулинг</span>
+</a></h3>
+<div class="rightcol">Выходит вторая книга Роулинг под псевдонимом Роберта Гэлбрейта</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">22:47</span> 15 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/15/depp/">Джонни Депп шокировал публику своим поведением</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">22:12</span> 15 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/15/larson/">Умер создатель телесериала «Звездный крейсер "Галактика"» Глен Ларсон</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:02</span> 16 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/16/trailers3/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/15/01/20141115011408324/top7_29729a5b6bbc0e1fbd33d2fd9ea835c8.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/16/trailers3/"><span>Игровые трейлеры недели: ангелы Overwatch и&nbsp;юбилей PlayStation</span>
+</a></h3>
+<div class="rightcol">Ноябрь беспощаден к&nbsp;геймерам — новинки выходят одна за&nbsp;другой</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:32</span> 15 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/15/povodyr/">На Украине в&nbsp;прокат вышел фильм для незрячих</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">09:16</span> 15 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/15/menagainstsex/" class="js-dh picture"><img alt="«Леди Лилит», Данте Габриэль Россетти" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/14/18/20141114185833591/top7_6f3bfcd27326704dfd5fb9e91b8fae9b.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/15/menagainstsex/"><span>Девушка красивая в&nbsp;костре стоит нагой</span>
+</a></h3>
+<div class="rightcol">В Британском музее проходит выставка о&nbsp;демонизации женщины</div>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:15</span> 14 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/14/premiyaozon/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/14/14/20141114145618945/top7_798910ceba3845a09a9929509c1da67c.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/14/premiyaozon/"><span>Читаем сами: между паралитиком и&nbsp;теллуровым гвоздем</span>
+</a></h3>
+<div class="rightcol">О результатах Книжной премии Рунета и&nbsp;лекарстве от&nbsp;постмодернизма</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:31</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/ripsolyanka/">Клуб «Солянка» в&nbsp;Москве закрыли решением суда</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:59</span> 14 ноября 2014</span>
+</div>
+<a href="/photo/2014/11/14/paukportrait/" class="js-dh b-badge picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/13/18/20141113184240102/top7_ad7f439ad56002b66dafb31239a47f5f.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+<i class="icon-sprite icons-badge_photo"></i>
+</a>
+<div class="titles">
+<h3>
+<a href="/photo/2014/11/14/paukportrait/"><span>Паучье гнездо</span>
+</a></h3>
+<div class="rightcol">Чем живет лидер «Коррозии металла» Сергей Паук Троицкий</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:41</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/solyanochka/">Московский клуб «Солянка» опечатан</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:28</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/goldeneagle/">Фаворитами «Золотого орла» стали фильмы Михалкова и&nbsp;Звягинцева</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:51</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/parody/">Бенедикт Камбербэтч спародировал 11&nbsp;знаменитостей за&nbsp;минуту</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:07</span> 13 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/13/antonova/" class="js-dh picture"><img alt="Ирина Антонова " class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/12/19/20141112192855490/top7_32c8d4bde05c695b09ac6e39688c638e.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/13/antonova/"><span>«Рушится запечатленный в&nbsp;искусстве образ мира»</span>
+</a></h3>
+<div class="rightcol">Президент ГМИИ Ирина Антонова раскрывает профессиональные секреты директору «Гаража»</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:49</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/waltz/">Кристоф Вальц присоединится к&nbsp;бондиане</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:31</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/cultureclub/">Culture Club отменила гастроли из-за болезни Боя Джорджа</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:26</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/hurtlockeruncharted/">Cценарист «Повелителя бурь» отредактирует киноадаптацию игры Uncharted</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:52</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/timati/">Тимати, Минаев и&nbsp;Познер научат молодых москвичей жить</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:28</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/turetskayaafera/">В турецком музее обнаружили кражу 300&nbsp;экспонатов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:15</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/goldenmask/">Объявлены номинанты театральной премии «Золотая маска»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:16</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/kapkov/">Сергей Капков назвал причиной кризиса культуры отсутствие госзаказов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:13</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/xmen/">Создатели раскрыли подробности сюжета новых «Людей Икс»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:11</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/antipirat/">Запрет на «пиратские» книги и&nbsp;музыку рассмотрят в&nbsp;Госдуме в&nbsp;третий раз</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">06:37</span> 13 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/13/elvis/">Портреты Пресли и&nbsp;Брандо ушли с&nbsp;молотка за&nbsp;151&nbsp;миллион долларов</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:06</span> 12 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/12/matilda/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/11/13/20141111133152102/top7_8856148b777663ee1c620d717179eaac.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/12/matilda/"><span>Любовница августейших особ</span>
+</a></h3>
+<div class="rightcol">Чем режиссера Алексея Учителя заинтересовал роман Николая II&nbsp;и Матильды Кшесинской</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">23:52</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/ukraine/">Украина запретит въезд Ваенге и «Иванушкам International»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:21</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/ivliev/">Проект нового закона о&nbsp;культуре вынесут на&nbsp;общественное обсуждение</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:17</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/indonesianpolice/">В Индонезии издателя мобильных игр приняли за&nbsp;подпольное онлайн-казино</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:37</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/grimm/">В США издали сказки братьев Гримм для взрослых</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:16</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/lovedancemusic/">Симулятор жизни объединят с&nbsp;танцами в&nbsp;новой многопользовательской игре</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:04</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/monroe/">Бюстгальтер и&nbsp;любовные письма Мэрилин Монро продадут на&nbsp;аукционе</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:13</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/gamesboostuseconomy/">Игры укрепили экономику США</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:50</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/gameofthronestelltale/">Интерактивная «Игра престолов» расскажет о&nbsp;союзниках дома Старков</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:32</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/bigwedding/">«Моя большая греческая свадьба» получит продолжение</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:08</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/silvia/">В Москве выступит солистка «Ла Скала» Сильвия Мапелли</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:03</span> 12 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/12/jackson/">Умер автор первого хита в&nbsp;истории хип-хопа</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">23:25</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/justcause3announce/">Игра Just Cause 3&nbsp;выйдет в&nbsp;следующем году</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:12</span> 11 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/11/leo/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/10/17/20141110175452500/top7_e03b4cbe4e4acd279e00b3e927ddfb5f.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/11/leo/"><span>Оскаровское проклятие Ди&nbsp;Каприо</span>
+</a></h3>
+<div class="rightcol">Звезда Голливуда Леонардо Ди&nbsp;Каприо отмечает 40-летний юбилей</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:44</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/nextffsteamdate/">Объявлена дата выхода Final Fantasy XIII-2&nbsp;на PC</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:02</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/gamonrest/">Самого часто умирающего персонажа World of&nbsp;Warcraft сделали неуязвимым </a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:28</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/suorcristina/">Итальянская монахиня записала дебютный альбом каверов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:47</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/kinodnr/">В Донецке пройдет фестиваль российского кино</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:42</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/americancollectionhermitage/">Американка подарила Эрмитажу коллекцию стоимостью два миллиона долларов</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:23</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/picasso/">Обнародовано несколько сотен неизвестных фотографий Пикассо</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:44</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/pirat/">Голливудские компании потребовали у&nbsp;жителя Татарстана 11&nbsp;миллионов рублей</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:40</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/evildead/">«Зловещих мертвецов» превратят в&nbsp;сериал</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">01:37</span> 11 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/11/bardo/">Брижит Бардо потребовала от&nbsp;властей Непала запретить кровавые жертвоприношения</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:53</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/kandinskiinbrasil/">Русский музей привез Кандинского в&nbsp;Бразилию</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:44</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/warcraftmovie/">Названы исполнители главных ролей в&nbsp;фильме по&nbsp;Warcraft</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:14</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/wurstsingle/">Кончита Вурст выпустила новый сингл</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:13</span> 10 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/10/pusto/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/10/16/20141110165723214/top7_6687d24069f535bd49fc14e79df5699c.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/10/pusto/"><span>«Песни в&nbsp;пустоту»: о&nbsp;поколении русского рока 90-х</span>
+</a></h3>
+<div class="rightcol">Глава из&nbsp;книги об&nbsp;эпохе, в&nbsp;которой жизнь билась до&nbsp;крови</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:55</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/potapov/">Названа дата прощания с&nbsp;Александром Потаповым</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:27</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/doctorwho/">Доктор Кто записал видеоролик для мальчика-аутиста</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:29</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/cranbarrest/">Солистка The Cranberries арестована за&nbsp;нападение на&nbsp;стюардессу</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:52</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/girlfriendsguidetodivorce/">В США запретили рекламу сериала «Инструкция по&nbsp;разводу для женщин»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">05:33</span> 10 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/10/pink_floyd/">Группа Pink Floyd выпустила прощальный альбом</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:07</span>  9 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/09/videogametrailers2/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/07/18/20141107183809373/top7_b739383af27d6ded706c6fdfdf0898b0.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/09/videogametrailers2/"><span>Игровые трейлеры недели: от&nbsp;разбитых черепов до&nbsp;трубки мира</span>
+</a></h3>
+<div class="rightcol">В современных играх от&nbsp;ужасного до&nbsp;смешного один клик </div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:11</span>  9 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/09/kish/">В Воронеже открыли памятник лидеру «Короля и&nbsp;Шута»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:41</span>  9 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/09/hearthstoneexpansion/">Взрывоопасных овец добавят в&nbsp;игру Hearthstone</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:18</span>  9 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/09/thegovernorsawards/">Хаяо Миядзаки получил приз Американской киноакадемии</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:37</span>  9 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/09/poroshenko/">Порошенко рассказал о&nbsp;будущем украинского языка</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:04</span>  6 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/08/bestsellinggames/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/06/18/20141106184322502/top7_3519411fee3951ff40d1142a37c43c57.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/08/bestsellinggames/"><span>Игры на&nbsp;миллиард: смерть, секс и&nbsp;покемоны</span>
+</a></h3>
+<div class="rightcol">За что любят Grand Theft Auto и&nbsp;Call of&nbsp;Duty</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">01:44</span>  8 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/08/xrus/">Порошенко отказал русскому языку в&nbsp;статусе государственного</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">01:27</span>  8 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/overwatch/">Cоздатели World of&nbsp;Warcraft анонсировали шутер Overwatch</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:46</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/intothewoods/">Вышел новый трейлер новогодней сказки с&nbsp;Мерил Стрип и&nbsp;Джонни Деппом</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:01</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/downtonabbey/">«Аббатство Даунтон» продлили на&nbsp;шестой сезон</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:02</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/ironsky/">Создатели фильма о&nbsp;нацистах на&nbsp;Луне начали сбор средств на&nbsp;съемки сиквела</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:44</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/coen/">Объявлена дата начала съемок фильма братьев Коэнов «Аве, Цезарь»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:06</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/rouling/">Названа дата выхода нового романа Джоан Роулинг на&nbsp;русском языке</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:44</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/impressionists/">Меценат завещал коллекцию в&nbsp;500&nbsp;миллионов долларов родному городу </a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:11</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/pulledfromsteam/">Игры Far Cry 4&nbsp;и Assassin's Creed: Unity исчезли из&nbsp;Steam</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">06:21</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/picasso/">Рисунки Пикассо обнаружили в&nbsp;банковской ячейке в&nbsp;Вашингтоне</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">03:23</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/toy_story/">«История игрушек 4» выйдет в&nbsp;2017&nbsp;году</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">00:48</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/witcher3dlc/">Покупатели игры «Ведьмак 3» получат бороды в&nbsp;подарок</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">00:06</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/starwars7/">VII эпизод «Звездных войн» получил название «Сила пробуждается»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:23</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/pevuni/">Думскому хору нашли руководителя</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:18</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/damon/">Мэтт Деймон снимется в&nbsp;научно-фантастической сатире Александра Пэйна</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:36</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/perm/">Пермский театр «У Моста» покажет в&nbsp;Москве «На дне»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:33</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/grey/">Рэпер Серега выпустит свои «50&nbsp;оттенков Серого»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:57</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/paul/">Обнаружена неизвестная песня Пола Маккартни</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:11</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/zombi/">В Санкт-Петербурге покажут зомби-мюзикл</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:32</span>  5 ноября 2014</span>
+</div>
+<a href="http://age.lenta.ru/generation/articles/2014/10/31/bagrov/" class="js-dh picture"><img alt="Петр Багров. Фото предоставлено автором" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/05/20/20141105202628657/top7_e8b1474b230e7bd445ff61daa7cc9e5a.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="http://age.lenta.ru/generation/articles/2014/10/31/bagrov/"><span>«Старое кино может быть массовым»</span>
+</a></h3>
+<div class="rightcol">Киновед Петр Багров о&nbsp;забытых режиссерах и&nbsp;фильмах на&nbsp;все времена </div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<div class="span4">
+<section class="b-yellow-box">
+<div class="b-yellow-box__wrap">
+<h2 class="bordered-title">Последние новости</h2>
+<div class="item">
+<time class="g-time" datetime=" 12:27, 19 ноября 2014" title="19 ноября 2014">12:27</time>
+
+<a href="/news/2014/11/19/moon/">Британский робот закопает на&nbsp;Луне волосы и&nbsp;фотографии землян</a>
+</div>
+<div class="item">
+<time class="g-time" datetime=" 13:11, 19 ноября 2014" title="19 ноября 2014">13:11</time>
+
+<a href="/news/2014/11/19/lavrov_statement/">В МИД России заявили о&nbsp;готовности Москвы сотрудничать с&nbsp;Вашингтоном</a>
+</div>
+<div class="item">
+<time class="g-time" datetime=" 12:54, 19 ноября 2014" title="19 ноября 2014">12:54</time>
+
+<a href="/news/2014/11/19/prohovov/">Прохоров вспомнил об&nbsp;обещании подарить Жириновскому «ё-мобиль»</a>
+</div>
+<div class="item">
+<time class="g-time" datetime=" 12:59, 19 ноября 2014" title="19 ноября 2014">12:59</time>
+
+<a href="/news/2014/11/19/kadyrov/">Кадыров запретил детям прогуливать школу</a>
+</div>
+<div class="item">
+<time class="g-time" datetime=" 13:09, 19 ноября 2014" title="19 ноября 2014">13:09</time>
+
+<a href="/news/2014/11/19/ashram/">Три тысячи полицейских начали штурм ашрама в&nbsp;Индии</a>
+</div>
+<div class="item">
+<time class="g-time" datetime=" 12:41, 19 ноября 2014" title="19 ноября 2014">12:41</time>
+
+<a href="/news/2014/11/19/osmaev/">Фигурант дела о&nbsp;подготовке покушения на&nbsp;Путина решил защищать Украину</a>
+</div>
+<div class="item">
+<time class="g-time" datetime=" 12:24, 19 ноября 2014" title="19 ноября 2014">12:24</time>
+
+<a href="/news/2014/11/19/lavrov/">Лавров назвал причины разногласий России и&nbsp;ЕС объективными </a>
+</div>
+</div>
+</section>
+
+<div class="b-banner-sidebar-decorator js-advert"><script type="text/javascript">
+  <!--
+  if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+  if (typeof(document.referrer) != 'undefined') {
+    if (typeof(afReferrer) == 'undefined') {
+      afReferrer = escape(document.referrer);
+    }
+  } else {
+    afReferrer = '';
+  }
+  var addate = new Date();
+  
+  var scrheight = '', scrwidth = '';
+  if (self.screen) {
+  scrwidth = screen.width;
+  scrheight = screen.height;
+  } else if (self.java) {
+  var jkit = java.awt.Toolkit.getDefaultToolkit();
+  var scrsize = jkit.getScreenSize();
+  scrwidth = scrsize.width;
+  scrheight = scrsize.height;
+  }
+  
+  var dl = escape(document.location);
+  var pr1 = Math.floor(Math.random() * 1000000);
+  
+  var criteo=0;
+  if (crtg_content){criteo = ((crtg_content.indexOf("crlen240=1") !=-1))?("crlen240=1"):("0");}
+  
+  document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+  document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+  
+  AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/171817/prepareCode?p1=bluqt&amp;p2=emhk&amp;pct=c&amp;pfc=a&amp;pfb=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;puid1=&amp;puid2=&amp;puid3='+_montblanc.get('4i', '')+'&amp;puid4='+_montblanc.get('c6', '')+'&amp;puid5=&amp;puid6=CULTURE&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=' + _montblanc.get('dd', '') + '&amp;puid12=&amp;puid13=&amp;puid14=&amp;puid15=0&amp;puid16=&amp;puid17=&amp;puid18=main&amp;puid19=&amp;puid20=&amp;puid21=&amp;puid22='+_montblanc.get('y1', '')+'&amp;puid23='+criteo+'&amp;puid24=&amp;puid25=&amp;puid26=&amp;puid27=&amp;puid28=&amp;puid29=&amp;puid30=&amp;puid31=&amp;puid32=&amp;puid33='+_montblanc.get('bj', '')+'&amp;puid34=&amp;puid35=&amp;puid37='+ _montblanc.get('k4', '') + '&puid38=' + _montblanc.get('x3', '')+ '&pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+  // -->
+</script></div>
+<div class="b-banner-sidebar-promo-decorator js-advert"><script type="text/javascript">
+  <!--
+  if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+  if (typeof(document.referrer) != 'undefined') {
+    if (typeof(afReferrer) == 'undefined') {
+      afReferrer = escape(document.referrer);
+    }
+  } else {
+    afReferrer = '';
+  }
+  var addate = new Date();
+  
+  var scrheight = '', scrwidth = '';
+  if (self.screen) {
+  scrwidth = screen.width;
+  scrheight = screen.height;
+  } else if (self.java) {
+  var jkit = java.awt.Toolkit.getDefaultToolkit();
+  var scrsize = jkit.getScreenSize();
+  scrwidth = scrsize.width;
+  scrheight = scrsize.height;
+  }
+  
+  var dl = escape(document.location);
+  var pr1 = Math.floor(Math.random() * 1000000);
+  
+  var criteo=0;
+  if (crtg_content){criteo = ((crtg_content.indexOf("crlen240=1") !=-1))?("crlen240=1"):("0");}
+  
+  document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+  document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+  
+  AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/171817/prepareCode?p1=bmdxz&amp;p2=ewtr&amp;pct=a&amp;pfc=a&amp;pfb=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;puid1=&amp;puid2=&amp;puid3='+_montblanc.get('4i', '')+'&amp;puid4='+_montblanc.get('c6', '')+'&amp;puid5=&amp;puid6=CULTURE&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=' + _montblanc.get('dd', '') + '&amp;puid12=&amp;puid13=&amp;puid14=&amp;puid15=0&amp;puid16=&amp;puid17=&amp;puid18=main&amp;puid19=&amp;puid20=&amp;puid21=&amp;puid22='+_montblanc.get('y1', '')+'&amp;puid23='+criteo+'&amp;puid24=&amp;puid25=&amp;puid26=&amp;puid27=&amp;puid28=&amp;puid29=&amp;puid30=&amp;puid31=&amp;puid32=&amp;puid33='+_montblanc.get('bj', '')+'&amp;puid34=&amp;puid35=&amp;puid37='+ _montblanc.get('k4', '') + '&puid38=' + _montblanc.get('x3', '')+ '&pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+  // -->
+</script></div>
+<div class="b-banner-sidebar-extra-decorator js-advert"><script type="text/javascript">
+  <!--
+  if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+  if (typeof(document.referrer) != 'undefined') {
+    if (typeof(afReferrer) == 'undefined') {
+      afReferrer = escape(document.referrer);
+    }
+  } else {
+    afReferrer = '';
+  }
+  var addate = new Date();
+  
+  var scrheight = '', scrwidth = '';
+  if (self.screen) {
+  scrwidth = screen.width;
+  scrheight = screen.height;
+  } else if (self.java) {
+  var jkit = java.awt.Toolkit.getDefaultToolkit();
+  var scrsize = jkit.getScreenSize();
+  scrwidth = scrsize.width;
+  scrheight = scrsize.height;
+  }
+  
+  var dl = escape(document.location);
+  var pr1 = Math.floor(Math.random() * 1000000);
+  
+  var criteo=0;
+  if (crtg_content){criteo = ((crtg_content.indexOf("crlen240=1") !=-1))?("crlen240=1"):("0");}
+  
+  document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+  document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+  
+  AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/171817/prepareCode?p1=bmdxy&amp;p2=ewtq&amp;pct=a&amp;pfc=a&amp;pfb=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;puid1=&amp;puid2=&amp;puid3='+_montblanc.get('4i', '')+'&amp;puid4='+_montblanc.get('c6', '')+'&amp;puid5=&amp;puid6=CULTURE&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=' + _montblanc.get('dd', '') + '&amp;puid12=&amp;puid13=&amp;puid14=&amp;puid15=0&amp;puid16=&amp;puid17=&amp;puid18=main&amp;puid19=&amp;puid20=&amp;puid21=&amp;puid22='+_montblanc.get('y1', '')+'&amp;puid23='+criteo+'&amp;puid24=&amp;puid25=&amp;puid26=&amp;puid27=&amp;puid28=&amp;puid29=&amp;puid30=&amp;puid31=&amp;puid32=&amp;puid33='+_montblanc.get('bj', '')+'&amp;puid34=&amp;puid35=&amp;puid37='+ _montblanc.get('k4', '') + '&puid38=' + _montblanc.get('x3', '')+ '&pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+  // -->
+</script></div>
+
+
+<section class="b-longgrid-column">
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">09:42</span> 23 октября 2014</span>
+</div>
+<a href="/articles/2014/10/23/ozon/" class="js-dh picture"><img alt="Франсуа Озон" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/23/09/20141023092307747/top7_c6bd5241858677631f526915e78a462f.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/23/ozon/"><span>Глоток Озона</span>
+</a></h3>
+<div class="rightcol">Франсуа Озон рассказал «Ленте.ру» о&nbsp;своей трансгендерной мелодраме «Новая подружка»</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">09:56</span> 14 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/14/presley/">Первую запись Элвиса Пресли продадут на&nbsp;аукционе</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:31</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/ato/">Порошенко призвал увековечить участников АТО в&nbsp;произведениях искусства </a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:40</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/cadillac/">Розовый Cadillac Пресли привезут в&nbsp;Лондон</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:02</span>  6 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/06/boox1/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/06/12/20141106122342573/top7_e99d9ce20d9c3237c927d5427ae49db1.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/06/boox1/"><span>Читаем сами: как спрятаться от&nbsp;Большого Брата и&nbsp;стать настоящей женщиной</span>
+</a></h3>
+<div class="rightcol">Книжный обзор от «Ленты.ру»</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:19</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/zvyagintcev/">Андрей Звягинцев сравнил Россию с&nbsp;минным полем</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:21</span>  7 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/07/gaycountry/">Кантри-песней года в&nbsp;США назвали композицию о&nbsp;геях и&nbsp;марихуане</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:18</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/grebenshchikov/">Борис Гребенщиков обогнал Ивана Дорна в&nbsp;чартах российского iTunes</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:12</span>  6 ноября 2014</span>
+</div>
+<a href="/articles/2014/11/06/lebedeva/" class="js-dh picture"><img alt="Костаки на фоне картин А. Древина из своей коллекции" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/06/14/20141106142347988/top7_0588198f20e4b19bbd6365b1436d0b51.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/11/06/lebedeva/"><span>Выезд из&nbsp;СССР разрешить</span>
+</a></h3>
+<div class="rightcol">Директор Третьяковской галереи — о&nbsp;коллекционере Георгии Костаки</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">22:52</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/petrenko/">Умер бывший солист группы «Дюна»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:52</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/stone/">Оливер Стоун собрался снять фильм о&nbsp;Путине</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:58</span>  6 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/06/cheburashka/">Японский «Чебурашка» вернул права на&nbsp;прокат в&nbsp;России</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:53</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/lauder/">Глава еврейского конгресса пригрозил судом музею Берна</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">11:22</span>  7 ноября 2014</span>
+</div>
+<a href="http://age.lenta.ru/generation/articles/2014/11/07/krizhovnikov/" class="js-dh picture"><img alt="Жора Крыжовников" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/11/07/15/20141107152215261/top7_cdd1f55b8c39bdf8ee8e1b8aa3403399.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="http://age.lenta.ru/generation/articles/2014/11/07/krizhovnikov/"><span>«На самом деле комедия рассказывает про очень простое»</span>
+</a></h3>
+<div class="rightcol">Режиссер «Горько!» об «Афоне», добровольной диктатуре и&nbsp;инфантилизме</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:23</span>  5 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/05/bapki/">Мирей Матье споет с «Бурановскими бабушками»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">01:19</span>  1 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/01/bienn15/">VI Московская биеннале будет посвящена прогрессивной Евразии</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:51</span> 31 октября 2014</span>
+</div>
+<a href="/photo/2014/10/31/porechenkov/" class="js-dh b-badge picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/31/15/20141031152123295/top7_beb11d69883ebd6d4ce0b35ca13e7aa6.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+<i class="icon-sprite icons-badge_photo"></i>
+</a>
+<div class="titles">
+<h3>
+<a href="/photo/2014/10/31/porechenkov/"><span>Беспечный стрелок</span>
+</a></h3>
+<div class="rightcol">Любимые игрушки Михаила Пореченкова</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:46</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/gulag/">Музею истории ГУЛАГа выделили новое здание</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:12</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/santa/">В Великобритании умер Санта Клаус из&nbsp;рекламы «Кока-колы»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:21</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/ictv/">Украинский телеканал отказался показывать сериал с&nbsp;Пореченковым</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:53</span> 30 октября 2014</span>
+</div>
+<a href="/articles/2014/10/30/logan/" class="js-dh picture"><img alt="Логан Лерман" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/30/14/20141030142051249/top7_cd097a31b59a9d0ed68591165e1c1130.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/30/logan/"><span>«Брэд Питт стал для меня идеальным отцом»</span>
+</a></h3>
+<div class="rightcol">Исполнитель одной из&nbsp;главных ролей в&nbsp;фильме «Ярость» Логан Лерман в&nbsp;интервью «Ленте.ру» </div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:45</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/harris/">Нил Патрик Харрис с&nbsp;мужем появятся в «Американской истории ужасов»</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">20:04</span> 29 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/29/starwarfanfuckers/">Юэн МакГрегор назвал фанатов «Звездных Войн» жалкими паразитами</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:29</span> 29 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/29/doctorwho/">Профессор из&nbsp;США начал курс лекций по&nbsp;сериалу «Доктор Кто»</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:27</span> 29 октября 2014</span>
+</div>
+<a href="/photo/2014/10/29/hopkins/" class="js-dh b-badge picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/29/14/20141029142635343/top7_891cd3812d2f160987ba7da2ed185407.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+<i class="icon-sprite icons-badge_photo"></i>
+</a>
+<div class="titles">
+<h3>
+<a href="/photo/2014/10/29/hopkins/"><span>Несказочное королевство</span>
+</a></h3>
+<div class="rightcol">Послевоенная Великобритания в&nbsp;фотографиях Тарстона Хопкинса</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:12</span> 28 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/28/ebolapushplague/">Страх перед лихорадкой Эбола удвоил закачки игры о&nbsp;вирусах</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:31</span> 28 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/28/dorogipo/">Минкультуры будет бесплатно водить школьников по&nbsp;музеям</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:56</span> 28 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/28/cleiman/">Наум Клейман пригрозил судом директору Музея кино</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:22</span> 28 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/28/matahari/">Начались съемки российского сериала «Мата Хари» с&nbsp;Джоном Малковичем</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:31</span> 29 октября 2014</span>
+</div>
+<a href="/articles/2014/10/29/artplagiat/" class="js-dh picture"><img alt="Шерри Ливайн «Фонтан (Будда)», 1996, Марсель Дюшан «Фонтан», 1917" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/28/16/20141028163628646/top7_6790d8e00e4a24fdfa2b6409f4111683.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/29/artplagiat/"><span>Как украсть картину и не париться</span>
+</a></h3>
+<div class="rightcol">Чем отличается подражание от&nbsp;плагиата в&nbsp;современном искусстве</div>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:09</span> 28 октября 2014</span>
+</div>
+<a href="/articles/2014/10/28/bodrov/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/27/15/20141027153240846/top7_0a65fc12f80246cba200f544508000b1.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/28/bodrov/"><span>«Снять фильм о&nbsp;современной России я&nbsp;не смогу»</span>
+</a></h3>
+<div class="rightcol">Режиссер Сергей Бодров-старший приехал в&nbsp;Россию, чтобы представить свой новый фильм «Седьмой сын»</div>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:02</span> 27 октября 2014</span>
+</div>
+<a href="/articles/2014/10/27/martin/" class="js-dh picture"><img alt="Джордж Р.Р. Мартин" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/24/11/20141024113731364/top7_506405028666c63169eaf011964e4aed.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/27/martin/"><span>Создатель «Игры престолов» — сумасшедший фанат комиксов</span>
+</a></h3>
+<div class="rightcol"> Писатель Джордж Р.Р. Мартин о&nbsp;любимых героях, налоговых льготах и&nbsp;страшном горностае</div>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:00</span> 30 октября 2014</span>
+</div>
+<a href="/articles/2014/10/30/dalimedia/" class="js-dh picture"><img alt="Сальвадор Дали" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/29/14/20141029140546678/top7_1b98e95c9245db80fd5b16858c9f9d17.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/30/dalimedia/"><span>Сальвадор Дали и&nbsp;его чупа-чупс</span>
+</a></h3>
+<div class="rightcol">Знаменитый сюрреалист в&nbsp;свободное от&nbsp;живописи и&nbsp;писательства время зарабатывал на&nbsp;жизнь в&nbsp;рекламе</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:29</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/glass/">Посетителей американских кинотеатров оставили без Google Glass</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:19</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/polanski/">США попросили Польшу задержать Романа Полански</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:33</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/roberts/">Джулию Робертс выдвинули на&nbsp;феминистскую кинопремию</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:41</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/gatsby/">Балет Константина Меладзе «Великий Гэтсби» покажут в&nbsp;Кремле</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">14:46</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/miketysonfallon/">Виртуальный Майк Тайсон победил реального в&nbsp;телешоу</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:01</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/polandusa/">Польша отказала США в&nbsp;аресте режиссера Полански</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">08:17</span> 30 октября 2014</span>
+</div>
+<a href="/articles/2014/10/30/fiennes/" class="js-dh picture"><img alt="Рэйф Файнс" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/29/17/20141029171528700/top7_9ac4b6094df48d14044e96f7e897533a.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/30/fiennes/"><span>«"Гарри Поттера" я&nbsp;никогда не&nbsp;читал»</span>
+</a></h3>
+<div class="rightcol">Звезда мирового кино, актер и&nbsp;режиссер Рэйф Файнс в&nbsp;эксклюзивном интервью «Ленте.ру»</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:44</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/xboxentertainmentnomore/">Microsoft отказалась от&nbsp;собственной телестудии</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">10:52</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/buran/">Новые «Бурановские бабушки» выступят на&nbsp;юбилее Пахмутовой</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:21</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/russianartchristies/">На аукционе в&nbsp;Лондоне продадут картины Серова и&nbsp;работы фирмы Фаберже</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">17:23</span> 30 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/30/robbie/">Робби Уильямс впервые выступит в&nbsp;Петербурге</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:21</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/nutcracker/">«Балет Якобсона» покажет «Щелкунчика» в&nbsp;Крыму</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:38</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/arni/">В новом «Терминаторе» появится молодой Шварценеггер</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">15:30</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/kottispytanie/">Российский фильм получил два приза 27-го Токийского международного кинофестиваля</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">07:34</span> 31 октября 2014</span>
+</div>
+<a href="/articles/2014/10/31/kino31oct/" class="js-dh picture"><img alt="" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/30/16/20141030165207154/top7_b1bb59d8511a45c62ca02f985a6354dd.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/31/kino31oct/"><span>Кино недели: Брэд Питт идет на&nbsp;войну, Дженнифер Лоуренс живет в&nbsp;аду</span>
+</a></h3>
+<div class="rightcol">Пятничный спойлер от&nbsp;Геннадия Устияна</div>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">06:12</span>  3 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/columns/2014/11/03/major/"><author>Игорь Мальцев:</author>
+<span>Платины не&nbsp;будет...</span>
+</a></h3>
+<div class="rightcol">или Когда эти мейджоры все-таки завалятся набок</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:37</span>  3 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/03/progamerretires/">Геймеру заплатят 800&nbsp;тысяч долларов в&nbsp;год за&nbsp;игру в&nbsp;League of&nbsp;Legends</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:20</span>  1 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/01/nika/">Борис Акунин обвинил Николая II&nbsp;в сталинских репрессиях</a>
+</h3>
+</div>
+</div>
+<div class="article item">
+<div class="info g-date">
+<span class="g-date"><span class="time">19:30</span> 31 октября 2014</span>
+</div>
+<a href="/articles/2014/10/31/rev/" class="js-dh picture"><img alt="Харьков, изд. Политуправления Юго-Западного фронта, 1920" class="g-picture" height="200" src="http://icdn.lenta.ru/images/2014/10/31/18/20141031181436983/top7_5b3c9a2863ad9f05ad74d623a82307a1.jpg" style="max-width: 300px; width: 300px; height: 200px;" width="300" />
+</a>
+<div class="titles">
+<h3>
+<a href="/articles/2014/10/31/rev/"><span>Красная гидра и&nbsp;белый пароход</span>
+</a></h3>
+<div class="rightcol">Гражданская война в&nbsp;плакатах идеологических противников</div>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">16:46</span>  3 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/03/milli/">Эмма Уотсон посвятила премию Britannia Award погибшему хомяку</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">18:28</span> 31 октября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/10/31/prey2nomore/">Bethesda официально отменила научно-фантастический шутер Prey 2</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">12:34</span>  4 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/04/obpushkina/">В Севастополе запретили премьеру фильма о&nbsp;дуэли Пушкина с&nbsp;Лермонтовым</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">13:35</span>  3 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/03/jops/">В Санкт-Петербурге демонтирован памятник Стиву Джобсу </a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">03:06</span>  1 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/01/dylan/">Боб Дилан выпустит новый альбом в&nbsp;2015&nbsp;году</a>
+</h3>
+</div>
+</div>
+<div class="item">
+<div class="info g-date">
+<span class="g-date"><span class="time">06:07</span>  4 ноября 2014</span>
+</div>
+<div class="titles">
+<h3>
+<a href="/news/2014/11/04/timofeeva/">Умерла балерина Нина Тимофеева</a>
+</h3>
+</div>
+</div>
+</section>
+
+</div>
+<div id="more"></div>
+</div>
+</div>
+</section>
+<div id="yandex_ad_bottom"></div>
+<script type="text/javascript">
+  (function(w, d, n, s, t) {
+      w[n] = w[n] || [];
+      w[n].push(function() {
+          Ya.Direct.insertInto(127680, "yandex_ad_bottom", {
+              stat_id: 1,
+              ad_format: "direct",
+              font_size: 1,
+              type: "horizontal",
+              limit: 3,
+              title_font_size: 2,
+              site_bg_color: "FFFFFF",
+              header_bg_color: "FEEAC7",
+              title_color: "000000",
+              url_color: "cc3333",
+              text_color: "656565",
+              hover_color: "cc3333",
+              favicon: false,
+              no_sitelinks: true
+          });
+      });
+      t = d.getElementsByTagName("script")[0];
+      s = d.createElement("script");
+      s.src = "http://an.yandex.ru/system/context.js";
+      s.type = "text/javascript";
+      s.async = true;
+      t.parentNode.insertBefore(s, t);
+  })(window, document, "yandex_context_callbacks");
+</script>
+<style type="text/css">
+  #yandex_ad_bottom{
+    padding-bottom: 16px;
+  }
+  
+  #yandex_ad_bottom .yap-logo{
+    border-top: 1px solid #d5d5d5 !important;
+    margin-top: 10px;
+    background-color: transparent !important;
+    width: 100% !important;
+  }
+  
+  #yandex_ad_bottom .yap-logo .yap-logo-position{
+    margin-top: -10px;
+  }
+  
+  #yandex_ad_bottom .yap-reset a.yap-logo-text{
+    font-family: "PT Serif" !important;
+    font-style: italic !important;
+    background: #ffffff  !important;
+    padding-left: 4px !important;
+    margin-left: 21px !important;
+    color: #656565 !important;
+   }
+  
+  .yap-reset img.yap-image {
+    display: none !important;
+  }
+  
+  #yandex_ad_bottom .ya-partner_type_horiz .ya-partner__list{
+    margin-top: 9px!important;
+    padding: 0 30px!important;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item a.yap-title-text {
+      font-size: 115% !important;
+      font-weight: bold !important;
+      text-decoration: none !important;
+      color: #000000  !important;
+      -webkit-transition: color 0.2s;
+      -moz-transition: color 0.2s;
+      -o-transition: color 0.2s;
+      transition: color 0.2s;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item a.yap-title-text:visited {
+      color: #000000  !important;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item a.yap-title-text:link {
+      color: #000000  !important;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item a.yap-title-text:hover {
+      color: #CC3333  !important;
+  }
+  
+  .yap-list-wrapper {
+      padding-left: 19px !important;
+      padding-right: 19px !important;
+      padding-top: 7px !important;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item .yap-picture-block {
+      display: none !important;
+  }
+  
+  #yandex_ad_bottom #yap-yandex_ad_bottom-horizontal .yap-main .yap-font-family {
+      font-family: "PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item .yap-title-block {
+       padding-bottom: 0.23em !important;
+  }
+  
+  #yap-yandex_ad_bottom-horizontal .yap-item .yap-contacts {
+      padding-top: 0,4em !important;
+  }
+</style>
+
+
+<section class="b-tabloid">
+<div class="g-layout">
+<div class="b-tabloid__row row">
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/russia/">Россия</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/kapremont/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/20/20141118204218125/tabloid_670dc8f5e055b2dc2f0836e7d047e1fb.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/kapremont/" class="article js-dh">«Точку невозврата мы&nbsp;пройдем через 5-7&nbsp;лет!»</a>
+<div class="rightcol">Общественная палата Москвы поддержала введение платы за&nbsp;капремонт в&nbsp;столице</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/lavrov/">Лавров назвал причины разногласий России и&nbsp;ЕС объективными </a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/prohovov/">Прохоров вспомнил об&nbsp;обещании подарить Жириновскому «ё-мобиль»</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/markvo/">СК усмотрел признаки мошенничества в&nbsp;деле Маркво</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/chel/">Ростехнадзор установит мощность взрыва под Челябинском</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/onf/" class="js-dh"><img alt="Владимир Путин" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/23/20141118233735364/tabloid_b5414a8fe1f796330938ac15bfd1e984.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/onf/" class="article js-dh">«Мы не&nbsp;троцкисты, нам нужен результат»</a>
+<div class="rightcol">«Лента.ру» побывала на&nbsp;форуме Общероссийского народного фронта </div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/chicken/">Матвиенко озаботилась придумыванием имен для вылупившихся в&nbsp;Совфеде цыплят</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/russia/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/world/">Мир</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/northernchristians/" class="js-dh"><img alt="Православные священники в пхеньянском храме" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/16/20141118165418581/tabloid_a664dfa57330f0eaade207a170c59c75.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/northernchristians/" class="article js-dh">Христианское подполье</a>
+<div class="rightcol">Последователи Христа сумели создать в&nbsp;КНДР нелегальные общественные структуры</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/ebola/">В Сьерра-Леоне кубинский врач заболел лихорадкой Эбола</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/ashram/">Три тысячи полицейских начали штурм ашрама в&nbsp;Индии</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/jerusalem/">Полицейский стал пятой жертвой нападения на&nbsp;синагогу в&nbsp;Иерусалиме</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/hollande/">Олланд подтвердил участие французов в&nbsp;казни заложников в&nbsp;Сирии</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/nsa/">Сенат отказался рассматривать ограничивающий права АНБ законопроект</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/hongkong/">Протестующие ворвались в&nbsp;законодательное собрание Гонконга</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/world/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/ussr/">Бывший СССР</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/19/ca/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/15/20141118151128775/tabloid_8e385a72dbe38d9836b7c7e3c80862fa.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/19/ca/" class="article js-dh">Азиатское эхо Крыма</a>
+<div class="rightcol">Почему схватка России и&nbsp;Запада может привести к&nbsp;взрыву в&nbsp;Средней Азии</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/duel/">Глава ЛНР вызвал Порошенко на&nbsp;дуэль</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/osmaev/">Фигурант дела о&nbsp;подготовке покушения на&nbsp;Путина решил защищать Украину</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/court/">Украинской активистке простили приготовление яичницы на&nbsp;Вечном огне</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/akhmetov/">Бывшего премьер-министра Казахстана обвинили в&nbsp;коррупции</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/resignation/">Порошенко принял отставку губернаторов-националистов</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/biden/">США оставили за&nbsp;Киевом «право на&nbsp;самооборону»</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/ussr/">Все материалы</a>
+</div>
+</div>
+</div>
+<div class="b-tabloid__row row">
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/economics/">Экономика</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/19/salary/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/17/20141118175750766/tabloid_ae5a908ddcc05888b0b3045a750f083f.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/19/salary/" class="article js-dh">На темной стороне</a>
+<div class="rightcol">Почему в&nbsp;России стремительно «сереют» зарплаты</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/vkontakte/">Сергеев из «ВКонтакте» назначен первым заместителем гендиректора Mail.Ru</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/tbillsrussia/">Россия сократила вложения в&nbsp;облигации США впервые с&nbsp;мая</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/lose/">Путин рассказал о&nbsp;потере Западом российского рынка из-за санкций</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/neft/">В США допустили обвал цены на&nbsp;нефть до&nbsp;50&nbsp;долларов за&nbsp;баррель</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/putrouble/">Путин назвал решение ЦБ&nbsp;о свободном курсе рубля единственно правильным</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/rosneft/">«Роснефть» продаст в&nbsp;Ванкорском проекте более 10&nbsp;процентов</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/economics/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/forces/">Силовые структуры</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/19/murder/" class="js-dh"><img alt="Елена Патрушева" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/19/09/20141119093927037/tabloid_676edf4c96551e4e0973da8af2ac3de3.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/19/murder/" class="article js-dh">Отелло и&nbsp;Дездемона XXI века </a>
+<div class="rightcol">История одного убийства</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/3division/">На Камчатке развернут полк С-400&nbsp;увеличенного состава</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/robbery/">Ограблен дом зампрефекта Южного округа Москвы</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/blackjack/">Модернизированный Ту-160&nbsp;совершил первый полет</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/russiachina/">Россия и&nbsp;КНР проведут совместные морские учения в&nbsp;2015&nbsp;году</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/privatbank/">Суд Симферополя признал 11-миллиардный долг банка Коломойского</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/illbeback/">Российский экипаж вернулся на&nbsp;первый «Мистраль»</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/forces/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/science/">Наука и техника</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/16/philae/" class="js-dh"><img alt="Ведущая BBC рассказывает о комете 67P/Чурюмова-Герасименко в программе для детей" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/17/08/20141117083727671/tabloid_1922f5b5c4524910b9dda7aacea6f03a.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/16/philae/" class="article js-dh">Пенетратор не&nbsp;помог</a>
+<div class="rightcol">Три сумасшедших дня Philae на&nbsp;поверхности кометы</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/viber/">Viber предложил следить за&nbsp;дискуссиями знаменитостей</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/samsungflex/">Samsung выпустит смартфон с&nbsp;гибким дисплеем</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/photo/2014/11/19/nano/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/13/20141118132306118/tabloid_9053f170c161fdb9ef456b4e98bbdc0f.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/photo/2014/11/19/nano/" class="article js-dh">Ню под микроскопом</a>
+<div class="rightcol">Женскую фигуру высотой в&nbsp;100&nbsp;микрон объявили самой маленькой скульптурой в&nbsp;мире</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/stress/">Биологи доказали пользу тяжелого детства для будущих поколений</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/nokiatablet/">Nokia вернулась на&nbsp;рынок гаджетов</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/bubbles/">Ученые рассмотрели влияние этнического фактора на&nbsp;биржевые спекуляции</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/science/">Все материалы</a>
+</div>
+</div>
+</div>
+<div class="b-tabloid__row row">
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/weapons/">Оружие</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/19/selfdefense/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/19/10/20141119105526778/tabloid_6ad32eb7f34e370b0387d357fcaae6c1.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/19/selfdefense/" class="article js-dh">Пшик вместо революции</a>
+<div class="rightcol">Правительство внесло формальные поправки в&nbsp;правила оборота оружия в&nbsp;России</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/procurement/">Филиппины потратят на&nbsp;покупку оружия 91&nbsp;миллиард песо</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/selfdefence/">Россиянам разрешили носить оружие для самообороны</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/desert/">Американцы создали три новых версии пистолета Desert Eagle 1911</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/a400m/">Великобритания получила первый транспортник A400M</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/sikorsky/">Армия и&nbsp;ВМС США купили 102&nbsp;вертолета Sikorsky</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/beretta/">Дизайнер Apple доработает охотничье оружие Beretta</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/weapons/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/sport/">Спорт</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/granprirussia/" class="js-dh"><img alt="Елена Ильиных и Никита Кацалапов " class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/15/20141118150911546/tabloid_e95852187875865e11e887f451bb503c.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/granprirussia/" class="article js-dh">Слезы и&nbsp;вода московского льда</a>
+<div class="rightcol">В Москве прошла первая битва бывших партнеров олимпийского Сочи</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/maloyan/">Футболист тульского «Арсенала» требовал «Порше» за&nbsp;игру в&nbsp;сборной Армении</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/schumacher/">Друг Шумахера рассказал о&nbsp;проблемах гонщика с&nbsp;памятью и&nbsp;речью </a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/howard/">Звезду НБА заподозрили в&nbsp;жестоком обращении с&nbsp;сыном</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/pobeda/">Сборная России одержала победу в&nbsp;матче с&nbsp;Венгрией</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/onlines/2014/11/18/capello/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/12/20141118120622754/tabloid_a9d2b84ea955f99ce76dc91e30e2c973.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/onlines/2014/11/18/capello/" class="article js-dh">Венгрия — Россия — 1:2</a>
+<div class="rightcol">Подопечные Фабио Капелло выиграли последний матч в&nbsp;2014&nbsp;году</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/mutko/">Мутко исключил вероятность увольнения Капелло</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/sport/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/culture/">Культура</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/19/albertina/" class="js-dh"><img alt="Никола Пуссен. «Нимфа, седлающая козла, с сатиром и спящим амуром», около1626-27 г." class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/16/20141118164602708/tabloid_b78a723c8fdfa75b883f9d327f85f316.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/19/albertina/" class="article js-dh">«Современное искусство — мера нашего времени»</a>
+<div class="rightcol">Рисунки французских мастеров из&nbsp;музея Альбертина в&nbsp;ГМИИ</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/fx/">В США снимут сериал о&nbsp;Джеке Потрошителе</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/monet/">В Петербурге покажут «ожившие» полотна Моне и&nbsp;Ренуара</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/kanobucard/">В России появилась кредитная карта для геймеров</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/groot/">Грут из «Стражей галактики» заговорил на&nbsp;15&nbsp;языках</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/raphop/" class="js-dh"><img alt="The Fat Boys" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/13/14/20141113145124063/tabloid_ab8fa4661164d2ede9063b0406e26a92.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/raphop/" class="article js-dh">Весь черный и&nbsp;в золоте</a>
+<div class="rightcol">Золотая эра хип-хопа на «Ленте.ру»</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/lydon/">Вокалист Sex Pistols потратил 10&nbsp;тысяч фунтов на&nbsp;приложения для iPad</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/culture/">Все материалы</a>
+</div>
+</div>
+</div>
+<div class="b-tabloid__row row">
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/media/">Интернет и СМИ</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/virus/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/13/20141118134855008/tabloid_031e757e18ef91a6796312c78d7ad281.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/virus/" class="article js-dh">Всемирная история заражений</a>
+<div class="rightcol">Как эволюционировали компьютерные вирусы</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/twitter/">Twitter запустит поиск по&nbsp;всем публичным сообщениям-твитам</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/bubnov/">Футбольный эксперт рассказал об&nbsp;увольнении с&nbsp;телеканала за&nbsp;критику Мутко</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/fbgroups/">Facebook запустила мобильное приложение для общения в&nbsp;группах</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/whatsapp/">Сервис WhatsApp защитил сообщения от&nbsp;перехвата</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/19/lessinvsecho/" class="js-dh"><img alt="Михаил Лесин" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/19/02/20141119022855181/tabloid_ca71baa3f9033eeea54902ad90efaeb6.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/19/lessinvsecho/" class="article js-dh">«Проблема не&nbsp;в Плющеве и&nbsp;даже не&nbsp;в морали»</a>
+<div class="rightcol">Михаил Лесин рассказал «Ленте.ру» о&nbsp;конфликте с «Эхом Москвы» и&nbsp;продаже радиостанции</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/echo/">Алексей Венедиктов решил купить «Эхо Москвы»</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/media/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/life/">Из жизни</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/thrown/" class="js-dh"><img alt="Закиданный яйцами портрет итальянского премьер-министра Маттео Ренци" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/15/20141118155112451/tabloid_b1af65c6168e271eb1fa111ab8741b0a.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/thrown/" class="article js-dh">Яйцо для президента</a>
+<div class="rightcol">Какие предметы эффективнее всего бросать в&nbsp;политиков</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/photo/2014/11/19/insannequins/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/17/20141118171105445/tabloid_98ebd1f36d7519069a81c4daf74cf3cb.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/photo/2014/11/19/insannequins/" class="article js-dh">Манекен или пугало?</a>
+<div class="rightcol">Фотогалерея плодов творчества незадачливых оформителей витрин</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/18/fashionlazynessiscool/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/17/15/20141117155321833/tabloid_9400eca40d6ebe03f97d379c15fee781.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/18/fashionlazynessiscool/" class="article js-dh">Немодные, зато успешные</a>
+<div class="rightcol">Для чего Обама, Меркель и&nbsp;Цукерберг сделали невыразительную одежду своей фишкой</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/sexiestguy2014/">Самым сексуальным мужчиной 2014&nbsp;года признан Крис Хемсворт</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/19/dog/">Мэром Сан-Франциско на&nbsp;один день стала собака</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/russianchallenge/">Российский ученый облился жидким азотом в&nbsp;рамках Ice Bucket Challenge</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/bull/">Продюсер «Симпсонов» помог спасти ирландского быка-гея</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/life/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title" style="border-top-color: black">
+<a href="/rubrics/motor/" class="icons-sprite icons-logo_motor"></a>
+<a href="http://motor.ru" class="outer_link icons-sprite icons-outer_link" target="_blank"></a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/articles/2014/11/18/outlandersawc/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/18/13/20141118133555791/tabloid_e22e2d3e646629b8b640397161da5672.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://motor.ru/articles/2014/11/18/outlandersawc/" class="article js-dh">Игра слов</a>
+<div class="rightcol">Тест Mitsubishi Outlander с «умной» системой полного привода</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/news/2014/11/19/mazdacx3/">Mazda представила маленький кроссовер CX-3</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/news/2014/11/19/prologue/">Компания Audi показала дизайн будущих моделей</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/photo/2014/11/17/ferrariengines/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/17/11/20141117114920485/tabloid_2350505e43283687d127b9808e8bf3f4.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://motor.ru/photo/2014/11/17/ferrariengines/" class="article js-dh">Лошадиная сила</a>
+<div class="rightcol">В какие транспортные средства ставили двигатели Ferrari</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/news/2014/11/13/supermegavip/">«АвтоВАЗ» выпустит «суперроскошный» Largus</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/articles/2014/11/17/marussiafin/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/17/13/20141117134519815/tabloid_a15b1710f22e3db51da98745d6cd6af1.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://motor.ru/articles/2014/11/17/marussiafin/" class="article js-dh">«Маруся» слезы льет</a>
+<div class="rightcol">Чем запомнится Marussia в&nbsp;Формуле-1</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://motor.ru/news/2014/11/19/ctsv/">Cadillac рассекретил конкурентов BMW M3&nbsp;и M4</a>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/motor/">Все материалы</a>
+</div>
+</div>
+</div>
+<div class="b-tabloid__row row">
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title" style="border-top-color: #9a8f7c">
+<a href="/rubrics/realty/" class="icons-sprite icons-logo_dom"></a>
+<a href="http://dom.lenta.ru" class="outer_link icons-sprite icons-outer_link" target="_blank"></a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="http://dom.lenta.ru/photo/2014/10/29/airplanebuildings/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/27/18/20141027184205811/tabloid_b63719e0e9492845185bb3eb380ed9ec.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://dom.lenta.ru/photo/2014/10/29/airplanebuildings/" class="article js-dh">Пристегните ремни</a>
+<div class="rightcol">Здания «с крыльями», которые нас удивили</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://dom.lenta.ru/photo/2014/08/20/tinyhouses/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/08/19/14/20140819142420702/tabloid_0e9a28f6c25f595d3a0f9e4172d80dda.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://dom.lenta.ru/photo/2014/08/20/tinyhouses/" class="article js-dh">Снаружи и&nbsp;внутри</a>
+<div class="rightcol">Самые маленькие дома в&nbsp;мире гораздо просторнее, чем кажутся</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://dom.lenta.ru/photo/2014/09/09/modul/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/09/05/18/20140905181824093/tabloid_c1837aa2b5d8fdebe35aa245f10034f0.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://dom.lenta.ru/photo/2014/09/09/modul/" class="article js-dh">Построить за&nbsp;два часа</a>
+<div class="rightcol">Загородный дом — это не&nbsp;так долго и&nbsp;дорого, как вы&nbsp;думаете</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="http://dom.lenta.ru/articles/2014/10/15/newtaxlaw/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/15/13/20141015130456069/tabloid_1aebdceca92ee380b2d2767a11d98554.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="http://dom.lenta.ru/articles/2014/10/15/newtaxlaw/" class="article js-dh">Отымущество</a>
+<div class="rightcol">Все, что вы&nbsp;хотели знать о&nbsp;новом налоге на&nbsp;недвижимость, но&nbsp;боялись спросить</div>
+</div>
+<div class="advertisable b-tabloid__topic">
+<a href="http://dom.lenta.ru/photo/2014/11/17/presnja/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/14/18/20141114181310871/tabloid_cb0067c9b4c74fa195fe0cec6cdd15ac.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><div class="advert-label">Реклама</div>
+<a href="http://dom.lenta.ru/photo/2014/11/17/presnja/" class="article js-dh">Пентхаус на&nbsp;Пресне</a>
+<div class="rightcol">Современная классика с&nbsp;видом на&nbsp;центр Москвы</div>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/realty/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/ww1/">Первая мировая</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/photo/2014/11/15/zeppelin/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/14/14/20141114141327977/tabloid_c1523f03ea125182567b6ae757a29e18.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/photo/2014/11/15/zeppelin/" class="article js-dh">От рассвета до&nbsp;заката</a>
+<div class="rightcol">Германские цеппелины в&nbsp;Первой мировой войне в&nbsp;картинках</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/anarhia/">1914. Еврейский «Голос Труда» выступил в&nbsp;защиту германской империи </a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/18/germanspy/">1914. Переодетые в&nbsp;женщин и&nbsp;беженцев германские солдаты убили 17&nbsp;казаков </a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/17/propaganda/">1914. О&nbsp;свободе печати и&nbsp;про-германской пропаганде в&nbsp;России и&nbsp;Китае </a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/17/emden/">1914. В&nbsp;Индийском океане уничтожен германский крейсер «Эмден» </a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/news/2014/11/10/aeroprison/">1914. Ловля германского аэроплана на&nbsp;живца</a>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/15/moskow1917/" class="js-dh"><img alt="Штернберг руководит обстрелом Московского кремля" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/13/15/20141113153315533/tabloid_78f881778b2c774e66a3234d7c30788d.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/15/moskow1917/" class="article js-dh">Хроника «неначатой» войны </a>
+<div class="rightcol">В то&nbsp;время как в&nbsp;Питере стреляла «Аврора» и&nbsp;штурмовали Зимний, в&nbsp;Москве... </div>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/ww1/">Все материалы</a>
+</div>
+</div>
+<div class="span4">
+<div class="b-tabloid__item">
+<h2 class="bordered-title">
+<a href="/rubrics/library/">Библиотека</a>
+</h2>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/03/traub/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/30/16/20141030161145586/tabloid_9778f2fe9647ca1cb013591f77ba91d7.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/03/traub/" class="article js-dh">Тутовая судьба </a>
+<div class="rightcol">Мистическая история, рассказанная бабушкой писательницы Маши Трауб </div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/10/30/handmaid/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/30/15/20141030154339293/tabloid_e4c763957e00d8ef9feab710a38179ee.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/10/30/handmaid/" class="article js-dh">Хенд-мейд со&nbsp;скидкой </a>
+<div class="rightcol">Конкурс читательских рассказов «Ленты.ру» </div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/02/konkurs/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/11/02/22/20141102220301349/tabloid_de0f9e47b0f9462f81736985afbe5f15.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/02/konkurs/" class="article js-dh">Итоги страха и&nbsp;трепета </a>
+<div class="rightcol">Победителем конкурса «Ленты.ру» на&nbsp;лучший хэллоуинский рассказ стала Олеся Головацкая</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/10/30/reload/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/31/12/20141031121449223/tabloid_9d0955a5d72096422da54f006e7c44b2.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/10/30/reload/" class="article js-dh">Случай в&nbsp;лесхозе</a>
+<div class="rightcol">Конкурс читательских рассказов «Ленты.ру» </div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/11/03/mertro/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/30/15/20141030151514382/tabloid_dc75f7f9baab4524697268dcd743af34.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/11/03/mertro/" class="article js-dh">Совпадения</a>
+<div class="rightcol">Рассказ — победитель конкурса хэллоуинских историй «Ленты.ру»</div>
+</div>
+<div class="b-tabloid__topic">
+<a href="/articles/2014/10/30/babka/" class="js-dh"><img alt="" class="g-picture" height="64" src="http://icdn.lenta.ru/images/2014/10/31/09/20141031090604677/tabloid_964ea1f586f0a528d334f67c012a1461.jpg" style="max-width: 96px; width: 96px; height: 64px;" width="96" />
+</a><a href="/articles/2014/10/30/babka/" class="article js-dh">Бабка Фросина, ведьма и&nbsp;кошка Нюська </a>
+<div class="rightcol">Конкурс читательских рассказов «Ленты.ру» </div>
+</div>
+</div>
+<div class="b-tabloid__more">
+<a href="/rubrics/library/">Все материалы</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<div id="root_footer"></div>
+</div>
+<footer class="b-footer" id="footer">
+<div class="g-layout">
+<!--AdFox START-->
+<!--adfox-ssp-->
+<!--Площадка: Syncer / all / syncer-->
+<!--Категория: <не задана>-->
+<!--Тип баннера: 1x1-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+var addate = new Date();
+document.write('<iframe src="http://ads.adfox.ru/202433/getCode?p1=biozy&amp;p2=v&amp;p3=a&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pfc=a&amp;pfb=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="1" height="1" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px; position: absolute; left: -9999px"><a href="http://ads.adfox.ru/202433/goDefaultLink?p1=biozy&amp;p2=v" target="_top"><img src="http://ads.adfox.ru/202433/getDefaultImage?p1=biozy&amp;p2=v" border="0" alt=""><\/a><\/iframe>');
+//-->
+</script>
+<noscript>
+<iframe src="http://ads.adfox.ru/202433/getCode?p1=biozy&amp;p2=v&amp;p3=a&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pfc=a&amp;pfb=a" frameBorder="0" width="1" height="1" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/202433/goDefaultLink?p1=biozy&amp;p2=v" target="_top"><img src="http://ads.adfox.ru/202433/getDefaultImage?p1=biozy&amp;p2=v" border="0" alt=""></a></iframe>
+</noscript>
+<!--AdFox END-->
+
+<script type="text/javascript">
+(function(){
+    (new Image).src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//sync.rambler.ru/emily?partner_id=begun';
+})();
+</script>
+<div class="counters">
+<span class="counter counter_top100" id="top100"></span>
+<span class="counter counter_liveinternet" id="liveinternet-counter"></span>
+</div>
+<script type="text/javascript">
+<!--
+xtnv = document;   //parent.document or top.document or document
+xtsd = "http://logc278";
+xtsite = "515389";
+xtn2 = '2';        // level 2 site ID
+xtpage = "Культура::Страница_подраздела::lenta.ru:_Культура"; //page name (with the use of :: to create chapters)
+xtdi = "";         //implication degree
+xt_multc = "&x1=http://lenta.ru/rubrics/culture";     //all the xi indicators (like "&x1=...&x2=....&x3=...")
+xt_an = "";        //user ID
+xt_ac = "";        //category ID
+xt_xtcpath = 'icdn.lenta.ru/assets/shared/xtcore-4e7fa169c76bd710f48c9df99628ac30.js';      //xtcore.js path location (without http://)
+//-->
+</script>
+<script type="text/javascript">
+<!--
+//do not modify below
+if (window.xtparam!=null){window.xtparam+="&ac="+xt_ac+"&an="+xt_an+xt_multc;}
+else{window.xtparam="&ac="+xt_ac+"&an="+xt_an+xt_multc;};
+(function(){
+  var at=document.createElement('script');
+  at.type='text/javascript';
+  at.async=true;
+  at.src='http://'+xt_xtcpath;
+(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]||document.getElementsByTagName('script')[0].parentNode).insertBefore(at,null);
+})();
+//-->
+</script>
+<noscript>
+<img width="1" height="1" alt="" src="http://logc278.xiti.com/hit.xiti?s=515389&s2=&p=&di=&an=&ac=" >
+</noscript>
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P87FV5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P87FV5');</script>
+<!-- End Google Tag Manager -->
+
+<noscript><img src="http://www.tns-counter.ru/V13a****rambler_ru/ru/UTF-8/tmsec=lenta_other/" width="1" height="1" alt=""></noscript>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-18447330-1']);
+  _gaq.push(['_setDomainName', 'lenta.ru']);
+  _gaq.push(['_addOrganic', 'nova.rambler.ru', 'query']);
+  _gaq.push(['_addOrganic', 'go.mail.ru', 'q']);
+  _gaq.push(['_addOrganic', 'nigma.ru', 's']);
+  _gaq.push(['_addOrganic', 'webalta.ru', 'q']);
+  _gaq.push(['_addOrganic', 'aport.ru', 'r']);
+  _gaq.push(['_addOrganic', 'poisk.ru', 'text']);
+  _gaq.push(['_addOrganic', 'km.ru', 'sq']);
+  _gaq.push(['_addOrganic', 'liveinternet.ru', 'ask']);
+  _gaq.push(['_addOrganic', 'quintura.ru', 'request']);
+  _gaq.push(['_addOrganic', 'search.qip.ru', 'query']);
+  _gaq.push(['_addOrganic', 'gde.ru', 'keywords']);
+  _gaq.push(['_addOrganic', 'gogo.ru', 'q']);
+  _gaq.push(['_addOrganic', 'ru.yahoo.com', 'p']);
+  _gaq.push(['_addOrganic', 'images.yandex.ru', 'q', true]);
+  _gaq.push(['_addOrganic', 'blogsearch.google.ru', 'q', true]);
+  _gaq.push(['_addOrganic', 'blogs.yandex.ru', 'text', true]);
+  _gaq.push(['_addOrganic', 'ru.search.yahoo.com','p']);
+  _gaq.push(['_addOrganic', 'ya.ru', 'q']);
+  _gaq.push(['_addOrganic', 'm.yandex.ru','query']);
+  _gaq.push(['_trackPageview']);
+ 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  (function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+      try {
+        w.yaCounter4308403 = new Ya.Metrika({id:4308403,
+          webvisor:true,
+          clickmap:true,
+          trackLinks:true});
+      } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+      s = d.createElement("script"),
+      f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+      d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+  })(document, window, "yandex_metrika_callbacks");
+
+  var _top100q = _top100q || [];
+
+  _top100q.push(["setAccount", "80674"]);
+  _top100q.push(["trackPageviewByLogo", document.getElementById("top100")]);
+
+
+  (function(){
+   var top100 = document.createElement("script"); top100.type = "text/javascript";
+
+   top100.async = true;
+   top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/pack/pack.min.js";
+   var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
+  })();
+
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/4308403" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<script type="text/javascript">
+
+function catchOutboundClick(link) {
+    link.onclick = function(e){
+      e.preventDefault();
+      trackOutboundLink(link, "Outbound Links", link.hostname, (link.target === '_blank' || e.ctrlKey || e.metaKey || e.which == 2));
+    }
+}
+
+function trackOutboundLink(link, category, action, new_window) {
+  try {
+    _gaq.push(['_trackEvent', category , action]);
+  } catch(err){}
+
+  if(new_window){
+    window.open(link.href, '_blank');
+  } else {
+    document.location.href = link.href;
+  }
+}
+
+var outRe = new RegExp('^http:\/\/.+$','i');
+var inRe = new RegExp('^http:\/\/'+location.hostname.replace("www.", "")+'.+$','i');
+var links = document.getElementsByTagName("a");
+
+for (var i = 0; i < links.length; i++) {
+  var link = links[i];
+  if (outRe.test(link.href) && !inRe.test(link.href)){
+    catchOutboundClick(link);
+  }
+}
+</script>
+
+
+<div class="versions">
+<span class="group mobile">
+<a href="http://m.lenta.ru/rubrics/culture"><span class="icons-sprite icons-iphone"></span>
+<span class="label">Мобильная версия</span>
+</a></span>
+<span class="group pda">
+<a href="http://pda.lenta.ru/rubrics/culture"><span class="icons-sprite icons-nokia"></span>
+<span class="label">PDA-версия</span>
+</a></span>
+<span class="group orphus">
+<script src="http://icdn.lenta.ru/assets/vendors/orphus-4e5d1a042ce262975372e8b95da35c87.js" type="text/javascript"></script>
+<a class="hide" href="http://orphus.ru" id="orphus" target="_blank"><img alt="Orphus" height="31" src="http://icdn.lenta.ru/assets/orphus-291ae445dd1450652e00ee30e6561aba.gif" width="88" /></a>
+<a href="http://orphus.ru"><span class="icons-sprite icons-orphus"></span>
+<span>
+<strong>Нашли опечатку? <br/></strong>
+Orphus: Ctrl+Enter
+</span>
+</a></span>
+</div>
+<div class="menu">
+<span class="socials">
+<a href="http://facebook.com/lenta.ru" class="icons_socials icons-sprite icons-fb" target="_blank"></a>
+<a href="http://twitter.com/lentaruofficial" class="icons_socials icons-sprite icons-twitter" target="_blank"></a>
+<a href="http://vk.com/lentaru" class="icons_socials icons-sprite icons-vk" target="_blank"></a>
+<a href="/rss" class="icons_socials icons-sprite icons-rss"></a>
+</span>
+<span class="links">
+<a href="/info/">Редакция</a>
+<a href="http://reklama.rambler.ru/sites/lenta/" target="_blank">Реклама</a>
+<a href="mailto:it@lenta-co.ru">Техподдержка</a>
+<a href="/specprojects/">Спецпроекты</a>
+</span>
+<span class="copyright">
+&copy; 1999&ndash;2014 ООО «Лента.Ру».
+</span>
+</div>
+
+</div>
+</footer>
+
+<div class="b-banner b-banner_branding" id="advert-branding"><script type="text/javascript">
+  <!--
+  if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+  if (typeof(document.referrer) != 'undefined') {
+    if (typeof(afReferrer) == 'undefined') {
+      afReferrer = escape(document.referrer);
+    }
+  } else {
+    afReferrer = '';
+  }
+  var addate = new Date();
+  
+  var scrheight = '', scrwidth = '';
+  if (self.screen) {
+  scrwidth = screen.width;
+  scrheight = screen.height;
+  } else if (self.java) {
+  var jkit = java.awt.Toolkit.getDefaultToolkit();
+  var scrsize = jkit.getScreenSize();
+  scrwidth = scrsize.width;
+  scrheight = scrsize.height;
+  }
+  
+  var dl = escape(document.location);
+  var pr1 = Math.floor(Math.random() * 1000000);
+  
+  var w = window,
+    d = document,
+    e = d.documentElement,
+    g = d.getElementsByTagName('body')[0],
+    window_width = w.innerWidth || e.clientWidth || g.clientWidth;
+  
+  function get_cookie(name) {
+    var matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+  
+  if ( window_width > 1600 && 1 != get_cookie('mega_not_show') ) {
+    document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+    document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+  
+    AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/171817/prepareCode?p1=bmdxx&amp;p2=ewtp&amp;pct=c&amp;pfc=a&amp;pfb=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;puid1=&amp;puid2=&amp;puid3='+_montblanc.get('4i', '')+'&amp;puid4='+_montblanc.get('c6', '')+'&amp;puid5=&amp;puid6=CULTURE&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=' + _montblanc.get('dd', '') + '&amp;puid12=&amp;puid13=&amp;puid14=&amp;puid15=0&amp;puid16=&amp;puid17=&amp;puid18=main&amp;puid19=&amp;puid20=&amp;puid21=&amp;puid22='+_montblanc.get('y1', '')+'&amp;puid23=&amp;puid24=&amp;puid25=&amp;puid26=&amp;puid27=&amp;puid28=&amp;puid29=&amp;puid30=&amp;puid31=&amp;puid32=&amp;puid33='+_montblanc.get('bj', '')+'&amp;puid34=&amp;puid35=&amp;puid37='+ _montblanc.get('k4', '') + '&amp;puid38=' + _montblanc.get('x3', '')+ '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+  }
+  // -->
+</script>
+<script type="text/javascript">
+  <!--
+  if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+  if (typeof(document.referrer) != 'undefined') {
+    if (typeof(afReferrer) == 'undefined') {
+      afReferrer = escape(document.referrer);
+    }
+  } else {
+    afReferrer = '';
+  }
+  var addate = new Date();
+  
+  var scrheight = '', scrwidth = '';
+  if (self.screen) {
+  scrwidth = screen.width;
+  scrheight = screen.height;
+  } else if (self.java) {
+  var jkit = java.awt.Toolkit.getDefaultToolkit();
+  var scrsize = jkit.getScreenSize();
+  scrwidth = scrsize.width;
+  scrheight = scrsize.height;
+  }
+  
+  var dl = escape(document.location);
+  var pr1 = Math.floor(Math.random() * 1000000);
+  
+  document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+  document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+  
+  AdFox_getCodeScript(1,pr1,'//ads.adfox.ru/171817/prepareCode?p1=bnskj&amp;p2=exqv&amp;pct=a&amp;pfc=a&amp;pfb=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;puid1=&amp;puid2=&amp;puid3='+_montblanc.get('4i', '')+'&amp;puid4='+_montblanc.get('c6', '')+'&amp;puid5=&amp;puid6=CULTURE&amp;puid7=&amp;puid8=&amp;puid9=&amp;puid10=&amp;puid11=' + _montblanc.get('dd', '') + '&amp;puid12=&amp;puid13=&amp;puid14=&amp;puid15=0&amp;puid16=&amp;puid17=&amp;puid18=main&amp;puid19=&amp;puid20=&amp;puid21=&amp;puid22='+_montblanc.get('y1', '')+'&amp;puid23=&amp;puid24=&amp;puid25=&amp;puid26=&amp;puid27=&amp;puid28=&amp;puid29=&amp;puid30=&amp;puid31=&amp;puid32=&amp;puid33='+_montblanc.get('bj', '')+'&amp;puid34=&amp;puid35=&amp;puid37='+ _montblanc.get('k4', '') + '&amp;puid38=' + _montblanc.get('x3', '')+ '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+  // -->
+</script></div>
+<div class="b-editor-panel" id="editor-panel">
+</div>
+<script src="http://icdn.lenta.ru/assets/lenta-ab980c8cb30df2b26095f6ea57941897.js" type="text/javascript"></script>
+<script>
+  window.Lenta = {"kind":"rubrics","type":false,"title_prefix":false,"bloc_slug":"culture","tag_slug":false,"part_slug":false,"counter":true,"bloc_title":"\u041a\u0443\u043b\u044c\u0442\u0443\u0440\u0430","xt_rubric":"\u041a\u0443\u043b\u044c\u0442\u0443\u0440\u0430"};
+</script>
+<script src="http://icdn.lenta.ru/assets/rubric-a2d3863cdca0f06b063a937d3ac0dfc0.js" type="text/javascript"></script>
+
+<iframe src="http://awaps.yandex.ru/0/9947/001001.htm" width="1" height="1" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" bordercolor="#000000" style="left: -9999px; position: absolute;"></iframe>
+
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KJBSQR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJBSQR');</script>
+
+<script>
+  _green.defineSlot('9178', [1, 1], 'bhdfdWsdTwe_Hsdlfhjk')
+</script>
+<div id="bhdfdWsdTwe_Hsdlfhjk" style="display: none">
+<script>
+  _green.display('bhdfdWsdTwe_Hsdlfhjk')
+</script>
+</div>
+
+</body>
+</html>
