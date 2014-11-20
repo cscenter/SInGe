@@ -1,7 +1,3 @@
-.idea/
-.svn/
 *~
-.DS_Store
-src/third_party/open-vcdiff/src/config.h
-src/third_party/open-vcdiff/src/stamp-h1
+src/third_party/open-vcdiff/
 
