@@ -1,0 +1,27 @@
+message ProtoNode {
+  message Edge {
+   required int32 edge_char = 1;
+   required int64 to_node_id = 2;
+  }
+//private
+  repeated Edge edges = 1;
+  repeated Edge rev_edges = 2;
+  repeated int64 rev_links = 8;
+//public
+  required int64 link  = 3;
+  required int64 len_actual  = 4;
+  required int64 len_within_document = 5;
+  required int64 docs_occurs_in = 6;
+  required double score_occurs_only = 7;
+  required int64 last_hash = 9;
+}
+
+
+message ProtoAutomaton {
+  repeated ProtoNode nodes_pool = 1;
+  required int64 last_node = 2;
+  required int64 len_up_to_stop_symbol = 3;
+  required double current_coef = 4;
+  repeated bool is_free_node = 5;
+
+}

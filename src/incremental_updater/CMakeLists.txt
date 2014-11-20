@@ -4,6 +4,5 @@ add_executable(incremental_generator
 target_link_libraries(incremental_generator LINK_PUBLIC
   vcdenc
   vcddec
-  vcdcom
   dictgen
 )

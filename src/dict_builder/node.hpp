@@ -11,6 +11,8 @@
 #include <vector>
 #include <cstdlib>
 #include <cstddef> // size_t
+#include <memory> //uinique_ptr
+#include <automaton.pb.h>
 
 class Node {
 public:
@@ -52,6 +54,10 @@ public:
 
   bool DeleteRevLink(size_t from);
 
+  std::unique_ptr<ProtoNode> GetProtoNode() const ;
+
+  explicit Node(const ProtoNode & proto_node);
+
   size_t link;
   size_t len_actual;
   size_t len_within_document;
@@ -63,6 +69,8 @@ private:
   std::vector<std::pair<char, size_t> > edges_;
   std::vector<std::pair<char, size_t> > rev_edges_;
   std::vector<size_t> rev_links_;
+
+  friend class SerializationTest;
 };
 
 #endif // NODE_HPP_

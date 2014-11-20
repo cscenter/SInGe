@@ -34,7 +34,7 @@ SuffixAutomaton::~SuffixAutomaton() {}
 SuffixAutomaton::iterator SuffixAutomaton::begin() {
   return SuffixAutomaton::iterator(1, is_free_node_);
 }
- 
+
 SuffixAutomaton::iterator SuffixAutomaton::end() {
   return SuffixAutomaton::iterator(AmountNodes(), is_free_node_);
 }
@@ -74,7 +74,7 @@ void SuffixAutomaton::AddString(const char* const str, size_t length) {
   for (size_t i = 0; i < length; ++i) {
     AddCharacter(str[i]);
     ++len_up_to_stop_symbol_;
-  }	
+  }
 }
 
 void SuffixAutomaton::AddStringViaStopSymbol(const char* const str, size_t length) {
@@ -87,7 +87,7 @@ void SuffixAutomaton::AddStringViaStopSymbol(const char* const str, size_t lengt
   for (size_t i = 0; i < length; ++i) {
     AddCharacter(str[i]);
     ++len_up_to_stop_symbol_;
-  }	
+  }
 }
 
 size_t SuffixAutomaton::root() const {
@@ -110,7 +110,7 @@ void SuffixAutomaton::Output(size_t v, std::string s) {
   printf("%s v = %zu, occurs = %zu, len = %zu, score = %.5f\n", s.c_str(), v, GetNode(v)->docs_occurs_in, GetNode(v)->len_within_document, GetScore(v));
   for (auto it = GetNode(v)->edges_begin(); it != GetNode(v)->edges_end(); ++it) {
     Output(it->second, s + it->first);
-  }	
+  }
 }
 
 double SuffixAutomaton::GetCurrentCoef() {
@@ -131,10 +131,10 @@ string SuffixAutomaton::GetLongestString(size_t id) {
         max_len = cur_len;
         max_id = cur_id;
         max_ch = cur_ch;
-      } 
+      }
     }
     str += max_ch;
-    id = max_id;  
+    id = max_id;
   }
   reverse(str.begin(), str.end());
   return str;
@@ -144,7 +144,7 @@ bool SuffixAutomaton::ReduceSize() {
   if  (AmountAliveNodes() > 2 * kMaxSize) {
     while (AmountAliveNodes() > kMaxSize) {
       auto min_node = *nodes_to_delete_.begin();
-      DeleteNode(min_node.second);  
+      DeleteNode(min_node.second);
     }
     return true;
   }
@@ -176,7 +176,7 @@ size_t SuffixAutomaton::NewNode() {
 bool SuffixAutomaton::AddLink(size_t from, size_t to) {
   if  (!GetNode(from) || !GetNode(to)) {
     return false;
-  } 
+  }
   GetNode(from)->link = to;
   GetNode(to)->AddRevLink(from);
   return true;
@@ -195,13 +195,13 @@ bool SuffixAutomaton::DeleteNode(size_t id) {
   if  (!GetNode(id)) {
     return false;
   }
- 
+
 //  std::cout << "delete " << id << std::endl;
 
   // redirect incoming links
   for (auto it = GetNode(id)->rev_links_begin(); it != GetNode(id)->rev_links_end(); ++it) {
     size_t from = *it;
-    GetNode(from)->link = GetNode(id)->link;    
+    GetNode(from)->link = GetNode(id)->link;
   }
 
   // delete incoming edges
@@ -247,7 +247,7 @@ void SuffixAutomaton::AddCharacter(char ch) {
     AddLink(new_node, root());
     return;
   }
-  
+
   size_t next = GetNode(prev)->NextNodeThrough(ch);
   if  (GetNode(next)->len_actual == GetNode(prev)->len_actual + 1) {
     AddLink(new_node, next);
@@ -303,4 +303,60 @@ bool SuffixAutomaton::iterator::operator ==(const iterator& other) {
 
 bool SuffixAutomaton::iterator::operator !=(const iterator& other) {
   return id_ != other.id_;
+}
+
+std::unique_ptr<ProtoAutomaton> SuffixAutomaton::GetProtoAutomaton() const {
+  assert(is_free_node_.size() == nodes_pool_.size());
+  auto proto_automaton = std::make_unique<ProtoAutomaton>();
+  proto_automaton->set_last_node(last_node_);
+  proto_automaton->set_len_up_to_stop_symbol(len_up_to_stop_symbol_);
+  proto_automaton->set_current_coef(current_coef);
+  auto* proto_nodes_pool = proto_automaton->mutable_nodes_pool();
+  proto_nodes_pool->Reserve(nodes_pool_.size());
+  for (auto& node : nodes_pool_) {
+    //ownership transfer
+    proto_nodes_pool->AddAllocated(node.GetProtoNode().release());
+  }
+  assert(proto_nodes_pool->size() == (int) nodes_pool_.size());
+  auto* proto_is_free_node = proto_automaton->mutable_is_free_node();
+  proto_is_free_node->Reserve(is_free_node_.size());
+  for (bool is_free : is_free_node_) {
+    proto_is_free_node->AddAlreadyReserved(is_free);
+  }
+  assert(proto_automaton->IsInitialized());
+  return proto_automaton;
+}
+
+SuffixAutomaton::SuffixAutomaton(const ProtoAutomaton& proto_automaton) {
+  last_node_ = proto_automaton.last_node();
+  len_up_to_stop_symbol_ = proto_automaton.len_up_to_stop_symbol();
+  current_coef = proto_automaton.current_coef();
+  const auto& proto_is_free_node = proto_automaton.is_free_node();
+  is_free_node_.resize(proto_is_free_node.size());
+  const auto& proto_nodes_pool = proto_automaton.nodes_pool();
+  nodes_pool_.reserve(proto_nodes_pool.size());
+  assert(proto_is_free_node.size() == proto_nodes_pool.size());
+  nodes_pool_.emplace_back(proto_nodes_pool.Get(0)); // zero node
+  for (size_t i_node = 1; i_node < is_free_node_.size(); ++i_node) {
+    const auto& proto_node = proto_nodes_pool.Get(i_node);
+    nodes_pool_.emplace_back(proto_node);
+    const Node& current_node = nodes_pool_.back();
+    if (proto_is_free_node.Get(i_node)) {
+      is_free_node_[i_node] = true;
+      free_nodes_.push_back(i_node);
+    } else {
+      nodes_to_delete_.insert(
+          make_pair(
+              make_pair(
+                  current_node.score_occurs_only,
+                  current_node.len_within_document
+              ),
+              i_node
+          )
+      );
+    }
+    amount_alive_nodes_ = nodes_to_delete_.size();
+    // 1 is for zero node
+    assert(amount_alive_nodes_ + free_nodes_.size() + 1 == nodes_pool_.size());
+  }
 }

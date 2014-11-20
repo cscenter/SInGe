@@ -77,6 +77,7 @@ target_link_libraries(gtest_main gtest)
 # emulate find_package(GTest)
 # sets same libraries varables
 # GTEST_INCLUDE_DIRS doesn't needed, because target_include_directories used
+set(GTEST_INCLUDE_DIRS ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} PARENT_SCOPE)
 set(GTEST_INCLUDE_DIRS ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 set(GTEST_LIBRARY gtest PARENT_SCOPE)
 set(GTEST_MAIN_LIBRARY gtest_main PARENT_SCOPE)

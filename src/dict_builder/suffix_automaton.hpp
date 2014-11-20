@@ -13,6 +13,8 @@
 #include <vector>
 #include <set>
 #include <cmath>
+#include <memory> //unique_ptr
+#include <automaton.pb.h>
 
 #include "node.hpp"
 
@@ -95,6 +97,10 @@ public:
 
   bool ReduceSize();
 
+  std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;
+
+  explicit SuffixAutomaton(const ProtoAutomaton& proto_automaton);
+
 private:
   size_t NewNode();
 
@@ -118,7 +124,11 @@ private:
   size_t amount_alive_nodes_;
   double current_coef;
   std::set<std::pair<std::pair<double, size_t>, size_t>, compare_nodes> nodes_to_delete_;
+
+  friend class SerializationTest;
 };
+
+
 
 class SuffixAutomaton::iterator {
 public:
