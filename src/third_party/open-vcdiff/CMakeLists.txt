@@ -59,7 +59,6 @@ target_link_libraries(vcdenc
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/
   ${CMAKE_CURRENT_SOURCE_DIR}/src/zlib
-  ${CMAKE_CURRENT_SOURCE_DIR}/gflags/src
 )
 set(VCDIFF_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_include_directories (vcdcom PUBLIC ${VCDIFF_INCLUDE_DIR})
@@ -76,6 +75,9 @@ add_library(gflags
   gflags/src/gflags_completions.cc
   gflags/src/gflags_reporting.cc
 )
+
+target_include_directories (gflags PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/gflags/src)
+
 add_executable(vcdiff
   src/vcdiff_main.cc
 )
