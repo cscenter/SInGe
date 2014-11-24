@@ -1,1 +1,0 @@
-/usr/bin/g++    -std=c++11 -Wall -Wextra -g3 -gdwarf-2    CMakeFiles/vcdiff.dir/src/vcdiff_main.cc.o  -o ../../../bin/vcdiff -rdynamic ../../../lib/libvcdenc.a ../../../lib/libvcddec.a ../../../lib/libgflags.a ../../../lib/libvcdcom.a 

@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../lib/libvcdenc.a  CMakeFiles/vcdenc.dir/src/blockhash.cc.o CMakeFiles/vcdenc.dir/src/encodetable.cc.o CMakeFiles/vcdenc.dir/src/instruction_map.cc.o CMakeFiles/vcdenc.dir/src/jsonwriter.cc.o CMakeFiles/vcdenc.dir/src/vcdiffengine.cc.o CMakeFiles/vcdenc.dir/src/statistics_codetablewriter.cc.o CMakeFiles/vcdenc.dir/src/statistics.cc.o CMakeFiles/vcdenc.dir/src/vcencoder.cc.o
-/usr/bin/ranlib ../../../lib/libvcdenc.a
