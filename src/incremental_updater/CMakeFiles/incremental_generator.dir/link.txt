@@ -1,0 +1,1 @@
+/usr/bin/g++    -std=c++11 -Wall -Wextra -g3 -gdwarf-2    CMakeFiles/incremental_generator.dir/incremental_generator.cpp.o  -o ../../bin/incremental_generator -rdynamic ../../lib/libvcdenc.a ../../lib/libvcddec.a ../../lib/libdictgen.a ../../lib/libgflags.a ../../lib/libvcdcom.a /usr/local/lib/libprotobuf.so -lpthread -Wl,-rpath,/usr/local/lib 

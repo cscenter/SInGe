@@ -16,7 +16,7 @@ TEST(DictionaryTest, AddMethodTest) {
   dict_char.AddDocument("abacaba", 7);
   dict_char.AddDocumentViaStopSymbol("qwe_caba_rty", 12);
   dict_char.BuildDict();
-  
+
   ASSERT_EQ(dict_char.GetDict(), dict_string.GetDict()) << " dictionary for \"abacaba[stop]qwe_caba_rty\"";
 }
 
@@ -25,7 +25,7 @@ TEST(DictionaryTest, MainDictionaryTest) {
   std::string s2 = "qwecabarty";
   std::string s3 = "caba_cabaqwe";
 
-  Dictionary dict;
+  Dictionary dict(100, 3, '#', 1000, 1.0);
   dict.AddDocumentViaStopSymbol(s1);
   dict.AddDocumentViaStopSymbol(s2);
   dict.AddDocumentViaStopSymbol(s3);
@@ -36,7 +36,7 @@ TEST(DictionaryTest, MainDictionaryTest) {
   correct_vec.push_back(std::make_pair("qwe", 2));
 
   auto aut_vec = dict.GetDictSubstringsList();
-  
+
   ASSERT_EQ(correct_vec.size(), aut_vec.size()) << " in dictionary for \"abacaba[stop]qwecabarty[stop]caba_cabaqwe\"";
   for (size_t i = 0; i < correct_vec.size(); ++i) {
     ASSERT_EQ(correct_vec[i], aut_vec[i]) << " in dictionary for \"abacaba[stop]qwecabarty[stop]caba_cabaqwe\"";

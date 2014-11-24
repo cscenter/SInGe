@@ -11,11 +11,22 @@
 
 class Dictionary {
 public:
-  static const size_t kMaxDict;
-  static const size_t kMinLen;
-  static const size_t kMinDocsOccursIn;
+  // const in the past
+  size_t kMaxDict;
+  size_t kMinLen;
+  size_t kMinDocsOccursIn;
 
   Dictionary();
+
+  Dictionary(size_t kMaxDict
+          , size_t kMinLen
+          , char kStopSymbol
+          , size_t kMaxAutomatonSize
+          , double kAutomatonCoef);
+
+  Dictionary(const SuffixAutomaton& automaton
+          , size_t kMaxDict
+          , size_t kMinLen);
 
   ~Dictionary();
 

@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../lib/libvcddec.a  CMakeFiles/vcddec.dir/src/decodetable.cc.o CMakeFiles/vcddec.dir/src/headerparser.cc.o CMakeFiles/vcddec.dir/src/vcdecoder.cc.o
+/usr/bin/ranlib ../../../lib/libvcddec.a

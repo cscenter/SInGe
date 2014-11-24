@@ -13,6 +13,7 @@
 #include <vector>
 #include <set>
 #include <cmath>
+#include <cassert>
 #include <memory> //unique_ptr
 #include <automaton.pb.h>
 
@@ -32,22 +33,25 @@ struct compare_nodes {
     }
 
     if  (len1 != len2) {
-      return len2 < len1; 
+      return len2 < len1;
     }
 
-    return id1 < id2;
+    return id1 > id2;
   }
 };
 
 class SuffixAutomaton {
 public:
-  static const size_t kMaxSize;
-  static const char kStopSymbol;
-  static const double kCoef;
+  // const in the past
+  size_t kMaxSize;
+  char kStopSymbol;
+  double kCoef;
 
   class iterator;
 
   SuffixAutomaton();
+
+  SuffixAutomaton(char kStopSymbol, size_t kMaxSize, double kCoef);
 
   ~SuffixAutomaton();
 
@@ -68,11 +72,11 @@ public:
   }
 
   inline const Node* GetNode(size_t id) const {
-    return id ? &nodes_pool_[id] : nullptr;
+    return id && !is_free_node_[id] && id < nodes_pool_.size() ? &nodes_pool_[id] : nullptr;
   }
 
   inline Node* GetNode(size_t id) {
-    return id ? &nodes_pool_[id] : nullptr;
+    return id && !is_free_node_[id] && id < nodes_pool_.size() ? &nodes_pool_[id] : nullptr;
   }
 
   double GetScore(size_t id);
@@ -80,22 +84,20 @@ public:
   bool AddOccurence(size_t id);
 
   void AddString(const char* const str, size_t length);
-    
+
   void AddStringViaStopSymbol(const char* const str, size_t length);
 
   size_t root() const;
 
   bool Empty() const;
 
-  void Output();
-
-  void Output(size_t v, std::string s);
-
   double GetCurrentCoef();
 
   std::string GetLongestString(size_t id);
 
   bool ReduceSize();
+
+  std::vector<size_t> GetNodesInOrder();
 
   std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;
 
@@ -107,6 +109,8 @@ private:
   bool AddLink(size_t from, size_t to);
 
   bool AddEdge(size_t from, size_t to, char ch);
+
+  bool DeleteEdge(size_t from, size_t to);
 
   bool DeleteNode(size_t id);
 
