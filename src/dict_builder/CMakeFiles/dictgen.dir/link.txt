@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../lib/libdictgen.a  CMakeFiles/dictgen.dir/dictionary.cpp.o CMakeFiles/dictgen.dir/node.cpp.o CMakeFiles/dictgen.dir/suffix_automaton.cpp.o CMakeFiles/dictgen.dir/automaton.pb.cc.o
+/usr/bin/ranlib ../../lib/libdictgen.a

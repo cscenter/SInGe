@@ -34,7 +34,7 @@ size_t Node::NextNodeThrough(char ch) const {
     if  (edge.first == ch) {
       return edge.second;
     }
-  }	
+  }
   return 0;
 }
 
@@ -74,8 +74,9 @@ bool Node::AddEdge(char ch, size_t to) {
 }
 
 bool Node::AddRevEdge(char ch, size_t from) {
-  for (auto it : rev_edges_) {
-    if  (it == make_pair(ch, from)) {
+  for (auto& it : rev_edges_) {
+    if  (it.second == from) {
+      it.first = ch;
       return false;
     }
   }

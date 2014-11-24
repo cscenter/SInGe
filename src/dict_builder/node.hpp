@@ -47,7 +47,7 @@ public:
   size_t InDegree();
 
   size_t OutDegree();
-  
+
   bool DeleteEdge(size_t to);
 
   bool DeleteRevEdge(size_t from);
@@ -61,10 +61,10 @@ public:
   size_t link;
   size_t len_actual;
   size_t len_within_document;
-  size_t docs_occurs_in;		
+  size_t docs_occurs_in;
   double score_occurs_only;
   size_t last_hash;
-    
+
 private:
   std::vector<std::pair<char, size_t> > edges_;
   std::vector<std::pair<char, size_t> > rev_edges_;
