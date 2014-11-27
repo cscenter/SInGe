@@ -74,14 +74,9 @@ bool Node::AddEdge(char ch, size_t to) {
 }
 
 bool Node::AddRevEdge(char ch, size_t from) {
-<<<<<<< HEAD
   for (auto& it : rev_edges_) {
     if  (it.second == from) {
       it.first = ch;
-=======
-  for (auto it : rev_edges_) {
-    if  (it == make_pair(ch, from)) {
->>>>>>> upstream/master
       return false;
     }
   }
@@ -132,11 +127,7 @@ bool Node::DeleteRevEdge(size_t from) {
     if  (rev_edges_[i].second == from) {
       pos = i;
       break;
-<<<<<<< HEAD
-    } 
-=======
     }
->>>>>>> upstream/master
   }
   if  (pos < rev_edges_.size()) {
     rev_edges_.erase(rev_edges_.begin() + pos);
@@ -159,8 +150,6 @@ bool Node::DeleteRevLink(size_t from) {
   }
   return false;
 }
-<<<<<<< HEAD
-=======
 
 std::unique_ptr<ProtoNode> Node::GetProtoNode() const {
   auto proto_node = std::make_unique<ProtoNode>();
@@ -224,4 +213,3 @@ Node::Node(const ProtoNode& proto_node) : Node() {
     rev_links_.emplace_back(rev_link);
   }
 }
->>>>>>> upstream/master

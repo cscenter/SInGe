@@ -25,11 +25,7 @@ TEST(DictionaryTest, MainDictionaryTest) {
   std::string s2 = "qwecabarty";
   std::string s3 = "caba_cabaqwe";
 
-<<<<<<< HEAD
   Dictionary dict(100, 3, '#', 1000, 1.0);
-=======
-  Dictionary dict;
->>>>>>> upstream/master
   dict.AddDocumentViaStopSymbol(s1);
   dict.AddDocumentViaStopSymbol(s2);
   dict.AddDocumentViaStopSymbol(s3);

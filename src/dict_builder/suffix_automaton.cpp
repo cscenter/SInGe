@@ -6,14 +6,11 @@
 */
 
 #include <algorithm>
-#include <cstdio>
-#include <string>
-<<<<<<< HEAD
-#include <queue>
-=======
-#include <iostream>
 #include <cassert>
->>>>>>> upstream/master
+#include <cstdio>
+#include <iostream>
+#include <queue>
+#include <string>
 
 #include "suffix_automaton.hpp"
 
@@ -23,21 +20,25 @@ using std::max;
 using std::string;
 using std::make_pair;
 
-<<<<<<< HEAD
-SuffixAutomaton::SuffixAutomaton() : kMaxSize(1 << 18), kStopSymbol('#'), kCoef(0.9), len_up_to_stop_symbol_(1), amount_alive_nodes_(0), current_coef(1.0) {
+SuffixAutomaton::SuffixAutomaton()
+    : kMaxSize(1 << 18),
+      kStopSymbol('#'),
+      kCoef(0.9),
+      len_up_to_stop_symbol_(1),
+      amount_alive_nodes_(0),
+      current_coef(1.0) {
   NewNode(); // ~ nullptr
   last_node_ = NewNode();
   AddToNodesToDelete(last_node_);
 }
 
-SuffixAutomaton::SuffixAutomaton(char kStopSymbol, size_t kMaxSize, double kCoef) : kMaxSize(kMaxSize), kStopSymbol(kStopSymbol), kCoef(kCoef), len_up_to_stop_symbol_(1), amount_alive_nodes_(0), current_coef(1.0) {
-=======
-const char SuffixAutomaton::kStopSymbol = '#';
-const size_t SuffixAutomaton::kMaxSize = 1 << 13;
-const double SuffixAutomaton::kCoef = 0.95;
-
-SuffixAutomaton::SuffixAutomaton() : len_up_to_stop_symbol_(1), amount_alive_nodes_(0), current_coef(1.0) {
->>>>>>> upstream/master
+SuffixAutomaton::SuffixAutomaton(char kStopSymbol, size_t kMaxSize, double kCoef)
+    : kMaxSize(kMaxSize),
+      kStopSymbol(kStopSymbol),
+      kCoef(kCoef),
+      len_up_to_stop_symbol_(1),
+      amount_alive_nodes_(0),
+      current_coef(1.0) {
   NewNode(); // ~ nullptr
   last_node_ = NewNode();
   AddToNodesToDelete(last_node_);
@@ -48,11 +49,7 @@ SuffixAutomaton::~SuffixAutomaton() {}
 SuffixAutomaton::iterator SuffixAutomaton::begin() {
   return SuffixAutomaton::iterator(1, is_free_node_);
 }
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> upstream/master
 SuffixAutomaton::iterator SuffixAutomaton::end() {
   return SuffixAutomaton::iterator(AmountNodes(), is_free_node_);
 }
@@ -78,24 +75,18 @@ double SuffixAutomaton::GetScore(size_t id) {
 }
 
 bool SuffixAutomaton::AddOccurence(size_t id) {
-  if  (!GetNode(id)) {
+  if  (!GetNode(id))
     return false;
-  }
-<<<<<<< HEAD
-  if  (GetNode(id)->OutDegree() == 0) {
+
+  if  (GetNode(id)->OutDegree() == 0)
     EraseFromNodesToDelete(id);
-  }
+
   ++GetNode(id)->docs_occurs_in;
   GetNode(id)->score_occurs_only += 1.0 / current_coef;
-  if  (GetNode(id)->OutDegree() == 0) {
+
+  if  (GetNode(id)->OutDegree() == 0)
     AddToNodesToDelete(id);
-  }
-=======
-  EraseFromNodesToDelete(id);
-  ++GetNode(id)->docs_occurs_in;
-  GetNode(id)->score_occurs_only += 1.0 / current_coef;
-  AddToNodesToDelete(id);
->>>>>>> upstream/master
+
   return true;
 }
 
@@ -103,11 +94,7 @@ void SuffixAutomaton::AddString(const char* const str, size_t length) {
   for (size_t i = 0; i < length; ++i) {
     AddCharacter(str[i]);
     ++len_up_to_stop_symbol_;
-<<<<<<< HEAD
-  }	
-=======
   }
->>>>>>> upstream/master
 }
 
 void SuffixAutomaton::AddStringViaStopSymbol(const char* const str, size_t length) {
@@ -120,11 +107,7 @@ void SuffixAutomaton::AddStringViaStopSymbol(const char* const str, size_t lengt
   for (size_t i = 0; i < length; ++i) {
     AddCharacter(str[i]);
     ++len_up_to_stop_symbol_;
-<<<<<<< HEAD
-  }	
-=======
   }
->>>>>>> upstream/master
 }
 
 size_t SuffixAutomaton::root() const {
@@ -135,24 +118,6 @@ bool SuffixAutomaton::Empty() const {
   return last_node_ == root();
 }
 
-<<<<<<< HEAD
-=======
-void SuffixAutomaton::Output() {
-  for (size_t id : *this) {
-    std::cout << id << ": " << GetLongestString(id) << std::endl;
-  }
-
-  Output(root(), "");
-}
-
-void SuffixAutomaton::Output(size_t v, std::string s) {
-  printf("%s v = %zu, occurs = %zu, len = %zu, score = %.5f\n", s.c_str(), v, GetNode(v)->docs_occurs_in, GetNode(v)->len_within_document, GetScore(v));
-  for (auto it = GetNode(v)->edges_begin(); it != GetNode(v)->edges_end(); ++it) {
-    Output(it->second, s + it->first);
-  }
-}
-
->>>>>>> upstream/master
 double SuffixAutomaton::GetCurrentCoef() {
   return current_coef;
 }
@@ -171,11 +136,7 @@ string SuffixAutomaton::GetLongestString(size_t id) {
         max_len = cur_len;
         max_id = cur_id;
         max_ch = cur_ch;
-<<<<<<< HEAD
-      } 
-=======
       }
->>>>>>> upstream/master
     }
     str += max_ch;
     id = max_id;
@@ -185,23 +146,15 @@ string SuffixAutomaton::GetLongestString(size_t id) {
 }
 
 bool SuffixAutomaton::ReduceSize() {
-<<<<<<< HEAD
   if  (AmountAliveNodes() > 2 * kMaxSize) { 
-    while (AmountAliveNodes() > kMaxSize) {
+    while (AmountAliveNodes() > kMaxSize)
       DeleteNode(nodes_to_delete_.begin()->second);
-=======
-  if  (AmountAliveNodes() > 2 * kMaxSize) {
-    while (AmountAliveNodes() > kMaxSize) {
-      auto min_node = *nodes_to_delete_.begin();
-      DeleteNode(min_node.second);
->>>>>>> upstream/master
-    }
+
     return true;
   }
   return false;
 }
 
-<<<<<<< HEAD
 vector<size_t> SuffixAutomaton::GetNodesInOrder() {
   std::queue<size_t> q_nodes;
   vector<char> was_in_q(AmountNodes(), false);
@@ -226,8 +179,6 @@ vector<size_t> SuffixAutomaton::GetNodesInOrder() {
   return order;
 }
 
-=======
->>>>>>> upstream/master
 size_t SuffixAutomaton::NewNode() {
   if  (nodes_pool_.empty()) {
     is_free_node_.push_back(false);
@@ -251,23 +202,19 @@ size_t SuffixAutomaton::NewNode() {
 }
 
 bool SuffixAutomaton::AddLink(size_t from, size_t to) {
-  if  (!GetNode(from) || !GetNode(to)) {
+  if  (!GetNode(from) || !GetNode(to))
     return false;
-  }
-<<<<<<< HEAD
+
   size_t old_to = GetNode(from)->link;
-  if  (GetNode(old_to)) {
+  if  (GetNode(old_to))
     GetNode(old_to)->DeleteRevLink(from);
-  }
-=======
->>>>>>> upstream/master
+
   GetNode(from)->link = to;
   GetNode(to)->AddRevLink(from);
   return true;
 }
 
 bool SuffixAutomaton::AddEdge(size_t from, size_t to, char ch) {
-<<<<<<< HEAD
   GetNode(from)->AddEdge(ch, to);
   GetNode(to)->AddRevEdge(ch, from);
   if  (GetNode(from)->OutDegree() == 1) {
@@ -309,49 +256,17 @@ bool SuffixAutomaton::DeleteNode(size_t id) {
     if  (GetNode(it->second)->OutDegree() == 0) {    
       AddToNodesToDelete(it->second);
     }
-=======
-  if  (!GetNode(from) || !GetNode(to)) {
-    return false;
-  }
-  GetNode(from)->AddEdge(ch, to);
-  GetNode(to)->AddRevEdge(ch, from);
-  return true;
-}
-
-bool SuffixAutomaton::DeleteNode(size_t id) {
-  if  (!GetNode(id)) {
-    return false;
-  }
-
-//  std::cout << "delete " << id << std::endl;
-
-  // redirect incoming links
-  for (auto it = GetNode(id)->rev_links_begin(); it != GetNode(id)->rev_links_end(); ++it) {
-    size_t from = *it;
-    GetNode(from)->link = GetNode(id)->link;
-  }
-
-  // delete incoming edges
-  for (auto it = GetNode(id)->rev_edges_begin(); it != GetNode(id)->rev_edges_end(); ++it) {
-    size_t from = it->second;
-    GetNode(from)->DeleteEdge(id);
->>>>>>> upstream/master
   }
 
   // delete outcoming links (actually, exactly one link)
   GetNode(GetNode(id)->link)->DeleteRevLink(id);
 
-<<<<<<< HEAD
   vector<size_t> to_delete;
   // delete outgoing edges
-=======
-  // delete outcoming edges
->>>>>>> upstream/master
   for (auto it = GetNode(id)->edges_begin(); it != GetNode(id)->edges_end(); ++it) {
     size_t to = it->second;
     GetNode(to)->DeleteRevEdge(id);
     if  (GetNode(to)->InDegree() == 0) {
-<<<<<<< HEAD
       to_delete.push_back(to);
     }
   }
@@ -365,17 +280,6 @@ bool SuffixAutomaton::DeleteNode(size_t id) {
     DeleteNode(to);
   }
   return true;
-=======
-      DeleteNode(to);
-    }
-  }
-
-  --amount_alive_nodes_;
-  is_free_node_[id] = true;
-  free_nodes_.push_back(id);
-	EraseFromNodesToDelete(id);
-	return true;
->>>>>>> upstream/master
 }
 
 void SuffixAutomaton::AddCharacter(char ch) {
@@ -396,11 +300,7 @@ void SuffixAutomaton::AddCharacter(char ch) {
     AddLink(new_node, root());
     return;
   }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> upstream/master
   size_t next = GetNode(prev)->NextNodeThrough(ch);
   if  (GetNode(next)->len_actual == GetNode(prev)->len_actual + 1) {
     AddLink(new_node, next);
@@ -413,7 +313,6 @@ void SuffixAutomaton::AddCharacter(char ch) {
   GetNode(middle)->score_occurs_only = GetNode(next)->score_occurs_only;
   GetNode(middle)->docs_occurs_in = GetNode(next)->docs_occurs_in;
   AddLink(middle, GetNode(next)->link);
-<<<<<<< HEAD
   AddToNodesToDelete(middle);
   for (auto it = GetNode(next)->edges_begin(); it != GetNode(next)->edges_end(); ++it) {
     AddEdge(middle, it->second, it->first);
@@ -421,14 +320,6 @@ void SuffixAutomaton::AddCharacter(char ch) {
 
   for (; prev && GetNode(prev)->NextNodeThrough(ch) == next; prev = GetNode(prev)->link) {
     DeleteEdge(prev, next);
-=======
-  for (auto it = GetNode(next)->edges_begin(); it != GetNode(next)->edges_end(); ++it) {
-    AddEdge(middle, it->second, it->first);
-  }
-  AddToNodesToDelete(middle);
-
-  for (; prev && GetNode(prev)->NextNodeThrough(ch) == next; prev = GetNode(prev)->link) {
->>>>>>> upstream/master
     AddEdge(prev, middle, ch);
   }
   AddLink(new_node, middle);
@@ -436,20 +327,14 @@ void SuffixAutomaton::AddCharacter(char ch) {
 }
 
 void SuffixAutomaton::AddToNodesToDelete(size_t id) {
-<<<<<<< HEAD
   assert(GetNode(id)->OutDegree() == 0);
-  nodes_to_delete_.insert(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
+  nodes_to_delete_.insert(
+      make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
 }
 
 void SuffixAutomaton::EraseFromNodesToDelete(size_t id) {
-  nodes_to_delete_.erase(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
-=======
-	nodes_to_delete_.insert(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
-}
-
-void SuffixAutomaton::EraseFromNodesToDelete(size_t id) {
-	nodes_to_delete_.erase(make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
->>>>>>> upstream/master
+  nodes_to_delete_.erase(
+      make_pair(make_pair(GetNode(id)->score_occurs_only, GetNode(id)->len_within_document), id));
 }
 
 SuffixAutomaton::iterator::iterator(size_t id, vector<bool>& is_free_node) : id_(id), is_free_node_(is_free_node) {}
@@ -476,8 +361,6 @@ bool SuffixAutomaton::iterator::operator ==(const iterator& other) {
 bool SuffixAutomaton::iterator::operator !=(const iterator& other) {
   return id_ != other.id_;
 }
-<<<<<<< HEAD
-=======
 
 std::unique_ptr<ProtoAutomaton> SuffixAutomaton::GetProtoAutomaton() const {
   assert(is_free_node_.size() == nodes_pool_.size());
@@ -534,4 +417,3 @@ SuffixAutomaton::SuffixAutomaton(const ProtoAutomaton& proto_automaton) {
     assert(amount_alive_nodes_ + free_nodes_.size() + 1 == nodes_pool_.size());
   }
 }
->>>>>>> upstream/master
