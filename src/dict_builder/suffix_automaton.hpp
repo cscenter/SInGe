@@ -8,14 +8,15 @@
 #ifndef SUFFIX_AUTOMATON_HPP_
 #define SUFFIX_AUTOMATON_HPP_
 
+#include <cassert>
+#include <cmath>
 #include <cstddef> //size_t
+#include <memory> //unique_ptr
 #include <string>
 #include <vector>
 #include <set>
-#include <cmath>
-#include <memory> //unique_ptr
-#include <automaton.pb.h>
 
+#include "automaton.pb.h"
 #include "node.hpp"
 
 struct compare_nodes {
@@ -35,19 +36,22 @@ struct compare_nodes {
       return len2 < len1; 
     }
 
-    return id1 < id2;
+    return id1 > id2;
   }
 };
 
 class SuffixAutomaton {
 public:
-  static const size_t kMaxSize;
-  static const char kStopSymbol;
-  static const double kCoef;
+  // const in the past
+  size_t kMaxSize;
+  char kStopSymbol;
+  double kCoef;
 
   class iterator;
 
   SuffixAutomaton();
+
+  SuffixAutomaton(char kStopSymbol, size_t kMaxSize, double kCoef);
 
   ~SuffixAutomaton();
 
@@ -68,11 +72,11 @@ public:
   }
 
   inline const Node* GetNode(size_t id) const {
-    return id ? &nodes_pool_[id] : nullptr;
+    return id && !is_free_node_[id] && id < nodes_pool_.size() ? &nodes_pool_[id] : nullptr;
   }
 
   inline Node* GetNode(size_t id) {
-    return id ? &nodes_pool_[id] : nullptr;
+    return id && !is_free_node_[id] && id < nodes_pool_.size() ? &nodes_pool_[id] : nullptr;
   }
 
   double GetScore(size_t id);
@@ -87,15 +91,13 @@ public:
 
   bool Empty() const;
 
-  void Output();
-
-  void Output(size_t v, std::string s);
-
   double GetCurrentCoef();
 
   std::string GetLongestString(size_t id);
 
   bool ReduceSize();
+
+  std::vector<size_t> GetNodesInOrder();
 
   std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;
 
@@ -107,6 +109,8 @@ private:
   bool AddLink(size_t from, size_t to);
 
   bool AddEdge(size_t from, size_t to, char ch);
+
+  bool DeleteEdge(size_t from, size_t to);
 
   bool DeleteNode(size_t id);
 
@@ -129,7 +133,6 @@ private:
 };
 
 
-
 class SuffixAutomaton::iterator {
 public:
   iterator(size_t id, std::vector<bool>& is_free_node);
@@ -150,4 +153,3 @@ private:
 };
 
 #endif // SUFFIX_AUTOMATON_HPP_
-

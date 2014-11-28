@@ -1,25 +1,24 @@
-#include <map>
-#include <fstream>
+#include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <cstdlib>
-#include <algorithm>
+#include <fstream>
 #include <iostream>
-#include <queue>
-#include <cassert>
 #include <map>
+#include <queue>
 
 #include "dictionary.hpp"
 #include "suffix_automaton.hpp"
 
-using std::vector;
-using std::string;
-using std::pair;
-using std::make_pair;
 using std::cerr;
-using std::endl;
 using std::cout;
-using std::queue;
+using std::endl;
+using std::make_pair;
 using std::map;
+using std::pair;
+using std::queue;
+using std::string;
+using std::vector;
 
 namespace {
   const double kEps = 1e-10;
@@ -33,11 +32,10 @@ namespace {
   }	
 };
 
-const size_t Dictionary::kMaxDict = 1 << 16;
-const size_t Dictionary::kMinLen = 3;
-const size_t Dictionary::kMinDocsOccursIn = 2;
+Dictionary::Dictionary() : kMaxDict(1 << 20), kMinLen(20), kMinDocsOccursIn(2) {}
 
-Dictionary::Dictionary() {}
+Dictionary::Dictionary(size_t kMaxDict, size_t kMinLen, char kStopSymbol, size_t kMaxAutomatonSize, double kAutomatonCoef) : kMaxDict(kMaxDict), kMinLen(kMinLen), kMinDocsOccursIn(2), automaton_all_(SuffixAutomaton(kStopSymbol, kMaxAutomatonSize, kAutomatonCoef)) {
+}
 
 Dictionary::~Dictionary() {}
 
@@ -83,20 +81,10 @@ void Dictionary::BuildDict() {
   ResetLastDocument();
   dict_.clear();
 
-  cout << "automaton size = " << automaton_all_.AmountAliveNodes() << endl;
-/*
-  for (size_t id : automaton_all_) {
-    cout << "occurs " << GetNode(id)->docs_occurs_in << " " << GetNode(id)->len_within_document << endl;
-  }
-*/
-  cout << "building dictionary..." << endl;
-
   vector<size_t> substrings; 
   CollectGoodSubstrings(&substrings);
 
   sort(substrings.begin(), substrings.end(), [&] (int id1, int id2) { return DoubleLess(automaton_all_.GetScore(id2), automaton_all_.GetScore(id1)); });
-
-  cout << "good substrings have been collected and sorted" << endl;
 
   size_t length_dict = 0;
   for (size_t i = 0; i < substrings.size() && length_dict + kMinLen <= kMaxDict; ++i) {
@@ -104,12 +92,9 @@ void Dictionary::BuildDict() {
     if  (length_dict + node->len_within_document > kMaxDict) {
       continue;
     }
-//    printf("occurs = %d, len = %d\n", node->docs_occurs_in, node->len_within_document);
     length_dict += node->len_within_document;
     dict_.push_back(substrings[i]);
   }
-
-  cout << "dict's length = " << length_dict << endl;
 }
 
 vector<pair<string, size_t> > Dictionary::GetDictSubstringsList() {
@@ -141,7 +126,8 @@ void Dictionary::ResetLastDocument() {
     return;
   }
 
-  cout << "calculate occurences for document with length " << last_document_.size() << endl;
+//  cout << "calculate occurences for document with length " << last_document_.size() << endl;
+
 	size_t cur_hash = (rand() << 16) ^ rand();
   size_t id = automaton_all_.root();
 	size_t pos = 0;
@@ -166,15 +152,8 @@ void Dictionary::CollectGoodSubstrings(vector <size_t>* substrings) {
   vector<double> max_score_substring(nodes, -1e20);
   vector<double> max_score_upstring(nodes, -1e20);
   vector<char> can_to_dict(nodes, true);
-  vector<size_t> order;
-  order.reserve(nodes - 1);
+  vector<size_t> order = automaton_all_.GetNodesInOrder();
 
-  for (size_t id : automaton_all_) {
-    order.push_back(id);
-  }
-  
-  sort(order.begin(), order.end(), [&] (size_t id1, size_t id2) { return GetNode(id1)->len_actual < GetNode(id2)->len_actual; } );
-    
   // calc max_score_substring
   for (size_t id : order) {
     double max_score = -1e20;

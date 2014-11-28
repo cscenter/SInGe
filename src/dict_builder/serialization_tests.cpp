@@ -41,6 +41,9 @@ protected:
     EXPECT_EQ(first_automaton.current_coef, second_automaton.current_coef) << msg;
     EXPECT_EQ(first_automaton.amount_alive_nodes_, second_automaton.amount_alive_nodes_) << msg;
     EXPECT_EQ(first_automaton.nodes_to_delete_, second_automaton.nodes_to_delete_) << msg;
+    EXPECT_EQ(first_automaton.kMaxSize, second_automaton.kMaxSize) << msg;
+    EXPECT_EQ(first_automaton.kCoef, second_automaton.kCoef) << msg;
+    EXPECT_EQ(first_automaton.kStopSymbol, second_automaton.kStopSymbol) << msg;
   }
 
   SuffixAutomaton SerializeAndDeserialize(const SuffixAutomaton& automaton) {

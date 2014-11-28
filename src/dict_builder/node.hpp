@@ -11,8 +11,9 @@
 #include <vector>
 #include <cstdlib>
 #include <cstddef> // size_t
-#include <memory> //uinique_ptr
-#include <automaton.pb.h>
+#include <memory> // unique_ptr
+
+#include "automaton.pb.h"
 
 class Node {
 public:
@@ -44,9 +45,9 @@ public:
 
   void SortEdges();
 
-  size_t InDegree();
+  size_t InDegree() const;
 
-  size_t OutDegree();
+  size_t OutDegree() const;
   
   bool DeleteEdge(size_t to);
 
@@ -56,7 +57,7 @@ public:
 
   std::unique_ptr<ProtoNode> GetProtoNode() const ;
 
-  explicit Node(const ProtoNode & proto_node);
+  explicit Node(const ProtoNode& proto_node);
 
   size_t link;
   size_t len_actual;

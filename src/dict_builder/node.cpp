@@ -74,8 +74,9 @@ bool Node::AddEdge(char ch, size_t to) {
 }
 
 bool Node::AddRevEdge(char ch, size_t from) {
-  for (auto it : rev_edges_) {
-    if  (it == make_pair(ch, from)) {
+  for (auto& it : rev_edges_) {
+    if  (it.second == from) {
+      it.first = ch;
       return false;
     }
   }
@@ -97,11 +98,11 @@ void Node::SortEdges() {
   std::sort(edges_.begin(), edges_.end());
 }
 
-size_t Node::InDegree() {
+size_t Node::InDegree() const {
   return rev_edges_.size();
 }
 
-size_t Node::OutDegree() {
+size_t Node::OutDegree() const {
   return edges_.size();
 }
 

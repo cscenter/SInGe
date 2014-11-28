@@ -1,3 +1,7 @@
+*.html
+*~
+src/third_party/open-vcdiff/
+src/gtest
 .idea/
 .svn/
 *~
