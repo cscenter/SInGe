@@ -364,7 +364,7 @@ bool SuffixAutomaton::iterator::operator !=(const iterator& other) {
 
 std::unique_ptr<ProtoAutomaton> SuffixAutomaton::GetProtoAutomaton() const {
   assert(is_free_node_.size() == nodes_pool_.size());
-  auto proto_automaton = std::unique_ptr<ProtoAutomaton>(new ProtoAutomaton);
+  auto proto_automaton = std::unique_ptr<ProtoAutomaton>(new ProtoAutomaton());
   proto_automaton->set_last_node(last_node_);
   proto_automaton->set_len_up_to_stop_symbol(len_up_to_stop_symbol_);
   proto_automaton->set_current_coef(current_coef);
