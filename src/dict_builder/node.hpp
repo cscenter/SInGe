@@ -11,11 +11,9 @@
 #include <vector>
 #include <cstdlib>
 #include <cstddef> // size_t
-<<<<<<< HEAD
-=======
-#include <memory> //uinique_ptr
-#include <automaton.pb.h>
->>>>>>> upstream/master
+#include <memory> // unique_ptr
+
+#include "automaton.pb.h"
 
 class Node {
 public:
@@ -47,9 +45,9 @@ public:
 
   void SortEdges();
 
-  size_t InDegree();
+  size_t InDegree() const;
 
-  size_t OutDegree();
+  size_t OutDegree() const;
   
   bool DeleteEdge(size_t to);
 
@@ -57,13 +55,10 @@ public:
 
   bool DeleteRevLink(size_t from);
 
-<<<<<<< HEAD
-=======
   std::unique_ptr<ProtoNode> GetProtoNode() const ;
 
-  explicit Node(const ProtoNode & proto_node);
+  explicit Node(const ProtoNode& proto_node);
 
->>>>>>> upstream/master
   size_t link;
   size_t len_actual;
   size_t len_within_document;
@@ -75,11 +70,8 @@ private:
   std::vector<std::pair<char, size_t> > edges_;
   std::vector<std::pair<char, size_t> > rev_edges_;
   std::vector<size_t> rev_links_;
-<<<<<<< HEAD
-=======
 
   friend class SerializationTest;
->>>>>>> upstream/master
 };
 
 #endif // NODE_HPP_

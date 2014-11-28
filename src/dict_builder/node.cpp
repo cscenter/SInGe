@@ -98,11 +98,11 @@ void Node::SortEdges() {
   std::sort(edges_.begin(), edges_.end());
 }
 
-size_t Node::InDegree() {
+size_t Node::InDegree() const {
   return rev_edges_.size();
 }
 
-size_t Node::OutDegree() {
+size_t Node::OutDegree() const {
   return edges_.size();
 }
 
@@ -152,7 +152,7 @@ bool Node::DeleteRevLink(size_t from) {
 }
 
 std::unique_ptr<ProtoNode> Node::GetProtoNode() const {
-  auto proto_node = std::make_unique<ProtoNode>();
+  auto proto_node = std::unique_ptr<ProtoNode>(new ProtoNode);
   auto *proto_repeated_ptrs_edges = proto_node->mutable_edges();
   proto_repeated_ptrs_edges->Reserve(edges_.size());
   for (const auto &edge : edges_) {
