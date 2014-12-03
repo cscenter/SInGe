@@ -1,5 +1,5 @@
 **Introduction**  
-This is a tool that builds a "dictionary of common strings". More precisely, it picks some set of substrings from given text files and then writes them one by one to a dictionary. So, the dictionary is just some huge string.  
+This is a tool that builds a "dictionary of common strings". To be more precise, it picks some set of substrings from given text files and then writes them one by one to a dictionary. So the dictionary is just some huge string.  
 After that, one can make a "delta" file, that encodes our file in respect of the fact that decoder of our file knows the dictionary. That is why, the dictionary should be similar to all given files (in some sense).  
   
 **How does it work?**  
@@ -8,7 +8,7 @@ Our goal is to find some set of substrings that maximize the
   ![equation](http://latex.codecogs.com/png.latex?%5Csum_%7Bs%20%5Cin%20Dict%7D%20%5Cfrac%7BDocsOccursIn%28s%29%20%5Ccdot%20%28len%28s%29%20-%203%29%7D%7Blen%28s%29%7D)  
     
 under some constraints, namely  
-1. If we took a substring, we are not allowed to take a subtring of this substring  
+1. If we take a substring, we are not allowed to take a subtring of this substring  
 2. ![equation](http://latex.codecogs.com/png.latex?DocsOccursIn%28s%29%20%3E%201%2C%20len%28s%29%20%3E%20threshold).  
 3. Sum over taken substrings' lengths is not greater than some constant.  
   
@@ -22,3 +22,7 @@ So we can calculate `DocsOccursIn` for each node. We are going to solve the very
 In the last part of solution we just sort all survived substring by their rating and pick them until we reach the limit on the dictionary size.  
   
 Time complexity is `O(sum_length_documents)` with relatively small constant.
+
+**Further improvements**  
+  
+We can make our algorithm online, that is, process documents one by one (or set by set) and we should be able to obtain updated dictionary after each operation. Also we should remember that the newest documents should have the bigger influence to the resulting dictionary than the old ones. It has been done in the following way: after each update operation score of the all existing string multiplied by some constant `0 <= alpha < 1`. Smaller `alpha` correspond to a huge sensitivity to new documents.
