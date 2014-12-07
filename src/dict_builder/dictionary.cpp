@@ -34,7 +34,25 @@ namespace {
 
 Dictionary::Dictionary() : kMaxDict(1 << 20), kMinLen(20), kMinDocsOccursIn(2) {}
 
-Dictionary::Dictionary(size_t kMaxDict, size_t kMinLen, char kStopSymbol, size_t kMaxAutomatonSize, double kAutomatonCoef) : kMaxDict(kMaxDict), kMinLen(kMinLen), kMinDocsOccursIn(2), automaton_all_(SuffixAutomaton(kStopSymbol, kMaxAutomatonSize, kAutomatonCoef)) {
+Dictionary::Dictionary(size_t kMaxDict
+      , size_t kMinLen
+      , char kStopSymbol
+      , size_t kMaxAutomatonSize
+      , double kAutomatonCoef)
+    : kMaxDict(kMaxDict)
+    , kMinLen(kMinLen)
+    , kMinDocsOccursIn(2)
+    , automaton_all_(
+        SuffixAutomaton(kStopSymbol, kMaxAutomatonSize, kAutomatonCoef)) {
+}
+
+Dictionary::Dictionary(size_t kMaxDict
+      , size_t kMinLen
+      , SuffixAutomaton& automaton)
+    : kMaxDict(kMaxDict)
+    , kMinLen(kMinLen)
+    , kMinDocsOccursIn(2)
+    , automaton_all_(automaton) {
 }
 
 Dictionary::~Dictionary() {}
@@ -114,6 +132,10 @@ string Dictionary::GetDict() {
   	dict_str += automaton_all_.GetLongestString(id);
   }
   return dict_str;
+}
+
+SuffixAutomaton& Dictionary::GetAutomaton() {
+  return automaton_all_;
 }
 
 void Dictionary::OutputDictTo(string path) {

@@ -20,6 +20,8 @@ public:
 
   Dictionary(size_t kMaxDict, size_t kMinLen, char kStopSymbol, size_t kMaxAutomatonSize, double kAutomatonCoef);
 
+  Dictionary(size_t kMaxDict, size_t kMinLen, SuffixAutomaton& automaton);
+
   ~Dictionary();
 
   void AddDocument(std::string& doc);
@@ -35,6 +37,8 @@ public:
   std::vector<std::pair<std::string, size_t> > GetDictSubstringsList();
 
   std::string GetDict();
+
+  SuffixAutomaton& GetAutomaton();
 
   void OutputDictTo(std::string path);
 
