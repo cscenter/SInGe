@@ -39,7 +39,7 @@ Also, where are useful methods:
 `Dictionary::AddDocument` corresponds to the operation `whole_string += document`,  
 `Dictionary::AddDocumentViaStopSymbol` corresponds to the `whole_string += stop_symbol + document`,
 `Dictionary::BuildDict` builds the dictionary from the current whole string,  
-`Dictionary::GetDict` returns dictionary obtained via the lateest call of the previous method.  
+`Dictionary::GetDict` returns dictionary obtained via the latest call of the previous method.  
 
 Note that if one do not call `GetDict` and add tons of documents, the dictionary from `GetDict` would be empty!  
   
