@@ -30,3 +30,17 @@ We can make our algorithm online, that is, process documents one by one (or set 
 Another modification is related to reducing automaton's size when it become too big. In that case we just delete the node without outgoing edges with smallest score (the leaf of the automaton) until we reach desired amount of nodes.  
   
 The remaining part of our model is still the same.
+
+**Usage**  
+  
+We use this tool via objects of the class `Dictionary`. One can pass the following parameters to the constructor: maximum size of the dictionary, minimum length of a string in the dictionary, stop symbol (say, `#`), maximum size of the automaton, coefficient ![equation](http://www.sciweavers.org/upload/Tex2Img_1418126860/eqn.png).  
+  
+Also, where are useful methods:  
+`Dictionary::AddDocument` corresponds to the operation `whole_string += document`,  
+`Dictionary::AddDocumentViaStopSymbol` corresponds to the `whole_string += stop_symbol + document`,
+`Dictionary::BuildDict` builds the dictionary from the current whole string,
+`Dictionary::GetDict` returns dictionary obtained via the lastest call of the previous method.  
+
+Note that if one do not call `GetDict` and add tons of documents, the dictionary from `GetDict` would be empty!  
+  
+We suggest to call `GetDict` only then one really needs the current dictionary.
