@@ -74,14 +74,9 @@ bool Node::AddEdge(char ch, size_t to) {
 }
 
 bool Node::AddRevEdge(char ch, size_t from) {
-<<<<<<< HEAD
   for (auto& it : rev_edges_) {
     if  (it.second == from) {
       it.first = ch;
-=======
-  for (auto it : rev_edges_) {
-    if  (it == make_pair(ch, from)) {
->>>>>>> upstream/master
       return false;
     }
   }
@@ -103,11 +98,11 @@ void Node::SortEdges() {
   std::sort(edges_.begin(), edges_.end());
 }
 
-size_t Node::InDegree() {
+size_t Node::InDegree() const {
   return rev_edges_.size();
 }
 
-size_t Node::OutDegree() {
+size_t Node::OutDegree() const {
   return edges_.size();
 }
 
@@ -132,11 +127,7 @@ bool Node::DeleteRevEdge(size_t from) {
     if  (rev_edges_[i].second == from) {
       pos = i;
       break;
-<<<<<<< HEAD
-    } 
-=======
     }
->>>>>>> upstream/master
   }
   if  (pos < rev_edges_.size()) {
     rev_edges_.erase(rev_edges_.begin() + pos);
@@ -159,11 +150,9 @@ bool Node::DeleteRevLink(size_t from) {
   }
   return false;
 }
-<<<<<<< HEAD
-=======
 
 std::unique_ptr<ProtoNode> Node::GetProtoNode() const {
-  auto proto_node = std::make_unique<ProtoNode>();
+  auto proto_node = std::unique_ptr<ProtoNode>(new ProtoNode());
   auto *proto_repeated_ptrs_edges = proto_node->mutable_edges();
   proto_repeated_ptrs_edges->Reserve(edges_.size());
   for (const auto &edge : edges_) {
@@ -224,4 +213,3 @@ Node::Node(const ProtoNode& proto_node) : Node() {
     rev_links_.emplace_back(rev_link);
   }
 }
->>>>>>> upstream/master

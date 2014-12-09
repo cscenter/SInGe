@@ -5,4 +5,5 @@ target_link_libraries(incremental_generator LINK_PUBLIC
   vcdenc
   vcddec
   dictgen
+  gflags
 )

@@ -23,5 +23,7 @@ message ProtoAutomaton {
   required int64 len_up_to_stop_symbol = 3;
   required double current_coef = 4;
   repeated bool is_free_node = 5;
-
+  required uint64 max_size = 6;
+  required int32 stop_symbol = 7;
+  required double coef = 8;
 }

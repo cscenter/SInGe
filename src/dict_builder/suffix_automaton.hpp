@@ -8,18 +8,15 @@
 #ifndef SUFFIX_AUTOMATON_HPP_
 #define SUFFIX_AUTOMATON_HPP_
 
+#include <cassert>
+#include <cmath>
 #include <cstddef> //size_t
+#include <memory> //unique_ptr
 #include <string>
 #include <vector>
 #include <set>
-#include <cmath>
-<<<<<<< HEAD
-#include <cassert>
-=======
-#include <memory> //unique_ptr
-#include <automaton.pb.h>
 
->>>>>>> upstream/master
+#include "automaton.pb.h"
 #include "node.hpp"
 
 struct compare_nodes {
@@ -39,36 +36,23 @@ struct compare_nodes {
       return len2 < len1; 
     }
 
-<<<<<<< HEAD
     return id1 > id2;
-=======
-    return id1 < id2;
->>>>>>> upstream/master
   }
 };
 
 class SuffixAutomaton {
 public:
-<<<<<<< HEAD
   // const in the past
   size_t kMaxSize;
   char kStopSymbol;
   double kCoef;
-=======
-  static const size_t kMaxSize;
-  static const char kStopSymbol;
-  static const double kCoef;
->>>>>>> upstream/master
 
   class iterator;
 
   SuffixAutomaton();
 
-<<<<<<< HEAD
   SuffixAutomaton(char kStopSymbol, size_t kMaxSize, double kCoef);
 
-=======
->>>>>>> upstream/master
   ~SuffixAutomaton();
 
   iterator begin();
@@ -88,19 +72,11 @@ public:
   }
 
   inline const Node* GetNode(size_t id) const {
-<<<<<<< HEAD
     return id && !is_free_node_[id] && id < nodes_pool_.size() ? &nodes_pool_[id] : nullptr;
   }
 
   inline Node* GetNode(size_t id) {
     return id && !is_free_node_[id] && id < nodes_pool_.size() ? &nodes_pool_[id] : nullptr;
-=======
-    return id ? &nodes_pool_[id] : nullptr;
-  }
-
-  inline Node* GetNode(size_t id) {
-    return id ? &nodes_pool_[id] : nullptr;
->>>>>>> upstream/master
   }
 
   double GetScore(size_t id);
@@ -115,26 +91,17 @@ public:
 
   bool Empty() const;
 
-<<<<<<< HEAD
-=======
-  void Output();
-
-  void Output(size_t v, std::string s);
-
->>>>>>> upstream/master
   double GetCurrentCoef();
 
   std::string GetLongestString(size_t id);
 
   bool ReduceSize();
 
-<<<<<<< HEAD
   std::vector<size_t> GetNodesInOrder();
-=======
+
   std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;
 
   explicit SuffixAutomaton(const ProtoAutomaton& proto_automaton);
->>>>>>> upstream/master
 
 private:
   size_t NewNode();
@@ -143,11 +110,8 @@ private:
 
   bool AddEdge(size_t from, size_t to, char ch);
 
-<<<<<<< HEAD
   bool DeleteEdge(size_t from, size_t to);
 
-=======
->>>>>>> upstream/master
   bool DeleteNode(size_t id);
 
   void AddCharacter(char ch);
@@ -164,17 +128,11 @@ private:
   size_t amount_alive_nodes_;
   double current_coef;
   std::set<std::pair<std::pair<double, size_t>, size_t>, compare_nodes> nodes_to_delete_;
-<<<<<<< HEAD
-};
-
-=======
 
   friend class SerializationTest;
 };
 
 
-
->>>>>>> upstream/master
 class SuffixAutomaton::iterator {
 public:
   iterator(size_t id, std::vector<bool>& is_free_node);
@@ -195,4 +153,3 @@ private:
 };
 
 #endif // SUFFIX_AUTOMATON_HPP_
-
