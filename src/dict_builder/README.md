@@ -22,3 +22,9 @@ So we can calculate `DocsOccursIn` for each node. We are going to solve the very
 In the last part of solution we just sort all survived substring by their rating and pick them until we reach the limit on the dictionary size.  
   
 Time complexity is `O(sum_length_documents)` with relatively small constant.
+
+**Further improvements**
+
+We can make our algorithm online, that is, process documents one by one (or set by set) and we should be able to obtain updated dictionary after each operation. Also we should remember that the newest documents should have the bigger influence to the resulting dictionary than the old ones. It has been done in the following way: after each update operation score of the all existing string multiplied by some constant  ![equation](http://www.sciweavers.org/upload/Tex2Img_1418126860/eqn.png). Smaller alpha corresponds to a huge sensitivity to the new documents. One can see that we can reach almost the same by multiplying the newest document by ![equation](http://www.sciweavers.org/upload/Tex2Img_1418126773/render.png).  
+  
+Another 
