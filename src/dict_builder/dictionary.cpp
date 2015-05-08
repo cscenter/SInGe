@@ -32,7 +32,7 @@ namespace {
   }	
 };
 
-Dictionary::Dictionary() : kMaxDict(1 << 20), kMinLen(20), kMinDocsOccursIn(2) {}
+Dictionary::Dictionary() : kMaxDict((1 << 18) + 10), kMinLen(20), kMinDocsOccursIn(1) {}
 
 Dictionary::Dictionary(size_t kMaxDict
       , size_t kMinLen
@@ -148,7 +148,7 @@ void Dictionary::ResetLastDocument() {
     return;
   }
 
-//  cout << "calculate occurences for document with length " << last_document_.size() << endl;
+//  cerr << "calculate occurences for document with length " << last_document_.size() << endl;
 
 	size_t cur_hash = (rand() << 16) ^ rand();
   size_t id = automaton_all_.root();
