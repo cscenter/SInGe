@@ -63,8 +63,8 @@ Dictionary::Dictionary(size_t kMaxDict
 Dictionary::~Dictionary() {}
 
 void Dictionary::AddDocument(string& doc) {
+  automaton_all_.AddString(doc.data(), doc.size());
   if  (consider_as_one_string_) {
-    automaton_all_.AddString(doc.data(), doc.size());
     automaton_all_.ReduceSize();
   } else {
     last_document_ += doc;
@@ -72,8 +72,8 @@ void Dictionary::AddDocument(string& doc) {
 }
 
 void Dictionary::AddDocument(const char* doc, size_t length) {
+  automaton_all_.AddString(doc, length);
   if  (consider_as_one_string_) {
-    automaton_all_.AddString(doc, length);
     automaton_all_.ReduceSize();
   } else {
     last_document_ += doc;

@@ -44,12 +44,14 @@ void parse_args(int argc, char ** argv) {
   
   cerr << "building dictionary..." << endl;
 
+  //Dictionary dictionary(1 << 18, 20, '#', 1 << 21, 1.0, false);
   Dictionary dictionary;
   for (const auto& path : paths) {
     std::ifstream file(path);
     string content;
     std::copy(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>(), std::back_inserter(content));
     content += "#";
+    // dictionary.AddDocumentViaStopSymbol(content);
     dictionary.AddDocument(content);
   }
 
