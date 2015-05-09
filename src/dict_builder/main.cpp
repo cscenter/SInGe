@@ -24,7 +24,7 @@ using std::cerr;
 
 void parse_args(int argc, char ** argv) {
   if  (argc < 3) {
-    cout << "two arguments are needed" << endl;
+    cout << "two arguments are needed: dir_files_to_add and dir_dict" << endl;
     return;
   }
 
@@ -37,34 +37,22 @@ void parse_args(int argc, char ** argv) {
     string path = std::string(dir_files) + "/" + dp->d_name;
     if (0 == stat(path.c_str(), &st)) {
       if (S_ISREG(st.st_mode)) {
-        cerr << "add train path: " << path << endl;
         paths.push_back(path);			
       }
     }
   }
   
+  cerr << "building dictionary..." << endl;
+
   Dictionary dictionary;
-  
-  bool first_doc = true;
   for (const auto& path : paths) {
     std::ifstream file(path);
-    string buf;
-    bool first_line = true;
-    string str;
-    while (getline(file, buf)) {
-      if  (first_doc) {
-        dictionary.AddDocumentViaStopSymbol(buf);
-        first_doc = false;
-        first_line = false;
-      } else if  (first_line) {
-        dictionary.AddDocumentViaStopSymbol(buf);
-        first_line = false;
-      } else {
-        dictionary.AddDocument(buf);
-      }
-    }	
+    string content;
+    std::copy(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>(), std::back_inserter(content));
+    content += "#";
+    dictionary.AddDocument(content);
   }
-  
+
   dictionary.BuildDict();
   
   const char * dir_dict = argv[2];

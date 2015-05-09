@@ -32,43 +32,56 @@ namespace {
   }	
 };
 
-Dictionary::Dictionary() : kMaxDict(1 << 20), kMinLen(20), kMinDocsOccursIn(2) {}
+Dictionary::Dictionary() : kMaxDict(1 << 18), kMinLen(20), kMinDocsOccursIn(1), consider_as_one_string_(true) {}
 
 Dictionary::Dictionary(size_t kMaxDict
       , size_t kMinLen
       , char kStopSymbol
       , size_t kMaxAutomatonSize
-      , double kAutomatonCoef)
+      , double kAutomatonCoef
+      , bool consider_as_one_string)
     : kMaxDict(kMaxDict)
     , kMinLen(kMinLen)
-    , kMinDocsOccursIn(2)
-    , automaton_all_(
-        SuffixAutomaton(kStopSymbol, kMaxAutomatonSize, kAutomatonCoef)) {
-}
+    , kMinDocsOccursIn(consider_as_one_string ? 1 : 2)
+    , automaton_all_(SuffixAutomaton(kStopSymbol, kMaxAutomatonSize, kAutomatonCoef))
+    , consider_as_one_string_(consider_as_one_string)
+    {
+    }
 
 Dictionary::Dictionary(size_t kMaxDict
       , size_t kMinLen
-      , SuffixAutomaton& automaton)
+      , SuffixAutomaton& automaton
+      , bool consider_as_one_string)
     : kMaxDict(kMaxDict)
     , kMinLen(kMinLen)
-    , kMinDocsOccursIn(2)
-    , automaton_all_(automaton) {
-}
+    , kMinDocsOccursIn(consider_as_one_string ? 1 : 2)
+    , automaton_all_(automaton)
+    , consider_as_one_string_(consider_as_one_string)
+    {
+    }
 
 Dictionary::~Dictionary() {}
 
 void Dictionary::AddDocument(string& doc) {
-  last_document_ += doc;
-  automaton_all_.AddString(doc.data(), doc.size());
+  if  (consider_as_one_string_) {
+    automaton_all_.AddString(doc.data(), doc.size());
+    automaton_all_.ReduceSize();
+  } else {
+    last_document_ += doc;
+  }
 }
 
 void Dictionary::AddDocument(const char* doc, size_t length) {
-  last_document_ += string(doc, length);   
-  automaton_all_.AddString(doc, length);
+  if  (consider_as_one_string_) {
+    automaton_all_.AddString(doc, length);
+    automaton_all_.ReduceSize();
+  } else {
+    last_document_ += doc;
+  }
 }
 
 void Dictionary::AddDocumentViaStopSymbol(string& doc) {
-  if  (automaton_all_.Empty()) {
+  if  (automaton_all_.Empty() || consider_as_one_string_) {
     AddDocument(doc);
     return;
   }
@@ -80,7 +93,7 @@ void Dictionary::AddDocumentViaStopSymbol(string& doc) {
 }
 
 void Dictionary::AddDocumentViaStopSymbol(const char* doc, size_t length) {
-  if  (automaton_all_.Empty()) {
+  if  (automaton_all_.Empty() || consider_as_one_string_) {
     AddDocument(doc, length);
     return;
   }
@@ -94,6 +107,12 @@ void Dictionary::AddDocumentViaStopSymbol(const char* doc, size_t length) {
 void Dictionary::BuildDict() {
   if  (automaton_all_.Empty()) {
     return;
+  }
+
+  if  (consider_as_one_string_) {
+    for (const auto& id : automaton_all_) {
+      automaton_all_.AddOccurence(id);
+    }
   }
 
   ResetLastDocument();
@@ -144,11 +163,9 @@ void Dictionary::OutputDictTo(string path) {
 }
 
 void Dictionary::ResetLastDocument() {
-  if  (last_document_.empty()) {
+  if  (last_document_.empty() || consider_as_one_string_) {
     return;
   }
-
-//  cout << "calculate occurences for document with length " << last_document_.size() << endl;
 
 	size_t cur_hash = (rand() << 16) ^ rand();
   size_t id = automaton_all_.root();

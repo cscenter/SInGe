@@ -21,7 +21,7 @@ using std::string;
 using std::make_pair;
 
 SuffixAutomaton::SuffixAutomaton()
-    : kMaxSize(1 << 18),
+    : kMaxSize(1 << 21),
       kStopSymbol('#'),
       kCoef(0.9),
       len_up_to_stop_symbol_(1),
@@ -44,7 +44,7 @@ SuffixAutomaton::SuffixAutomaton(char kStopSymbol, size_t kMaxSize, double kCoef
   AddToNodesToDelete(last_node_);
 }
 
-SuffixAutomaton::~SuffixAutomaton() {}
+SuffixAutomaton::~SuffixAutomaton() { }
 
 SuffixAutomaton::iterator SuffixAutomaton::begin() {
   return SuffixAutomaton::iterator(1, is_free_node_);
@@ -146,13 +146,17 @@ string SuffixAutomaton::GetLongestString(size_t id) {
 }
 
 bool SuffixAutomaton::ReduceSize() {
-  if  (AmountAliveNodes() > 2 * kMaxSize) { 
+  if  (AmountAliveNodes() > kMaxSize) { 
     while (AmountAliveNodes() > kMaxSize)
       DeleteNode(nodes_to_delete_.begin()->second);
 
     return true;
   }
   return false;
+}
+
+bool SuffixAutomaton::NeedReduce() const {
+  return AmountAliveNodes() > kMaxSize;
 }
 
 vector<size_t> SuffixAutomaton::GetNodesInOrder() {

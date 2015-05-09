@@ -97,6 +97,8 @@ public:
 
   bool ReduceSize();
 
+  bool NeedReduce() const;
+
   std::vector<size_t> GetNodesInOrder();
 
   std::unique_ptr<ProtoAutomaton> GetProtoAutomaton() const;

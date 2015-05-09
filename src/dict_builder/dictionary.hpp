@@ -11,16 +11,16 @@
 
 class Dictionary {
 public:
-  // const in the past
+  // were const in the past
   size_t kMaxDict;
   size_t kMinLen;
   size_t kMinDocsOccursIn;
 
   Dictionary();
 
-  Dictionary(size_t kMaxDict, size_t kMinLen, char kStopSymbol, size_t kMaxAutomatonSize, double kAutomatonCoef);
+  Dictionary(size_t kMaxDict, size_t kMinLen, char kStopSymbol, size_t kMaxAutomatonSize, double kAutomatonCoef, bool consider_as_one_string);
 
-  Dictionary(size_t kMaxDict, size_t kMinLen, SuffixAutomaton& automaton);
+  Dictionary(size_t kMaxDict, size_t kMinLen, SuffixAutomaton& automaton, bool consider_as_one_string);
 
   ~Dictionary();
 
@@ -42,6 +42,7 @@ public:
 
   void OutputDictTo(std::string path);
 
+  // last document was added to automaton, here we are to update occurrences corresponds to substring of the last_document
   void ResetLastDocument();
 
 private:
@@ -68,6 +69,7 @@ private:
   std::string last_document_;
   SuffixAutomaton automaton_all_;
   std::vector<int> dict_;
+  bool consider_as_one_string_;
 };
 
 #endif // DICTIONARY_HPP_

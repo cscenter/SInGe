@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     } else {
         cerr << "Failed to open: " << FLAGS_automaton_proto << endl;
     }
-    Dictionary dictionary = Dictionary(FLAGS_max_size, 3, automaton);
+    Dictionary dictionary = Dictionary(FLAGS_max_size, 3, automaton, false);
     cout << "AmountNodes: " << automaton.AmountNodes() << endl;
     long n_total_added = 0;
     for (auto it = docs.begin(); it != docs.end(); ++it) {
