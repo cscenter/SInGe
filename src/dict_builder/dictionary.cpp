@@ -64,19 +64,17 @@ Dictionary::~Dictionary() {}
 
 void Dictionary::AddDocument(string& doc) {
   automaton_all_.AddString(doc.data(), doc.size());
+  last_document_ += doc;
   if  (consider_as_one_string_) {
-    automaton_all_.ReduceSize();
-  } else {
-    last_document_ += doc;
+    ResetLastDocument();
   }
 }
 
 void Dictionary::AddDocument(const char* doc, size_t length) {
   automaton_all_.AddString(doc, length);
+  last_document_ += doc;
   if  (consider_as_one_string_) {
-    automaton_all_.ReduceSize();
-  } else {
-    last_document_ += doc;
+    ResetLastDocument();
   }
 }
 
@@ -107,12 +105,6 @@ void Dictionary::AddDocumentViaStopSymbol(const char* doc, size_t length) {
 void Dictionary::BuildDict() {
   if  (automaton_all_.Empty()) {
     return;
-  }
-
-  if  (consider_as_one_string_) {
-    for (const auto& id : automaton_all_) {
-      automaton_all_.AddOccurence(id);
-    }
   }
 
   ResetLastDocument();
@@ -163,7 +155,7 @@ void Dictionary::OutputDictTo(string path) {
 }
 
 void Dictionary::ResetLastDocument() {
-  if  (last_document_.empty() || consider_as_one_string_) {
+  if  (last_document_.empty()) {
     return;
   }
 
@@ -177,7 +169,9 @@ void Dictionary::ResetLastDocument() {
 		size_t cur_id = id;
 		while (cur_id && GetNode(cur_id)->last_hash != cur_hash) {
 			GetNode(cur_id)->last_hash = cur_hash;
-      automaton_all_.AddOccurence(cur_id);
+      if  (!consider_as_one_string_ || automaton_all_.GetNode(cur_id)->docs_occurs_in == 0) {
+        automaton_all_.AddOccurence(cur_id);
+      }
 			cur_id = GetNode(cur_id)->link;
 		}
  	}
