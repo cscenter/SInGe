@@ -43,9 +43,9 @@ struct compare_nodes {
 class SuffixAutomaton {
 public:
   // const in the past
-  size_t kMaxSize;
-  char kStopSymbol;
-  double kCoef;
+  size_t kMaxSize; // size limit. If size of automaton becomes bigger, low scored nodes will cut off.
+  char kStopSymbol; // symbol inserted between documents, if they are added via stop symbol
+  double kCoef; // when lower than 1, new documents became more important. Using for incremental updating, to balance low scored substring cut. should be 1 normally
 
   class iterator;
 
