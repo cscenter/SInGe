@@ -4,4 +4,5 @@ add_subdirectory(dict_builder)
 add_subdirectory(incremental_tester/)
 add_subdirectory(incremental_updater/)
 add_subdirectory(dict_encoder/)
+add_subdirectory(dict_c/)
 
