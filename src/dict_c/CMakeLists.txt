@@ -11,10 +11,7 @@ target_include_directories (dictgen_c PUBLIC
 )
 
 INSTALL( TARGETS dictgen_c
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    RUNTIME DESTINATION bin
-    INCLUDES DESTINATION include
+    DESTINATION lib
 )
 
 install(FILES
