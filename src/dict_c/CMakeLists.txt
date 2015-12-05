@@ -21,5 +21,15 @@ install(FILES
     dictionary_c.h
     DESTINATION include
 )
+add_executable(dict_c_tests
+        dictionary_c_test.cpp
+)
+
+target_link_libraries(dict_c_tests
+    gtest_main
+    dictgen_c
+)
+
+add_test(NAME dict_c_tests COMMAND dict_c_tests)
 
 

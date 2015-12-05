@@ -23,9 +23,9 @@ SInGe SInGeInit(size_t kMaxDict, size_t kMinLen, char kStopSymbol, size_t kMaxAu
 
 void SInGeFree(SInGe gen);
 
-void SInGeAddDocument(SInGe gen, char* doc, size_t length);
+void SInGeAddDocument(SInGe gen, const char* doc, size_t length);
 
-void SInGeAddDocumentViaStopSymbol(SInGe gen, char* doc, size_t length);
+void SInGeAddDocumentViaStopSymbol(SInGe gen, const char* doc, size_t length);
 
 struct SInGeDict SInGeGetDict(SInGe gen);
 
