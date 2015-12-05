@@ -15,7 +15,7 @@ src/third_party/open-vcdiff/src/stamp-h1
 *.so
 
 # Folders
-_obj
+golang/singe/_obj
 _test
 
 # Architecture specific extensions/prefixes
